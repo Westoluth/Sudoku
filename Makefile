@@ -1,5 +1,5 @@
-JAVASRC    = SudokuGUI.java
-CLASSES    = SudokuGUI.class
+JAVASRC    = SudokuGUI*.java SudokuSolver*.java
+CLASSES    = SudokuGUI*.class SudokuSolver*.class
 MAINCLASS  = SudokuGUI
 JARFILE    = Sudoku.jar
 SOURCES    = $(JAVASRC) README Makefile

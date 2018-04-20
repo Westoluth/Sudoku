@@ -26,18 +26,23 @@ public class SudokuGUI extends JFrame {
 
 	ButtonElements:
 		solveButton: Button that triggers solving of current puzzle.
+	Utilities:
+		gameSolver: SudokuSolver instance that handles solving the game.
 	*/
 	//Main elements
-	JPanel mainPanel;
-	JPanel boardPanel;
-	JPanel buttonPanel;
+	private JPanel mainPanel;
+	private JPanel boardPanel;
+	private JPanel buttonPanel;
 
 	//Board elements
-	JTextField[] boardTextFields;
-	JPanel[] boardSubPanels;
+	private JTextField[] boardTextFields;
+	private JPanel[] boardSubPanels;
 
 	//Button elements
-	JButton solveButton;
+	private JButton solveButton;
+
+	//Utilities
+	private SudokuSolver gameSolver;
 
 	public static void main(String[] args) {
 		new SudokuGUI();
@@ -46,6 +51,9 @@ public class SudokuGUI extends JFrame {
 	public SudokuGUI() {
 		//Sets up window
 		setupWindow();
+
+		//Sets up utilities
+		setupUtilites();
 	}
 
 	/*
@@ -90,7 +98,6 @@ public class SudokuGUI extends JFrame {
 
 		//Reveals window
 		setVisible(true);
-
 	}
 
 	/*
@@ -117,7 +124,7 @@ public class SudokuGUI extends JFrame {
 
 		//Fills boardTextFields
 		for(int i=0; i<boardTextFields.length; i++) {
-			boardTextFields[i] = new JTextField("", 1);
+			boardTextFields[i] = new JTextField(String.valueOf(i), 1);
 		}
 
 		//Places all text fields into sub panels
@@ -153,10 +160,49 @@ public class SudokuGUI extends JFrame {
 		buttonConstraints.anchor = GridBagConstraints.CENTER;
 		buttonConstraints.fill = GridBagConstraints.BOTH;
 
-		//Creates solveButton
+		//Creates solveButton and attatches listener
 		solveButton = new JButton("Solve");
+		solveButton.addActionListener(new SolveButtonListener());
 	
 		//Adds solve button to buttonPanel
 		buttonPanel.add(solveButton, buttonConstraints);
+	}
+
+	/*
+	Sets up utilities that interface with the game
+	*/
+	private void setupUtilites() {
+		gameSolver = new SudokuSolver();
+	}
+
+	/*
+	Solves sudoku board
+	*/
+	private void solveSudoku() {
+		//Gathers all board values into array
+		int[] boardValues = new int[81];
+		for(int i=0; i < 81; i++) {
+			boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+		}
+
+		//Passes array to gameSolver
+		gameSolver.updateGame(boardValues.clone());
+		int[] newBoardValues = gameSolver.solve();
+
+		//Sets board values to solved values
+		for(int i=0; i < 81; i++) {
+			boardTextFields[i].setText(Integer.toString(newBoardValues[i]));
+		}
+
+	}
+
+	/*
+	Private class to check for clicks on the solve button
+	*/
+	private class SolveButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			solveSudoku();
+		}
 	}
 }
