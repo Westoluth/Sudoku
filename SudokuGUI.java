@@ -26,9 +26,11 @@ public class SudokuGUI extends JFrame {
 
 	ButtonElements:
 		solveButton: Button that triggers solving of current puzzle.
+
 	Utilities:
 		gameSolver: SudokuSolver instance that handles solving the game.
 	*/
+
 	//Main elements
 	private JPanel mainPanel;
 	private JPanel boardPanel;
