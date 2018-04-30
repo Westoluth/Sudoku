@@ -184,7 +184,11 @@ public class SudokuGUI extends JFrame {
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
 		for(int i=0; i < 81; i++) {
-			boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+			if(boardTextFields[i].getText().equals("") || boardTextFields[i].getText().equals("0")) {
+				boardValues[i] = 0;
+			} else {
+				boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+			}
 		}
 
 		//Passes array to gameSolver
