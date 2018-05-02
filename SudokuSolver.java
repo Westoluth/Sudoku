@@ -14,9 +14,11 @@ public class SudokuSolver {
 	Segment[] columns;
 
 	public SudokuSolver() {
-
 	}
 
+	/*
+	Inputs new boardValues to SudokuSolver
+	*/
 	public void updateGame(int[] boardValues) {
 		setupBoard(boardValues);
 	}
@@ -175,6 +177,9 @@ public class SudokuSolver {
 		public boolean[] possibleNums;
 		public int finalNum;
 
+		/*
+		Creates new tile sets up possibleNums and finalNum
+		*/
 		public Tile(int assignedNum) {
 			//Initializes variables
 			possibleNums = new boolean[9];
@@ -192,6 +197,9 @@ public class SudokuSolver {
 			}
 		}
 
+		/*
+		Returns string of value finalNum
+		*/
 		public String toString() {
 			return String.valueOf(finalNum);
 		}
@@ -202,19 +210,25 @@ public class SudokuSolver {
 	*/
 	private class Segment {
 		/*
-		Tile variables:
+		Segment variables:
 			-possibleNums: Array of size 9. If value is true, corresponding number is a possibility in this segment. If value is false, number is not a possibility in this segment.
 			-tiles: Array containing all tiles in segment
 		*/
 		boolean[] possibleNums;
 		Tile[] tiles;
 
+		/*
+		Initializes Segment variables
+		*/
 		public Segment() {
 			//Initializes variables
 			possibleNums = new boolean[9];
 			tiles = new Tile[9];
 		}
 
+		/*
+		Adds new tile to Segment
+		*/
 		public void addTile(Tile newTile) {
 			for(int i = 0; i < tiles.length; i++) {
 				if(tiles[i] == null) {
@@ -223,11 +237,32 @@ public class SudokuSolver {
 				}
 			}
 
-			throw new ArrayIndexOutOfBoundsException();
+			//Thrown if Segment is full
+			throw new SegmentOverfilled();
 		}
 
+		/*
+		Returns array of tiles in toString() form
+		*/
 		public String toString() {
 			return Arrays.toString(tiles);
+		}
+
+
+		//Suppresses serial warnings
+		@SuppressWarnings("serial")
+
+		/*
+		Exception thrown if someone attempts to add to a full Segment
+		*/
+		private class SegmentOverfilled extends RuntimeException {
+		    // Parameterless Constructor
+		    public SegmentOverfilled() {}
+
+		    // Constructor that accepts a message
+		    public SegmentOverfilled(String message) {
+		        super(message);
+		    }
 		}
 	}
 }
