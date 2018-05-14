@@ -27,6 +27,8 @@ public class SudokuSolver {
 	Solves board
 	*/
 	public int[] solve() {
+		//Dummy code
+		/*
 		int[] finalBoardValues = new int[81];
 
 		for(int i = 0; i < finalBoardValues.length; i++) {
@@ -34,6 +36,81 @@ public class SudokuSolver {
 		}
 
 		return finalBoardValues;
+		*/
+
+		//progressMade indicates whether progress was made in this most recent iteration of the loop or if we have reached a dead end
+		boolean progressMade;
+
+		//Dumps initial board status
+		System.out.println("Initial board status: ");
+		for(int i = 0; i < tiles.length; i++) {
+			System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
+		}
+		System.out.println();
+
+		while(true) {
+			//Resets progressMade to false
+			progressMade = false;
+
+			//Calls solve on each segment of each segment type
+			for(int i = 0; i < squares.length; i++) {
+				squares[i].solve();
+			}
+
+			for(int i = 0; i < rows.length; i++) {
+				rows[i].solve();
+			}
+
+			for(int i = 0; i < columns.length; i++) {
+				columns[i].solve();
+			}
+
+			//Goes through every tile and checks if it has only one solution left
+			for(int i = 0; i < tiles.length; i++) {
+
+				//DEBUG//
+				System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
+
+				//Count of available number options. count>1 indicates unsolved puzzle, 1 indicates solved, 0 should never be reached
+				int count = 0;
+
+				for(int x = 0; x < tiles[i].possibleNums.length; x++) {
+					if(tiles[i].possibleNums[x]) {
+						count++;
+					}
+				}
+
+				//Checks if count and if it is sets finalNum to only remaining num
+				if(count == 1) {
+					progressMade = true;
+					for(int x = 0; x < tiles[i].possibleNums.length; x++) {
+						if(tiles[i].possibleNums[x]) {
+							tiles[i].finalNum = x+1;
+							break;
+						}
+					}
+				}
+			}
+
+			//DEBUG//
+			System.out.println("Current puzzle status: \n");
+			for(int i = 0; i < rows.length; i++) {
+				System.out.println(rows[i].toString());
+			}
+			System.out.println("");
+
+			//Checks if progress was made
+			if(!progressMade) {
+				//Checks if problem solved, or something went wrong
+				if(checkPuzzle()) {
+					System.out.println("Puzzle solved!");
+					return packagePuzzle();
+				} else {
+					System.out.println("Something went wrong");
+					throw new RuntimeException();
+				}
+			}
+		}
 	}
 
 	/*
@@ -61,10 +138,12 @@ public class SudokuSolver {
 		}
 
 		//DEBUG
+		/*
 		for(int i = 0; i < squares.length; i++) {
 			System.out.println("Square " + i + ": " + Arrays.toString(squares[i].tiles));
 		}
 		System.out.println("");
+		*/
 		//DEBUG
 
 		//Sets up rows and adds tiles
@@ -109,10 +188,12 @@ public class SudokuSolver {
 		}
 
 		//DEBUG
+		/*
 		for(int i = 0; i < rows.length; i++) {
 			System.out.println("Row " + i + ": " + Arrays.toString(rows[i].tiles));
 		}
 		System.out.println("");
+		*/
 		//DEBUG
 
 		//Sets up columns and adds tiles
@@ -157,12 +238,58 @@ public class SudokuSolver {
 		}
 
 		//DEBUG
+		/*
 		for(int i = 0; i < columns.length; i++) {
 			System.out.println("Column " + i + ": " + Arrays.toString(columns[i].tiles));
 		}
 		System.out.println("");
+		*/
 		//DEBUG
 
+	}
+
+
+	private boolean checkPuzzle() {
+		for(int y = 0; y < 3; y++) {
+			//Assigns currentCheck to proper array of segments (Squares, Rows, Columns)
+			Segment[] currentCheck;
+			if(y == 0) {
+				currentCheck = squares;
+			} else if(y == 1) {
+				currentCheck = rows;
+			} else if(y == 3){
+				currentCheck = columns;
+			}
+
+			for(int i = 0; i <  squares.length; i++) {
+				//Creates array to hold quantity of each number found
+				int[] numCheck = new int[9];
+
+				//Fills numCheck
+				for(int x = 0; x < squares[i].tiles.length; x++) {
+					numCheck[squares[i].tiles[x].finalNum-1]++;
+				}
+
+				//Checks to make sure all numCheck values are 1
+				for(int x = 0; x < numCheck.length; x++) {
+					if(numCheck[x] != 1) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	private int[] packagePuzzle() {
+		int[] puzzle = new int[81];
+
+		for(int i = 0; i < tiles.length; i++) {
+			puzzle[i] = tiles[i].finalNum;
+		}
+
+		return puzzle;
 	}
 
 	/*
@@ -188,11 +315,11 @@ public class SudokuSolver {
 			//Determines whether tile is blank(assignedNum = 0) or filled(assignedNum = 1-9)
 			if(assignedNum == 0) {
 				for(int i = 0; i < possibleNums.length; i++) {
-					possibleNums[i] = false;
+					possibleNums[i] = true;
 				}
 			} else {
 				for(int i = 0; i < possibleNums.length; i++) {
-					possibleNums[i] = true;
+					possibleNums[i] = false;
 				}
 			}
 		}
@@ -224,6 +351,11 @@ public class SudokuSolver {
 			//Initializes variables
 			possibleNums = new boolean[9];
 			tiles = new Tile[9];
+
+			//Sets all possibleNums to true
+			for(int i = 0; i < possibleNums.length; i++) {
+				possibleNums[i] = true;
+			}
 		}
 
 		/*
@@ -242,6 +374,27 @@ public class SudokuSolver {
 		}
 
 		/*
+		Checks which numbers are present in this segment and removes those numbers from possibleNumbers in all tiles
+		*/
+		public void solve() {
+			//Updates possible nums for segment
+			for(int i = 0; i < tiles.length; i++) {
+				if(tiles[i].finalNum != 0) {
+					possibleNums[tiles[i].finalNum-1] = false;
+				}
+			}
+
+			//Updates possibleNums of all tiles
+			for(int i = 0; i < tiles.length; i++) {
+				for(int x = 0; x < tiles[i].possibleNums.length; x++) {
+					if(possibleNums[x] == false) {
+						tiles[i].possibleNums[x] = false;
+					}
+				}
+			}
+		}
+
+		/*
 		Returns array of tiles in toString() form
 		*/
 		public String toString() {
@@ -256,10 +409,10 @@ public class SudokuSolver {
 		Exception thrown if someone attempts to add to a full Segment
 		*/
 		private class SegmentOverfilled extends RuntimeException {
-		    // Parameterless Constructor
+		    //Parameterless Constructor
 		    public SegmentOverfilled() {}
 
-		    // Constructor that accepts a message
+		    //Constructor that accepts a message
 		    public SegmentOverfilled(String message) {
 		        super(message);
 		    }

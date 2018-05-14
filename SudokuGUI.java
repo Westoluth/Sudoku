@@ -126,7 +126,7 @@ public class SudokuGUI extends JFrame {
 
 		//Fills boardTextFields
 		for(int i=0; i<boardTextFields.length; i++) {
-			boardTextFields[i] = new JTextField(String.valueOf(i), 1);
+			boardTextFields[i] = new JTextField("", 1);
 		}
 
 		//Places all text fields into sub panels
