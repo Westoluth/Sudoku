@@ -126,7 +126,7 @@ public class SudokuGUI extends JFrame {
 
 		//Fills boardTextFields
 		for(int i=0; i<boardTextFields.length; i++) {
-			boardTextFields[i] = new JTextField(String.valueOf(i), 1);
+			boardTextFields[i] = new JTextField("", 1);
 		}
 
 		//Places all text fields into sub panels
@@ -184,7 +184,11 @@ public class SudokuGUI extends JFrame {
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
 		for(int i=0; i < 81; i++) {
-			boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+			if(boardTextFields[i].getText().equals("") || boardTextFields[i].getText().equals("0")) {
+				boardValues[i] = 0;
+			} else {
+				boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+			}
 		}
 
 		//Passes array to gameSolver
