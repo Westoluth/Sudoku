@@ -117,26 +117,26 @@ public class SudokuGUI extends JFrame {
 		boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 
 		//Fills boardSubPanel and boardSubPanelLayouts
-		for(int i=0; i < boardSubPanels.length; i++) {
-			boardSubPanels[i] = new JPanel();
+		for(int boardSubPanelNum = 0; boardSubPanelNum < boardSubPanels.length; boardSubPanelNum++) {
+			boardSubPanels[boardSubPanelNum] = new JPanel();
 			GridLayout boardSubPanelLayout = new GridLayout(3, 3);
-			boardSubPanels[i].setLayout(boardSubPanelLayout);
-			boardSubPanels[i].setBorder(BorderFactory.createLineBorder(Color.black));
+			boardSubPanels[boardSubPanelNum].setLayout(boardSubPanelLayout);
+			boardSubPanels[boardSubPanelNum].setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 
 		//Fills boardTextFields
-		for(int i=0; i<boardTextFields.length; i++) {
-			boardTextFields[i] = new JTextField("", 1);
+		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
+			boardTextFields[boardTextFieldNum] = new JTextField("", 1);
 		}
 
 		//Places all text fields into sub panels
-		for(int i=0; i<boardTextFields.length; i++) {
-			boardSubPanels[i/9].add(boardTextFields[i]);
+		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
+			boardSubPanels[boardTextFieldNum/9].add(boardTextFields[boardTextFieldNum]);
 		}
 
 		//Places all sub panels into panels
-		for(int i=0; i<boardSubPanels.length; i++) {
-			boardPanel.add(boardSubPanels[i]);
+		for(int boardSubPanelNum = 0; boardSubPanelNum < boardSubPanels.length; boardSubPanelNum++) {
+			boardPanel.add(boardSubPanels[boardSubPanelNum]);
 		}
 	}
 
@@ -183,11 +183,11 @@ public class SudokuGUI extends JFrame {
 	private void solveSudoku() {
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
-		for(int i=0; i < 81; i++) {
-			if(boardTextFields[i].getText().equals("") || boardTextFields[i].getText().equals("0")) {
-				boardValues[i] = 0;
+		for(int boardTileNum = 0; boardTileNum < boardValues.length; boardTileNum++) {
+			if(boardTextFields[boardTileNum].getText().equals("") || boardTextFields[boardTileNum].getText().equals("0")) {
+				boardValues[boardTileNum] = 0;
 			} else {
-				boardValues[i] = Integer.valueOf(boardTextFields[i].getText());
+				boardValues[boardTileNum] = Integer.valueOf(boardTextFields[boardTileNum].getText());
 			}
 		}
 
@@ -196,8 +196,8 @@ public class SudokuGUI extends JFrame {
 		int[] newBoardValues = gameSolver.solve();
 
 		//Sets board values to solved values
-		for(int i=0; i < 81; i++) {
-			boardTextFields[i].setText(Integer.toString(newBoardValues[i]));
+		for(int boardTileNum = 0; boardTileNum < 81; boardTileNum++) {
+			boardTextFields[boardTileNum].setText(Integer.toString(newBoardValues[boardTileNum]));
 		}
 
 	}
