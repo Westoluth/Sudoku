@@ -24,21 +24,10 @@ public class SudokuSolver {
 	}
 
 	/*
-	Solves board
+	Handles solving of the board
 	*/
 	public int[] solve() {
-		//Dummy code
-		/*
-		int[] finalBoardValues = new int[81];
-
-		for(int i = 0; i < finalBoardValues.length; i++) {
-			finalBoardValues[i] = tiles[i].finalNum;
-		}
-
-		return finalBoardValues;
-		*/
-
-		//progressMade indicates whether progress was made in this most recent iteration of the loop or if we have reached a dead end
+		//progressMade indicates whether progress was made in this most recent iteration of the loop or if a dead end has been reached
 		boolean progressMade;
 
 		//Dumps initial board status
@@ -106,7 +95,7 @@ public class SudokuSolver {
 					System.out.println("Puzzle solved!");
 					return packagePuzzle();
 				} else {
-					System.out.println("Something went wrong");
+					System.out.println("Something went wrong, unable to continue");
 					throw new RuntimeException();
 				}
 			}
@@ -137,14 +126,6 @@ public class SudokuSolver {
 			squares[i/9].addTile(tiles[i]); 
 		}
 
-		//DEBUG
-		/*
-		for(int i = 0; i < squares.length; i++) {
-			System.out.println("Square " + i + ": " + Arrays.toString(squares[i].tiles));
-		}
-		System.out.println("");
-		*/
-		//DEBUG
 
 		//Sets up rows and adds tiles
 		for(int i = 0; i < rows.length; i++) {
@@ -187,15 +168,6 @@ public class SudokuSolver {
 			}
 		}
 
-		//DEBUG
-		/*
-		for(int i = 0; i < rows.length; i++) {
-			System.out.println("Row " + i + ": " + Arrays.toString(rows[i].tiles));
-		}
-		System.out.println("");
-		*/
-		//DEBUG
-
 		//Sets up columns and adds tiles
 		for(int i = 0; i < columns.length; i++) {
 			columns[i] = new Segment();
@@ -236,19 +208,12 @@ public class SudokuSolver {
 				columns[i].addTile(tiles[tileNum]);
 			}
 		}
-
-		//DEBUG
-		/*
-		for(int i = 0; i < columns.length; i++) {
-			System.out.println("Column " + i + ": " + Arrays.toString(columns[i].tiles));
-		}
-		System.out.println("");
-		*/
-		//DEBUG
-
 	}
 
 
+	/*
+	Confirms validity of solved puzzle. Returns true if puzzle is valid, false otherwise
+	*/
 	private boolean checkPuzzle() {
 		for(int y = 0; y < 3; y++) {
 			//Assigns currentCheck to proper array of segments (Squares, Rows, Columns)
@@ -282,6 +247,9 @@ public class SudokuSolver {
 		return true;
 	}
 
+	/*
+	Converts puzzle array to an array of Ints
+	*/
 	private int[] packagePuzzle() {
 		int[] puzzle = new int[81];
 
