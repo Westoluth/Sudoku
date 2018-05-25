@@ -31,12 +31,13 @@ public class SudokuSolver {
 		//progressMade indicates whether progress was made in this most recent iteration of the loop or if a dead end has been reached
 		boolean progressMade;
 
-		//Dumps initial board status
+		//DEBUG//
 		System.out.println("Initial board status: ");
 		for(int i = 0; i < tiles.length; i++) {
 			System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
 		}
 		System.out.println();
+		//DEBUG//
 
 		while(true) {
 			//Resets progressMade to false
@@ -50,17 +51,15 @@ public class SudokuSolver {
 			}
 
 			//Goes through all tiles that have one possible number remaining and finalizes them
-			for(int i = 0; i < tiles.length; i++) {
-				//DEBUG//
-				System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
-				//DEBUG//
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+					//DEBUG//
+				System.out.println("Tile #" + tileNum + ": " + Arrays.toString(tiles[tileNum].possibleNums) + "  finalNum: " + tiles[tileNum].finalNum);
+					//DEBUG//
 
-				for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
-					boolean progressCheck = tiles[tileNum].checkFinal();
+				boolean progressCheck = tiles[tileNum].checkFinal();
 
-					if(progressCheck) {
-						progressMade = true;
-					}
+				if(progressCheck) {
+					progressMade = true;
 				}
 			}
 
@@ -101,99 +100,99 @@ public class SudokuSolver {
 		segmentGroups[2] = columns;
 
 		//Sets up tiles
-		for(int i = 0; i < tiles.length; i++) {
-			tiles[i] = new Tile(boardValues[i]);
+		for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+			tiles[tileNum] = new Tile(boardValues[tileNum]);
 		}
 
 		//Sets up squares and adds tiles
-		for(int i = 0; i < squares.length; i++) {
-			squares[i] = new Segment();
+		for(int squareNum = 0; squareNum < squares.length; squareNum++) {
+			squares[squareNum] = new Segment();
 		}
 
-		for(int i = 0; i < tiles.length; i++) {
-			squares[i/9].addTile(tiles[i]); 
+		for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+			squares[tileNum/9].addTile(tiles[tileNum]); 
 		}
 
 
 		//Sets up rows and adds tiles
-		for(int i = 0; i < rows.length; i++) {
-			rows[i] = new Segment();
+		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
+			rows[rowNum] = new Segment();
 		}
 
-		for(int i = 0; i < rows.length; i++) {
-			for(int x = 0; x < rows[i].tiles.length; x++) {
+		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
+			for(int rowTilesNum = 0; rowTilesNum < rows[rowNum].tiles.length; rowTilesNum++) {
 				//Various forumla to assign tiles to rows
 				int tileNum = 0;
 
-				if(i < 3) {
+				if(rowNum < 3) {
 					tileNum += 0;
-				} else if(i < 6) {
+				} else if(rowNum < 6) {
 					tileNum += 27;
-				} else if(i < 9) {
+				} else if(rowNum < 9) {
 					tileNum += 54;
 				}
 
-				if(i%3 == 0) {
+				if(rowNum%3 == 0) {
 					tileNum += 0;
-				} else if(i%3 == 1) {
+				} else if(rowNum%3 == 1) {
 					tileNum += 3;
-				} else if(i%3 == 2) {
+				} else if(rowNum%3 == 2) {
 					tileNum += 6;
 				}
 
-				if(x < 3) {
+				if(rowTilesNum < 3) {
 					tileNum += 0; 
-				} else if(x < 6) {
+				} else if(rowTilesNum < 6) {
 					tileNum += 6;
-				} else if(x < 9) {
+				} else if(rowTilesNum < 9) {
 					tileNum += 12;
 				}
 
-				tileNum += x;
+				tileNum += rowTilesNum;
 
 				//Assigns tile to row
-				rows[i].addTile(tiles[tileNum]);
+				rows[rowNum].addTile(tiles[tileNum]);
 			}
 		}
 
 		//Sets up columns and adds tiles
-		for(int i = 0; i < columns.length; i++) {
-			columns[i] = new Segment();
+		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
+			columns[columnnNum] = new Segment();
 		}
 
-		for(int i = 0; i < columns.length; i++) {
-			for(int x = 0; x < columns[i].tiles.length; x++) {
+		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
+			for(int columnTileNum = 0; columnTileNum < columns[columnnNum].tiles.length; columnTileNum++) {
 				//Various forumla to assign tiles to rows
 				int tileNum = 0;
 
-				if(x < 3) {
+				if(columnTileNum < 3) {
 					tileNum += 0;
-				} else if(x < 6) {
+				} else if(columnTileNum < 6) {
 					tileNum += 27;
-				} else if(x < 9) {
+				} else if(columnTileNum < 9) {
 					tileNum += 54;
 				}
 
-				if(x%3 == 0) {
+				if(columnTileNum%3 == 0) {
 					tileNum += 0;
-				} else if(x%3 == 1) {
+				} else if(columnTileNum%3 == 1) {
 					tileNum += 3;
-				} else if(x%3 == 2) {
+				} else if(columnTileNum%3 == 2) {
 					tileNum += 6;
 				}
 
-				if(i < 3) {
+				if(columnnNum < 3) {
 					tileNum += 0; 
-				} else if(i < 6) {
+				} else if(columnnNum < 6) {
 					tileNum += 6;
-				} else if(i < 9) {
+				} else if(columnnNum < 9) {
 					tileNum += 12;
 				}
 
-				tileNum += i;
+				tileNum += columnnNum;
 
 				//Assigns tile to row
-				columns[i].addTile(tiles[tileNum]);
+				columns[columnnNum].addTile(tiles[tileNum]);
 			}
 		}
 	}
@@ -203,27 +202,17 @@ public class SudokuSolver {
 	Confirms validity of solved puzzle. Returns true if puzzle is valid, false otherwise
 	*/
 	private boolean checkPuzzle() {
-		for(int y = 0; y < 3; y++) {
-			//Assigns currentCheck to proper array of segments (Squares, Rows, Columns)
-			Segment[] currentCheck;
-			if(y == 0) {
-				currentCheck = squares;
-			} else if(y == 1) {
-				currentCheck = rows;
-			} else if(y == 3){
-				currentCheck = columns;
-			}
-
-			for(int i = 0; i <  squares.length; i++) {
+		for(int segmentGroupNum = 0; segmentGroupNum < segmentGroups.length; segmentGroupNum++) {
+			for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
 				//Creates array to hold quantity of each number found
 				int[] numCheck = new int[9];
 
 				//Fills numCheck
-				for(int x = 0; x < squares[i].tiles.length; x++) {
-					numCheck[squares[i].tiles[x].finalNum-1]++;
+				for(int tileNum = 0; tileNum < segmentGroups[segmentGroupNum][segmentNum].tiles.length; tileNum++) {
+					numCheck[segmentGroups[segmentGroupNum][segmentNum].tiles[tileNum].finalNum-1]++;
 				}
 
-				//Checks to make sure all numCheck values are 1
+				//Checks to make sure all numCheck values are 1. If not, returns false
 				for(int x = 0; x < numCheck.length; x++) {
 					if(numCheck[x] != 1) {
 						return false;
@@ -232,6 +221,7 @@ public class SudokuSolver {
 			}
 		}
 
+		//Because no discrepancies have been detected, returns true
 		return true;
 	}
 
@@ -241,8 +231,8 @@ public class SudokuSolver {
 	private int[] packagePuzzle() {
 		int[] puzzle = new int[81];
 
-		for(int i = 0; i < tiles.length; i++) {
-			puzzle[i] = tiles[i].finalNum;
+		for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+			puzzle[tileNum] = tiles[tileNum].finalNum;
 		}
 
 		return puzzle;
@@ -270,12 +260,12 @@ public class SudokuSolver {
 
 			//Determines whether tile is blank(assignedNum = 0) or filled(assignedNum = 1-9)
 			if(assignedNum == 0) {
-				for(int i = 0; i < possibleNums.length; i++) {
-					possibleNums[i] = true;
+				for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+					possibleNums[possibleNum] = true;
 				}
 			} else {
-				for(int i = 0; i < possibleNums.length; i++) {
-					possibleNums[i] = false;
+				for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+					possibleNums[possibleNum] = false;
 				}
 			}
 		}
@@ -284,34 +274,34 @@ public class SudokuSolver {
 		Checks if only one possible number remains for final. If so, finalizes tile by setting final num
 		*/
 		public boolean checkFinal() {
-			//Boolean to check if progressMade. Returned at end of function
-			boolean progressMade = false;
+			//Boolean to check if progressCheck. Returned at end of function
+			boolean progressCheck = false;
 
 			//Count of available number options. count>1 indicates unsolved puzzle, 1 indicates solved, 0 should never be reached
 			int count = 0;
 
-			for(int x = 0; x < possibleNums.length; x++) {
-				if(possibleNums[x]) {
+			for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+				if(possibleNums[possibleNum]) {
 					count++;
 				}
 			}
 
 			//Checks if count and if it is sets finalNum to only remaining num
 			if(count == 1) {
-				progressMade = true;
-				for(int x = 0; x < possibleNums.length; x++) {
-					if(possibleNums[x]) {
-						finalNum = x+1;
+				progressCheck = true;
+				for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+					if(possibleNums[possibleNum]) {
+						finalNum = possibleNum+1;
 						break;
 					}
 				}
 
-				for(int x = 0; x < possibleNums.length; x++) {
-					possibleNums[x] = false;
+				for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+					possibleNums[possibleNum] = false;
 				}
 			}
 
-			return progressMade;
+			return progressCheck;
 		}
 
 		/*
@@ -343,8 +333,8 @@ public class SudokuSolver {
 			tiles = new Tile[9];
 
 			//Sets all possibleNums to true
-			for(int i = 0; i < possibleNums.length; i++) {
-				possibleNums[i] = true;
+			for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+				possibleNums[possibleNum] = true;
 			}
 		}
 
@@ -352,9 +342,9 @@ public class SudokuSolver {
 		Adds new tile to Segment
 		*/
 		public void addTile(Tile newTile) {
-			for(int i = 0; i < tiles.length; i++) {
-				if(tiles[i] == null) {
-					tiles[i] = newTile;
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				if(tiles[tileNum] == null) {
+					tiles[tileNum] = newTile;
 					return;
 				}
 			}
@@ -369,17 +359,17 @@ public class SudokuSolver {
 		*/
 		public void hiddenSingleScan() {
 			//Updates possible nums for segment
-			for(int i = 0; i < tiles.length; i++) {
-				if(tiles[i].finalNum != 0) {
-					possibleNums[tiles[i].finalNum-1] = false;
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				if(tiles[tileNum].finalNum != 0) {
+					possibleNums[tiles[tileNum].finalNum-1] = false;
 				}
 			}
 
 			//Updates possibleNums of all tiles
-			for(int i = 0; i < tiles.length; i++) {
-				for(int x = 0; x < tiles[i].possibleNums.length; x++) {
-					if(possibleNums[x] == false) {
-						tiles[i].possibleNums[x] = false;
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				for(int possibleNum = 0; possibleNum < tiles[tileNum].possibleNums.length; possibleNum++) {
+					if(possibleNums[possibleNum] == false) {
+						tiles[tileNum].possibleNums[possibleNum] = false;
 					}
 				}
 			}
