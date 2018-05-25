@@ -12,6 +12,7 @@ public class SudokuSolver {
 	Segment[] squares;
 	Segment[] rows;
 	Segment[] columns;
+	Segment[][] segmentGroups;
 
 	public SudokuSolver() {
 	}
@@ -41,42 +42,24 @@ public class SudokuSolver {
 			//Resets progressMade to false
 			progressMade = false;
 
-			//Calls solve on each segment of each segment type
-			for(int i = 0; i < squares.length; i++) {
-				squares[i].solve();
+			//Calls simpleScan on each segment of each segment type
+			for(int segmentGroupNum = 0; segmentGroupNum < segmentGroups.length; segmentGroupNum++) {
+				for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
+					segmentGroups[segmentGroupNum][segmentNum].hiddenSingleScan();
+				}
 			}
 
-			for(int i = 0; i < rows.length; i++) {
-				rows[i].solve();
-			}
-
-			for(int i = 0; i < columns.length; i++) {
-				columns[i].solve();
-			}
-
-			//Goes through every tile and checks if it has only one solution left
+			//Goes through all tiles that have one possible number remaining and finalizes them
 			for(int i = 0; i < tiles.length; i++) {
-
 				//DEBUG//
 				System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
+				//DEBUG//
 
-				//Count of available number options. count>1 indicates unsolved puzzle, 1 indicates solved, 0 should never be reached
-				int count = 0;
+				for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+					boolean progressCheck = tiles[tileNum].checkFinal();
 
-				for(int x = 0; x < tiles[i].possibleNums.length; x++) {
-					if(tiles[i].possibleNums[x]) {
-						count++;
-					}
-				}
-
-				//Checks if count and if it is sets finalNum to only remaining num
-				if(count == 1) {
-					progressMade = true;
-					for(int x = 0; x < tiles[i].possibleNums.length; x++) {
-						if(tiles[i].possibleNums[x]) {
-							tiles[i].finalNum = x+1;
-							break;
-						}
+					if(progressCheck) {
+						progressMade = true;
 					}
 				}
 			}
@@ -87,6 +70,7 @@ public class SudokuSolver {
 				System.out.println(rows[i].toString());
 			}
 			System.out.println("");
+			//DEBUG//
 
 			//Checks if progress was made
 			if(!progressMade) {
@@ -111,6 +95,10 @@ public class SudokuSolver {
 		squares = new Segment[9];
 		rows = new Segment[9];
 		columns = new Segment[9];
+		segmentGroups = new Segment[3][9];
+		segmentGroups[0] = squares;
+		segmentGroups[1] = rows;
+		segmentGroups[2] = columns;
 
 		//Sets up tiles
 		for(int i = 0; i < tiles.length; i++) {
@@ -293,6 +281,40 @@ public class SudokuSolver {
 		}
 
 		/*
+		Checks if only one possible number remains for final. If so, finalizes tile by setting final num
+		*/
+		public boolean checkFinal() {
+			//Boolean to check if progressMade. Returned at end of function
+			boolean progressMade = false;
+
+			//Count of available number options. count>1 indicates unsolved puzzle, 1 indicates solved, 0 should never be reached
+			int count = 0;
+
+			for(int x = 0; x < possibleNums.length; x++) {
+				if(possibleNums[x]) {
+					count++;
+				}
+			}
+
+			//Checks if count and if it is sets finalNum to only remaining num
+			if(count == 1) {
+				progressMade = true;
+				for(int x = 0; x < possibleNums.length; x++) {
+					if(possibleNums[x]) {
+						finalNum = x+1;
+						break;
+					}
+				}
+
+				for(int x = 0; x < possibleNums.length; x++) {
+					possibleNums[x] = false;
+				}
+			}
+
+			return progressMade;
+		}
+
+		/*
 		Returns string of value finalNum
 		*/
 		public String toString() {
@@ -342,9 +364,10 @@ public class SudokuSolver {
 		}
 
 		/*
-		Checks which numbers are present in this segment and removes those numbers from possibleNumbers in all tiles
+		Checks which numbers are present in this segment and removes those numbers from possibleNumbers in all tiles of the segment.
+		Reveals Hidden Singles
 		*/
-		public void solve() {
+		public void hiddenSingleScan() {
 			//Updates possible nums for segment
 			for(int i = 0; i < tiles.length; i++) {
 				if(tiles[i].finalNum != 0) {
