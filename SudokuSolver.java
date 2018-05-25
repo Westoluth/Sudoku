@@ -7,6 +7,7 @@ public class SudokuSolver {
 		-squares: Contains all squares on the board
 		-rows: Contains all rows on the board
 		-columns: Contains all columns on the board
+		-segmentGroups: Array containing all segment groups (squares, rows, columns)
 	*/
 	Tile[] tiles;
 	Segment[] squares;
