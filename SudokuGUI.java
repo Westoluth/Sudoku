@@ -191,15 +191,19 @@ public class SudokuGUI extends JFrame {
 			}
 		}
 
-		//Passes array to gameSolver
+		//Passes array to gameSolver and checks output for result
 		gameSolver.updateGame(boardValues.clone());
-		int[] newBoardValues = gameSolver.solve();
-
-		//Sets board values to solved values
-		for(int boardTileNum = 0; boardTileNum < 81; boardTileNum++) {
-			boardTextFields[boardTileNum].setText(Integer.toString(newBoardValues[boardTileNum]));
+		try {
+			int[] newBoardValues = gameSolver.solve();
+			//Sets board values to solved values
+			for(int boardTileNum = 0; boardTileNum < 81; boardTileNum++) {
+				boardTextFields[boardTileNum].setText(Integer.toString(newBoardValues[boardTileNum]));
+			}
+		} catch (IncompletePuzzleException e) {
+			JOptionPane.showMessageDialog(mainPanel, "Unable to solve puzzle! Either your input was incorrect or the program cannot handle the puzzle's difficulty.", "Sudoku Error", JOptionPane.ERROR_MESSAGE);
+		} catch (IncorrectPuzzleException e) {
+			JOptionPane.showMessageDialog(mainPanel, "Puzzle produced incorrect output! Either your input was incorrect or there is an error in the program.", "Sudoku Error", JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
 
 	/*
