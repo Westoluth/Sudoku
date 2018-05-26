@@ -26,6 +26,7 @@ public class SudokuGUI extends JFrame {
 
 	ButtonElements:
 		solveButton: Button that triggers solving of current puzzle.
+		clearButton: Button that clears the board
 
 	Utilities:
 		gameSolver: SudokuSolver instance that handles solving the game.
@@ -42,6 +43,7 @@ public class SudokuGUI extends JFrame {
 
 	//Button elements
 	private JButton solveButton;
+	private JButton clearButton;
 
 	//Utilities
 	private SudokuSolver gameSolver;
@@ -162,11 +164,19 @@ public class SudokuGUI extends JFrame {
 		buttonConstraints.anchor = GridBagConstraints.CENTER;
 		buttonConstraints.fill = GridBagConstraints.BOTH;
 
+		//Creates clearButton and attatches listener
+		clearButton = new JButton("Clear");
+		clearButton.addActionListener(new clearButtonListener());
+
 		//Creates solveButton and attatches listener
 		solveButton = new JButton("Solve");
 		solveButton.addActionListener(new SolveButtonListener());
 	
+		//Adds clear button to buttonPanel
+		buttonPanel.add(clearButton, buttonConstraints);
+
 		//Adds solve button to buttonPanel
+		buttonConstraints.gridx = 1;
 		buttonPanel.add(solveButton, buttonConstraints);
 	}
 
@@ -207,12 +217,32 @@ public class SudokuGUI extends JFrame {
 	}
 
 	/*
+	Clears sudoku board
+	*/
+	private void clearBoard() {
+		//Sets all text fields to an empty string
+		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
+			boardTextFields[boardTextFieldNum].setText("");
+		}
+	}
+
+	/*
 	Private class to check for clicks on the solve button
 	*/
 	private class SolveButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			solveSudoku();
+		}
+	}
+
+	/*
+	Private class to check for clicks on the clear button
+	*/
+	private class clearButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			clearBoard();
 		}
 	}
 }
