@@ -28,7 +28,7 @@ public class SudokuSolver {
 	/*
 	Handles solving of the board
 	*/
-	public int[] solve() {
+	public int[] solve() throws IncompletePuzzleException, IncorrectPuzzleException{
 		//progressMade indicates whether progress was made in this most recent iteration of the loop or if a dead end has been reached
 		boolean progressMade;
 
@@ -78,13 +78,10 @@ public class SudokuSolver {
 			//Checks if progress was made
 			if(!progressMade) {
 				//Checks if problem solved, or something went wrong
-				if(checkPuzzle()) {
-					System.out.println("Puzzle solved!");
-					return packagePuzzle();
-				} else {
-					System.out.println("Something went wrong, unable to continue");
-					throw new RuntimeException();
-				}
+				checkPuzzle();
+
+				//If checkPuzzle() throws no exceptions, puzzle succesfully solved
+				return packagePuzzle();
 			}
 		}
 	}
@@ -203,9 +200,9 @@ public class SudokuSolver {
 
 
 	/*
-	Confirms validity of solved puzzle. Returns true if puzzle is valid, false otherwise
+	Confirms validity of solved puzzle. Does nothing if puzzle is valid, otherwise throws certain type of exception
 	*/
-	private boolean checkPuzzle() {
+	private void checkPuzzle() throws IncompletePuzzleException, IncorrectPuzzleException{
 		for(int segmentGroupNum = 0; segmentGroupNum < segmentGroups.length; segmentGroupNum++) {
 			for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
 				//Creates array to hold quantity of each number found
@@ -213,20 +210,24 @@ public class SudokuSolver {
 
 				//Fills numCheck
 				for(int tileNum = 0; tileNum < segmentGroups[segmentGroupNum][segmentNum].tiles.length; tileNum++) {
+					//Checks for empty tile
+					if(segmentGroups[segmentGroupNum][segmentNum].tiles[tileNum].finalNum == 0) {
+						throw new IncompletePuzzleException("Incomplete Puzzle Exception: Unable to solve puzzle");
+					}
+
 					numCheck[segmentGroups[segmentGroupNum][segmentNum].tiles[tileNum].finalNum-1]++;
 				}
 
 				//Checks to make sure all numCheck values are 1. If not, returns false
 				for(int x = 0; x < numCheck.length; x++) {
 					if(numCheck[x] != 1) {
-						return false;
+						throw new IncorrectPuzzleException("IncorrectPuzzleException: Incorrect input or error in program. End puzzle is not correct");
 					}
 				}
 			}
 		}
 
-		//Because no discrepancies have been detected, returns true
-		return true;
+		//Because no discrepancies have been detected, function ends
 	}
 
 	/*
@@ -280,7 +281,7 @@ public class SudokuSolver {
 			}
 
 			//Thrown if Segment is full
-			throw new SegmentOverfilled();
+			throw new SegmentOverfilledException("SegmentOverfilledException: Attempted to add new tile to filled segment");
 		}
 
 		/*
@@ -344,23 +345,6 @@ public class SudokuSolver {
 		*/
 		public String toString() {
 			return Arrays.toString(tiles);
-		}
-
-
-		//Suppresses serial warnings
-		@SuppressWarnings("serial")
-
-		/*
-		Exception thrown if someone attempts to add to a full Segment
-		*/
-		private class SegmentOverfilled extends RuntimeException {
-		    //Parameterless Constructor
-		    public SegmentOverfilled() {}
-
-		    //Constructor that accepts a message
-		    public SegmentOverfilled(String message) {
-		        super(message);
-		    }
 		}
 	}
 
