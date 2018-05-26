@@ -44,9 +44,12 @@ public class SudokuSolver {
 			//Resets progressMade to false
 			progressMade = false;
 
-			//Calls simpleScan on each segment of each segment type
+			//Updates note in every segment/tile
 			for(int segmentGroupNum = 0; segmentGroupNum < segmentGroups.length; segmentGroupNum++) {
 				for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
+					//Updates notes for each segment/tile
+					segmentGroups[segmentGroupNum][segmentNum].updateNotes();
+					//Checks for hidden singles
 					segmentGroups[segmentGroupNum][segmentNum].hiddenSingleScan();
 				}
 			}
@@ -240,6 +243,128 @@ public class SudokuSolver {
 	}
 
 	/*
+	Private class representing 9 tiles; either a square, row or columnn.
+	*/
+	private class Segment {
+		/*
+		Segment variables:
+			-possibleNums: Array of size 9. If value is true, corresponding number is a possibility in this segment. If value is false, number is not a possibility in this segment.
+			-tiles: Array containing all tiles in segment
+		*/
+		boolean[] possibleNums;
+		Tile[] tiles;
+
+		/*
+		Initializes Segment variables
+		*/
+		public Segment() {
+			//Initializes variables
+			possibleNums = new boolean[9];
+			tiles = new Tile[9];
+
+			//Sets all possibleNums to true
+			for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
+				possibleNums[possibleNum] = true;
+			}
+		}
+
+		/*
+		Adds new tile to Segment
+		*/
+		public void addTile(Tile newTile) {
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				if(tiles[tileNum] == null) {
+					tiles[tileNum] = newTile;
+					return;
+				}
+			}
+
+			//Thrown if Segment is full
+			throw new SegmentOverfilled();
+		}
+
+		/*
+		Checks which numbers are present in this segment and removes those numbers from possibleNumbers in all tiles of the segment.
+		*/
+		public void updateNotes() {
+			//Updates possible nums for segment
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				if(tiles[tileNum].finalNum != 0) {
+					possibleNums[tiles[tileNum].finalNum-1] = false;
+				}
+			}
+
+			//Updates possibleNums of all tiles
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				for(int possibleNum = 0; possibleNum < tiles[tileNum].possibleNums.length; possibleNum++) {
+					if(possibleNums[possibleNum] == false) {
+						tiles[tileNum].possibleNums[possibleNum] = false;
+					}
+				}
+			}
+		}
+
+		/*
+		Checks for hidden singles in segment
+		*/
+		public void hiddenSingleScan() {
+			for(int segmentPossibleNum = 0; segmentPossibleNum < possibleNums.length; segmentPossibleNum++) {
+				//Checks if number is still being considered
+				if(possibleNums[segmentPossibleNum]) {
+					//Declares numCount to track how many times possibleNum appears
+					int numCount = 0;
+
+					//Iterates through every tile to count how many times possibleNum appears
+					for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+						if(tiles[tileNum].possibleNums[segmentPossibleNum] == true) {
+							numCount++;
+						}
+					}
+
+					//If numCount is equal to one, only one possible location for possibleNum
+					if(numCount == 1) {
+						//Finds location that possibleNum fits in
+						for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+							if(tiles[tileNum].possibleNums[segmentPossibleNum] == true) {
+								//Sets all possibleNums but possibleNum to false
+								for(int tilePossibleNum = 0; tilePossibleNum < tiles[tileNum].possibleNums.length; tilePossibleNum++) {
+									tiles[tileNum].possibleNums[tilePossibleNum] = false;
+								}
+
+								tiles[tileNum].possibleNums[segmentPossibleNum] = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/*
+		Returns array of tiles in toString() form
+		*/
+		public String toString() {
+			return Arrays.toString(tiles);
+		}
+
+
+		//Suppresses serial warnings
+		@SuppressWarnings("serial")
+
+		/*
+		Exception thrown if someone attempts to add to a full Segment
+		*/
+		private class SegmentOverfilled extends RuntimeException {
+		    //Parameterless Constructor
+		    public SegmentOverfilled() {}
+
+		    //Constructor that accepts a message
+		    public SegmentOverfilled(String message) {
+		        super(message);
+		    }
+		}
+	}
+
+	/*
 	Private class representing a board tile
 	*/
 	private class Tile {
@@ -310,94 +435,6 @@ public class SudokuSolver {
 		*/
 		public String toString() {
 			return String.valueOf(finalNum);
-		}
-	}
-
-	/*
-	Private class representing 9 tiles; either a square, row or columnn.
-	*/
-	private class Segment {
-		/*
-		Segment variables:
-			-possibleNums: Array of size 9. If value is true, corresponding number is a possibility in this segment. If value is false, number is not a possibility in this segment.
-			-tiles: Array containing all tiles in segment
-		*/
-		boolean[] possibleNums;
-		Tile[] tiles;
-
-		/*
-		Initializes Segment variables
-		*/
-		public Segment() {
-			//Initializes variables
-			possibleNums = new boolean[9];
-			tiles = new Tile[9];
-
-			//Sets all possibleNums to true
-			for(int possibleNum = 0; possibleNum < possibleNums.length; possibleNum++) {
-				possibleNums[possibleNum] = true;
-			}
-		}
-
-		/*
-		Adds new tile to Segment
-		*/
-		public void addTile(Tile newTile) {
-			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
-				if(tiles[tileNum] == null) {
-					tiles[tileNum] = newTile;
-					return;
-				}
-			}
-
-			//Thrown if Segment is full
-			throw new SegmentOverfilled();
-		}
-
-		/*
-		Checks which numbers are present in this segment and removes those numbers from possibleNumbers in all tiles of the segment.
-		Reveals Hidden Singles
-		*/
-		public void hiddenSingleScan() {
-			//Updates possible nums for segment
-			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
-				if(tiles[tileNum].finalNum != 0) {
-					possibleNums[tiles[tileNum].finalNum-1] = false;
-				}
-			}
-
-			//Updates possibleNums of all tiles
-			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
-				for(int possibleNum = 0; possibleNum < tiles[tileNum].possibleNums.length; possibleNum++) {
-					if(possibleNums[possibleNum] == false) {
-						tiles[tileNum].possibleNums[possibleNum] = false;
-					}
-				}
-			}
-		}
-
-		/*
-		Returns array of tiles in toString() form
-		*/
-		public String toString() {
-			return Arrays.toString(tiles);
-		}
-
-
-		//Suppresses serial warnings
-		@SuppressWarnings("serial")
-
-		/*
-		Exception thrown if someone attempts to add to a full Segment
-		*/
-		private class SegmentOverfilled extends RuntimeException {
-		    //Parameterless Constructor
-		    public SegmentOverfilled() {}
-
-		    //Constructor that accepts a message
-		    public SegmentOverfilled(String message) {
-		        super(message);
-		    }
 		}
 	}
 }
