@@ -341,6 +341,13 @@ public class SudokuSolver {
 		}
 
 		/*
+		Checks for naked pairs in segment
+		*/
+		public void nakedPairScan() {
+			
+		}
+
+		/*
 		Returns array of tiles in toString() form
 		*/
 		public String toString() {
