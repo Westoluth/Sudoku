@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class SudokuSolver {
 	/*
@@ -49,16 +50,27 @@ public class SudokuSolver {
 				for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
 					//Updates notes for each segment/tile
 					segmentGroups[segmentGroupNum][segmentNum].updateNotes();
-					//Checks for hidden singles
-					segmentGroups[segmentGroupNum][segmentNum].hiddenSingleScan();
 				}
 			}
 
+			//Applies scans to every tile
+			for(int segmentGroupNum = 0; segmentGroupNum < segmentGroups.length; segmentGroupNum++) {
+				for(int segmentNum = 0; segmentNum < segmentGroups[segmentGroupNum].length; segmentNum++) {
+					//Checks for hidden singles
+					segmentGroups[segmentGroupNum][segmentNum].hiddenSingleScan();
+					//Checks for naked pairs
+					System.out.println("Segment Group: " + segmentGroupNum + "   Segment Num: " + segmentNum + "\n \n");
+					segmentGroups[segmentGroupNum][segmentNum].nakedPairScan();
+				}
+			}
+
+			
+
 			//Goes through all tiles that have one possible number remaining and finalizes them
 			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
-					//DEBUG//
+				//DEBUG//
 				System.out.println("Tile #" + tileNum + ": " + Arrays.toString(tiles[tileNum].possibleNums) + "  finalNum: " + tiles[tileNum].finalNum);
-					//DEBUG//
+				//DEBUG//
 
 				boolean progressCheck = tiles[tileNum].checkFinal();
 
@@ -76,8 +88,8 @@ public class SudokuSolver {
 			//DEBUG//
 
 			//Checks if progress was made
-			if(!progressMade) {
-				//Checks if problem solved, or something went wrong
+			if(!progressMade) 
+{				//Checks if problem solved, or something went wrong
 				checkPuzzle();
 
 				//If checkPuzzle() throws no exceptions, puzzle succesfully solved
@@ -344,7 +356,90 @@ public class SudokuSolver {
 		Checks for naked pairs in segment
 		*/
 		public void nakedPairScan() {
-			
+			//Creates ArrayList to hold all pairs found
+			ArrayList<int[]> pairList = new ArrayList<int[]>();
+
+			//Iterates through every tile to check for pairs
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				//Checks if a pair exists in this tile
+				if(tiles[tileNum].getNumPossibleNums() == 2) {
+					int[] pair = new int[2];
+					int pairIterator = 0;
+
+					System.out.println("tileNum: " + tileNum);
+
+					//Adds pair in tile to possiblePair
+					for(int possibleNumsNum = 0; possibleNumsNum < tiles[tileNum].possibleNums.length; possibleNumsNum++) {
+						if(tiles[tileNum].possibleNums[possibleNumsNum]) {
+							System.out.println("possibleNumsNum " + possibleNumsNum + ": " + tiles[tileNum].possibleNums[possibleNumsNum]);
+							pair[pairIterator] = possibleNumsNum+1;
+							pairIterator++;
+						}
+					}
+
+					System.out.println("Found pair: " + Arrays.toString(pair));
+
+					System.out.println("Starting new pairIterator... \n");
+
+					//Adds pair to pairList
+					pairList.add(pair);
+					System.out.println("pairList length: " + pairList.size());
+				}
+			}
+
+			System.out.println("Beginning pair check...");
+			System.out.println("pairList length: " + pairList.size());
+			//Compares pairs to see if any are equal. Ignores last pair
+			for(int pairListNum = 0; pairListNum < pairList.size()-1; pairListNum++) {
+				//Checks all subsequent pairs for matches
+				for(int pairListCompareNum = pairListNum + 1; pairListCompareNum < pairList.size(); pairListCompareNum++) {
+					System.out.println("pairListNum: " + pairListNum + "  pairListCompareNum: " + pairListCompareNum);
+					if(Arrays.equals(pairList.get(pairListNum), pairList.get(pairListCompareNum))) {
+						System.out.println("Found naked pair!: " + Arrays.toString(pairList.get(pairListNum)) + "  " + Arrays.toString(pairList.get(pairListCompareNum)));
+						System.out.println("Pair Nums: " + pairListNum + "  " + pairListCompareNum);
+						//Removes naked pair candidates from all non naked pair tiles
+						removeNakedPair(pairList.get(pairListNum));
+						return;
+					}
+				}
+			}
+		}
+
+		/*
+		Removes naked pair candidates from all non naked pair tiles
+		*/
+		public void removeNakedPair(int[] removePair) {
+			System.out.println("Removing: " + Arrays.toString(removePair));
+			//Iterates through every tile
+			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
+				//Checks to see if tile's possible nums only contain remove pair. If so ignores it
+				boolean isPair = false;
+
+				if(tiles[tileNum].getNumPossibleNums() == 2) {
+					int tilePair[] = new int[2];
+					int tilePairIterator = 0;
+
+					//Assigns all possible nums to tilePair
+					for(int possibleNumsNum = 0; possibleNumsNum < tiles[tileNum].possibleNums.length; possibleNumsNum++) {
+						if(tiles[tileNum].possibleNums[possibleNumsNum]) {
+							tilePair[tilePairIterator] = possibleNumsNum + 1;
+							tilePairIterator++;
+						}
+					}
+
+					if(Arrays.equals(removePair, tilePair)) {
+						isPair = true;
+					}
+				}
+
+				if(!isPair) {
+					System.out.println("Removing pair from tile: " + tileNum);
+					for(int removeNum = 0; removeNum < removePair.length; removeNum++) {
+						tiles[tileNum].possibleNums[removePair[removeNum]-1] = false;
+					}
+				}
+			}
+			System.out.println();
 		}
 
 		/*
@@ -419,6 +514,23 @@ public class SudokuSolver {
 			}
 
 			return progressCheck;
+		}
+
+		public int getNumPossibleNums() {
+			int totalPossible = 0;
+
+			for(int possibleNumsNum = 0; possibleNumsNum < possibleNums.length; possibleNumsNum++) {
+				if(possibleNums[possibleNumsNum]) {
+					System.out.println("found pos num: " + (possibleNumsNum+1));
+					totalPossible++;
+				}
+			}
+
+			if(totalPossible > 0) {
+				System.out.println("Ending getNumPossibleNums with >0...\n");
+			}
+
+			return totalPossible;
 		}
 
 		/*
