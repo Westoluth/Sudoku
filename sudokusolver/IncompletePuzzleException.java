@@ -1,15 +1,17 @@
+package sudokusolver;
+
 //Suppresses serial warnings
 @SuppressWarnings("serial")
 
 /*
 Exception thrown if someone attempts to add to a full Segment
 */
-public class SegmentOverfilledException extends RuntimeException {
+public class IncompletePuzzleException extends Exception {
     //Parameterless Constructor
-    public SegmentOverfilledException() {}
+    public IncompletePuzzleException() {}
 
     //Constructor that accepts a message
-    public SegmentOverfilledException(String message) {
+    public IncompletePuzzleException(String message) {
         super(message);
     }
 }

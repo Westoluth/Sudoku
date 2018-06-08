@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 
+import sudokusolver.*;
+
 //Suppresses serial warnings
 @SuppressWarnings("serial")
 
