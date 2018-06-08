@@ -34,6 +34,7 @@ public class SudokuSolver {
 		boolean progressMade;
 
 		//DEBUG//
+		//Provides stack trace of initial notes
 		System.out.println("Initial board status: ");
 		for(int i = 0; i < tiles.length; i++) {
 			System.out.println("Tile #" + i + ": " + Arrays.toString(tiles[i].possibleNums) + "  finalNum: " + tiles[i].finalNum);
@@ -59,7 +60,6 @@ public class SudokuSolver {
 					//Checks for hidden singles
 					segmentGroups[segmentGroupNum][segmentNum].hiddenSingleScan();
 					//Checks for naked pairs
-					System.out.println("Segment Group: " + segmentGroupNum + "   Segment Num: " + segmentNum + "\n \n");
 					segmentGroups[segmentGroupNum][segmentNum].nakedPairScan();
 				}
 			}
@@ -69,6 +69,7 @@ public class SudokuSolver {
 			//Goes through all tiles that have one possible number remaining and finalizes them
 			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
 				//DEBUG//
+				//Provides stack trace of notes in runtime
 				System.out.println("Tile #" + tileNum + ": " + Arrays.toString(tiles[tileNum].possibleNums) + "  finalNum: " + tiles[tileNum].finalNum);
 				//DEBUG//
 
@@ -80,6 +81,7 @@ public class SudokuSolver {
 			}
 
 			//DEBUG//
+			//Displays stack trace of board
 			System.out.println("Current puzzle status: \n");
 			for(int i = 0; i < rows.length; i++) {
 				System.out.println(rows[i].toString());
@@ -366,37 +368,24 @@ public class SudokuSolver {
 					int[] pair = new int[2];
 					int pairIterator = 0;
 
-					System.out.println("tileNum: " + tileNum);
-
 					//Adds pair in tile to possiblePair
 					for(int possibleNumsNum = 0; possibleNumsNum < tiles[tileNum].possibleNums.length; possibleNumsNum++) {
 						if(tiles[tileNum].possibleNums[possibleNumsNum]) {
-							System.out.println("possibleNumsNum " + possibleNumsNum + ": " + tiles[tileNum].possibleNums[possibleNumsNum]);
 							pair[pairIterator] = possibleNumsNum+1;
 							pairIterator++;
 						}
 					}
 
-					System.out.println("Found pair: " + Arrays.toString(pair));
-
-					System.out.println("Starting new pairIterator... \n");
-
 					//Adds pair to pairList
 					pairList.add(pair);
-					System.out.println("pairList length: " + pairList.size());
 				}
 			}
 
-			System.out.println("Beginning pair check...");
-			System.out.println("pairList length: " + pairList.size());
 			//Compares pairs to see if any are equal. Ignores last pair
 			for(int pairListNum = 0; pairListNum < pairList.size()-1; pairListNum++) {
 				//Checks all subsequent pairs for matches
 				for(int pairListCompareNum = pairListNum + 1; pairListCompareNum < pairList.size(); pairListCompareNum++) {
-					System.out.println("pairListNum: " + pairListNum + "  pairListCompareNum: " + pairListCompareNum);
-					if(Arrays.equals(pairList.get(pairListNum), pairList.get(pairListCompareNum))) {
-						System.out.println("Found naked pair!: " + Arrays.toString(pairList.get(pairListNum)) + "  " + Arrays.toString(pairList.get(pairListCompareNum)));
-						System.out.println("Pair Nums: " + pairListNum + "  " + pairListCompareNum);
+					if(Arrays.equals(pairList.get(pairListNum), pairList.get(pairListCompareNum))) {;
 						//Removes naked pair candidates from all non naked pair tiles
 						removeNakedPair(pairList.get(pairListNum));
 						return;
@@ -408,8 +397,7 @@ public class SudokuSolver {
 		/*
 		Removes naked pair candidates from all non naked pair tiles
 		*/
-		public void removeNakedPair(int[] removePair) {
-			System.out.println("Removing: " + Arrays.toString(removePair));
+		public void removeNakedPair(int[] removePair) {;
 			//Iterates through every tile
 			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
 				//Checks to see if tile's possible nums only contain remove pair. If so ignores it
@@ -432,14 +420,13 @@ public class SudokuSolver {
 					}
 				}
 
+				//If not pair, removes pair from possible options
 				if(!isPair) {
-					System.out.println("Removing pair from tile: " + tileNum);
 					for(int removeNum = 0; removeNum < removePair.length; removeNum++) {
 						tiles[tileNum].possibleNums[removePair[removeNum]-1] = false;
 					}
 				}
 			}
-			System.out.println();
 		}
 
 		/*
@@ -521,13 +508,8 @@ public class SudokuSolver {
 
 			for(int possibleNumsNum = 0; possibleNumsNum < possibleNums.length; possibleNumsNum++) {
 				if(possibleNums[possibleNumsNum]) {
-					System.out.println("found pos num: " + (possibleNumsNum+1));
 					totalPossible++;
 				}
-			}
-
-			if(totalPossible > 0) {
-				System.out.println("Ending getNumPossibleNums with >0...\n");
 			}
 
 			return totalPossible;
