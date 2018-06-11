@@ -92,8 +92,8 @@ public class SudokuSolver {
 			//DEBUG//
 
 			//Checks if progress was made
-			if(!progressMade) 
-{				//Checks if problem solved, or something went wrong
+			if(!progressMade) {				
+				//Checks if problem solved, or something went wrong
 				checkPuzzle();
 
 				//If checkPuzzle() throws no exceptions, puzzle succesfully solved
