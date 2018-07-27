@@ -25,6 +25,7 @@ CLASSESPATH      = $(GUICLASSPATH) $(SOLVERCLASSPATH) $(TESTCLASSPATH)
 
 #Dependencies Macros
 TESTNGPATH       = dependencies/testng.jar
+JCOMMANDERPATH   = dependencies/jcommander.jar
 
 all: $(JARFILE)
 
@@ -32,7 +33,7 @@ jar: all
 	rm $(GUICLASSPATH)
 
 $(JARFILE): $(GUICLASSES) $(SOLVERCLASSES)
-	echo Main-class: $(MAINCLASS) > Manifest
+	printf "%s\n" "Main-class: $(MAINCLASS)" > Manifest
 	jar cvfm $(JARFILE) Manifest $(GUICLASSPATH) $(SOLVERCLASSPATH)
 	rm Manifest
 	chmod +x $(JARFILE)
@@ -46,13 +47,13 @@ $(SOLVERCLASSES): $(SOLVERSOURCE)
 test: $(TESTJARFILE) $(JARFILE)
 
 $(TESTJARFILE): $(TESTCLASSES)
-	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: dependencies/testng.jar dependencies/jcommander.jar" > Manifest
+	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(TESTNGPATH) $(JCOMMANDERPATH)" > Manifest
 	jar cvfm $(TESTJARFILE) Manifest $(TESTCLASSPATH)
 	rm Manifest
 	chmod +x $(TESTJARFILE)
 
 $(TESTCLASSES): $(TESTSOURCE)
-	javac -cp "dependencies/testng.jar:dependencies/jcommander.jar" -Xlint $(TESTSOURCE)
+	javac -cp "$(TESTNGPATH):$(JCOMMANDERPATH)" -Xlint $(TESTSOURCE)
 
 .PHONY: clean
 clean:
