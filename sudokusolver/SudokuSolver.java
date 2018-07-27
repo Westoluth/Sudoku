@@ -2,6 +2,7 @@ package sudokusolver;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SudokuSolver {
 	/*
@@ -12,12 +13,12 @@ public class SudokuSolver {
 		-columns: Contains all columns on the board
 		-segmentGroups: Array containing all segment groups (squares, rows, columns)
 	*/
-	Tile[] tiles;
-	Segment[] squares;
-	Segment[] rows;
-	Segment[] columns;
-	Segment[][] segmentGroups;
-
+	private Tile[] tiles;
+	private Segment[] squares;
+	private Segment[] rows;
+	private Segment[] columns;
+	private Segment[][] segmentGroups;
+	
 	public SudokuSolver() {
 	}
 
@@ -361,7 +362,7 @@ public class SudokuSolver {
 		*/
 		public void nakedPairScan() {
 			//Creates ArrayList to hold all pairs found
-			ArrayList<int[]> pairList = new ArrayList<int[]>();
+			List<int[]> pairList = new ArrayList<int[]>();
 
 			//Iterates through every tile to check for pairs
 			for(int tileNum = 0; tileNum < tiles.length; tileNum++) {
