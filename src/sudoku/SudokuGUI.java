@@ -1,3 +1,5 @@
+package sudoku;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
@@ -10,7 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
 
-import sudokusolver.*;
+import sudoku.solver.*;
 
 //Suppresses serial warnings
 @SuppressWarnings("serial")
