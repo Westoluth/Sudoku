@@ -1,4 +1,4 @@
-package sudokusolver;
+package sudoku.solver;
 
 //Suppresses serial warnings
 @SuppressWarnings("serial")
