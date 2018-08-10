@@ -37,6 +37,59 @@ public class Board {
 	}
 
 	/*
+	Returns the value of a tile in the board
+	*/
+	public int getTile(int tileNum) {
+		return boardTiles[tileNum].finalNum;
+	}
+
+	/*
+	Returns an integer array containing the values of every tile on the board
+	*/
+	public int[] getBoardValues() {
+		int[] boardValues = new int[81];
+
+		for(int tileNum = 0; tileNum < boardTiles.length; tileNum++) {
+			boardValues[tileNum] = boardTiles[tileNum].finalNum;
+		}
+
+		return boardValues;
+	}
+
+	/*
+	Returns an integer array containing all values in selected square 
+	*/
+	public int[] getSquare(int squareNum) {
+		return getSegment(columns[squareNum]);
+	}
+
+	/*
+	Returns an integer array containing all values in selected row 
+	*/
+	public int[] getRow(int rowNum) {
+		return getSegment(columns[rowNum]);
+	}
+
+	/*
+	Returns an integer array containing all values in selected column 
+	*/
+	public int[] getColumn(int columnNum) {
+		return getSegment(columns[columnNum]);
+	}
+
+	/*
+	Returns an integer array containing all values in selected segment
+	*/
+	private int[] getSegment(Segment targetSegment) {
+		int[] segmentValues = new int[9];
+
+		for(int tileNum = 0; tileNum < targetSegment.segmentTiles.length; tileNum++) {
+			segmentValues[tileNum] = targetSegment.segmentTiles[tileNum].finalNum;
+		}
+
+		return segmentValues;
+	}
+	/*
 	Fills the tiles array with tiles created by the passed integer array
 	*/
 	private void fillTiles(int[] rawBoard) {
@@ -170,6 +223,21 @@ public class Board {
 			//Thrown if Segment is full
 			throw new RuntimeException("SegmentOverfilled: Attempted to add new tile to filled segment");
 		}
+
+		public String toString() {
+			//Declares and initializes output string
+			String output = "[";
+
+			//Fills output with all tile values
+			for(int tileNum = 0; tileNum < segmentTiles.length; tileNum++) {
+				output += segmentTiles.toString();
+				output += ", ";
+			}
+
+			output = output.substring(0, output.length()-2);
+
+			return output;
+		}
 	}
 
 	/*
@@ -184,6 +252,10 @@ public class Board {
 
 		public Tile(int finalNum) {
 			this.finalNum = finalNum;
+		}
+
+		public String toString() {
+			return String.valueOf(finalNum);
 		}
 	}
 }
