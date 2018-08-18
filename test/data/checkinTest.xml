@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="CheckinSuite" verbose="1" >
+	<test name="CheckinTest"   >
+		<groups>
+			<run>
+				<include name="checkin"/>
+			</run>
+		</groups>
+	    <packages>
+	      	<package name="sudokutest.tests" />
+	    </packages>
+	</test>
+</suite>

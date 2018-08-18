@@ -14,9 +14,14 @@ MAINSRCPATH         = src/
 MAINBINPATH         = bin/
 
 #Test harness source macros
-TESTSOURCE          = $(wildcard test/src/sudokutest/*.java)
-TESTCLASSES         = $(patsubst test/src/sudokutest/%.java,test/bin/sudokutest/%.class,$(TESTSOURCE))
+TESTCLIENTSOURCE    = $(wildcard test/src/sudokutest/*.java)
+TESTSSOURCE         = $(wildcard test/src/sudokutest/tests/*.java)
+TESTCLIENTCLASSES   = $(patsubst test/src/sudokutest/%.java,test/bin/sudokutest/%.class,$(TESTCLIENTSOURCE))
+TESTSCLASSES        = $(patsubst test/src/sudokutest/tests/%.java,test/bin/sudokutest/tests/%.class,$(TESTSSOURCE))
+TESTSRC             = $(TESTCLIENTSOURCE) $(TESTSSOURCE)
+TESTCLASSES         = $(TESTCLIENTCLASSES) $(TESTSCLASSES)
 TESTCLIENTCLASSPATH = test/bin/sudokutest/*.class
+TESTSCLASSPATH      = test/bin/sudokutest/tests/*.class
 TESTCLASSPATH       = $(TESTCLIENTCLASSPATH)
 TESTMAINCLASS       = sudokutest.SudokuTestClient
 TESTJARFILE         = SudokuTestClient.jar
@@ -31,6 +36,7 @@ JCOMMANDERPATH      = test/dependencies/jcommander.jar
 CLASSESPATH         = $(MAINCLASSPATH) $(TESTCLASSPATH)
 BINPATHS            = $(MAINBINPATH) $(TESTBINPATH)
 JARFILES            = $(MAINJARFILE) $(TESTJARFILE) 
+TESTOUTPUTPATH       = test-output/
 
 all: $(MAINJARFILE)
 
@@ -44,21 +50,21 @@ $(MAINJARFILE): $(MAINCLASSES)
 	chmod +x $(MAINJARFILE)
 
 $(MAINCLASSES): $(MAINSRC)
-	mkdir $(MAINBINPATH)
+	mkdir $(MAINBINPATH) || true
 	javac -Xlint $(MAINSRC) -sourcepath $(MAINSRCPATH) -d bin
 
 test: $(MAINJARFILE) $(TESTJARFILE)
 
 $(TESTJARFILE): $(TESTCLASSES)
-	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(TESTNGPATH) $(JCOMMANDERPATH)" > Manifest
+	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(MAINBINPATH) $(TESTNGPATH) $(JCOMMANDERPATH)" > Manifest
 	jar cvfm $(TESTJARFILE) Manifest -C $(TESTBINPATH) .
 	rm Manifest
 	chmod +x $(TESTJARFILE)
 
-$(TESTCLASSES): $(TESTSOURCE)
-	mkdir $(TESTBINPATH)
-	javac -cp "$(TESTNGPATH):$(JCOMMANDERPATH)" -Xlint $(TESTSOURCE) -sourcepath $(TESTSRCPATH) -d $(TESTBINPATH)
+$(TESTCLASSES): $(TESTSRC)
+	mkdir $(TESTBINPATH) || true
+	javac -cp "$(MAINBINPATH):$(TESTNGPATH):$(JCOMMANDERPATH)" -Xlint $(TESTSRC) -sourcepath $(TESTSRCPATH) -d $(TESTBINPATH)
 
 .PHONY: clean
 clean:
-	rm -r -d $(BINPATHS) $(JARFILES) || true
+	rm -r -d $(BINPATHS) $(JARFILES) $(TESTOUTPUTPATH) || true

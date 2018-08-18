@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="FullSuite" verbose="1" >
+	<test name="FullTest"   >
+		<groups>
+			<run>
+				<include name="full"/>
+			</run>
+		</groups>
+	    <packages>
+	      	<package name="sudokutest.tests" />
+	    </packages>
+	</test>
+</suite>
