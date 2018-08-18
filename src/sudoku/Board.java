@@ -28,12 +28,16 @@ public class Board {
 		rows = new Segment[9];
 		columns = new Segment[9];
 
+		segmentGroups = new Segment[3][];
 		segmentGroups[0] = squares;
 		segmentGroups[1] = rows;
 		segmentGroups[2] = columns;
 
 		//Fills tiles with rawBoard
+		fillTiles(rawBoard);
 
+		//Fills segments with tiles
+		fillSegments();
 	}
 
 	/*
@@ -206,7 +210,8 @@ public class Board {
 		public Tile[] segmentTiles;
 
 		public Segment() {
-
+			//Initializes segmentTiles to hold 9 tiles
+			segmentTiles = new Tile[9];
 		}
 
 		/*
