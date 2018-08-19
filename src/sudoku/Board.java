@@ -10,13 +10,13 @@ public class Board {
 		-squares: Contains all squares on the board
 		-rows: Contains all rows on the board
 		-columns: Contains all columns on the board
-		-segmentGroups: Array containing all segment groups (squares, rows, columns)
+		-regionGroups: Array containing all region groups (squares, rows, columns)
 	*/
 	private Tile[] boardTiles;
-	private Segment[] squares;
-	private Segment[] rows;
-	private Segment[] columns;
-	private Segment[][] segmentGroups;
+	private Region[] squares;
+	private Region[] rows;
+	private Region[] columns;
+	private Region[][] regionGroups;
 
 	/*
 	Constructor for Board
@@ -24,20 +24,20 @@ public class Board {
 	public Board(int[] rawBoard) {
 		//Initializes all member variables
 		boardTiles = new Tile[81];
-		squares = new Segment[9];
-		rows = new Segment[9];
-		columns = new Segment[9];
+		squares = new Region[9];
+		rows = new Region[9];
+		columns = new Region[9];
 
-		segmentGroups = new Segment[3][];
-		segmentGroups[0] = squares;
-		segmentGroups[1] = rows;
-		segmentGroups[2] = columns;
+		regionGroups = new Region[3][];
+		regionGroups[0] = squares;
+		regionGroups[1] = rows;
+		regionGroups[2] = columns;
 
 		//Fills tiles with rawBoard
 		fillTiles(rawBoard);
 
-		//Fills segments with tiles
-		fillSegments();
+		//Fills regions with tiles
+		fillRegions();
 	}
 
 	/*
@@ -64,34 +64,34 @@ public class Board {
 	Returns an integer array containing all values in selected square 
 	*/
 	public int[] getSquare(int squareNum) {
-		return getSegment(columns[squareNum]);
+		return getRegion(columns[squareNum]);
 	}
 
 	/*
 	Returns an integer array containing all values in selected row 
 	*/
 	public int[] getRow(int rowNum) {
-		return getSegment(columns[rowNum]);
+		return getRegion(columns[rowNum]);
 	}
 
 	/*
 	Returns an integer array containing all values in selected column 
 	*/
 	public int[] getColumn(int columnNum) {
-		return getSegment(columns[columnNum]);
+		return getRegion(columns[columnNum]);
 	}
 
 	/*
-	Returns an integer array containing all values in selected segment
+	Returns an integer array containing all values in selected region
 	*/
-	private int[] getSegment(Segment targetSegment) {
-		int[] segmentValues = new int[9];
+	private int[] getRegion(Region targetRegion) {
+		int[] regionValues = new int[9];
 
-		for(int tileNum = 0; tileNum < targetSegment.segmentTiles.length; tileNum++) {
-			segmentValues[tileNum] = targetSegment.segmentTiles[tileNum].finalNum;
+		for(int tileNum = 0; tileNum < targetRegion.regionTiles.length; tileNum++) {
+			regionValues[tileNum] = targetRegion.regionTiles[tileNum].finalNum;
 		}
 
-		return segmentValues;
+		return regionValues;
 	}
 	/*
 	Fills the tiles array with tiles created by the passed integer array
@@ -103,12 +103,12 @@ public class Board {
 	}
 
 	/*
-	Assigns tiles to the appropriate segments
+	Assigns tiles to the appropriate regions
 	*/
-	private void fillSegments() {
+	private void fillRegions() {
 		//Sets up squares and adds tiles
 		for(int squareNum = 0; squareNum < squares.length; squareNum++) {
-			squares[squareNum] = new Segment();
+			squares[squareNum] = new Region();
 		}
 
 		for(int tileNum = 0; tileNum < boardTiles.length; tileNum++) {
@@ -118,11 +118,11 @@ public class Board {
 
 		//Sets up rows and adds tiles
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
-			rows[rowNum] = new Segment();
+			rows[rowNum] = new Region();
 		}
 
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
-			for(int rowTilesNum = 0; rowTilesNum < rows[rowNum].segmentTiles.length; rowTilesNum++) {
+			for(int rowTilesNum = 0; rowTilesNum < rows[rowNum].regionTiles.length; rowTilesNum++) {
 				//Various forumla to assign tiles to rows
 				int tileNum = 0;
 
@@ -159,11 +159,11 @@ public class Board {
 
 		//Sets up columns and adds tiles
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
-			columns[columnnNum] = new Segment();
+			columns[columnnNum] = new Region();
 		}
 
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
-			for(int columnTileNum = 0; columnTileNum < columns[columnnNum].segmentTiles.length; columnTileNum++) {
+			for(int columnTileNum = 0; columnTileNum < columns[columnnNum].regionTiles.length; columnTileNum++) {
 				//Various forumla to assign tiles to columns
 				int tileNum = 0;
 
@@ -200,33 +200,33 @@ public class Board {
 	}
 
 	/*
-	Private class representing a Board Segment (Square, Row or Column)
+	Private class representing a Board Region (Square, Row or Column)
 	*/
-	private class Segment {
+	private class Region {
 		/*
-		Segment variables:
-			-segmentTiles: All tiles contained in this segment
+		Region variables:
+			-regionTiles: All tiles contained in this region
 		*/
-		public Tile[] segmentTiles;
+		public Tile[] regionTiles;
 
-		public Segment() {
-			//Initializes segmentTiles to hold 9 tiles
-			segmentTiles = new Tile[9];
+		public Region() {
+			//Initializes regionTiles to hold 9 tiles
+			regionTiles = new Tile[9];
 		}
 
 		/*
-		Adds new tile to Segment
+		Adds new tile to Region
 		*/
 		public void addTile(Tile newTile) {
-			for(int tileNum = 0; tileNum < segmentTiles.length; tileNum++) {
-				if(segmentTiles[tileNum] == null) {
-					segmentTiles[tileNum] = newTile;
+			for(int tileNum = 0; tileNum < regionTiles.length; tileNum++) {
+				if(regionTiles[tileNum] == null) {
+					regionTiles[tileNum] = newTile;
 					return;
 				}
 			}
 
-			//Thrown if Segment is full
-			throw new RuntimeException("SegmentOverfilled: Attempted to add new tile to filled segment");
+			//Thrown if Region is full
+			throw new RuntimeException("RegionOverfilled: Attempted to add new tile to filled region");
 		}
 
 		public String toString() {
@@ -234,8 +234,8 @@ public class Board {
 			String output = "[";
 
 			//Fills output with all tile values
-			for(int tileNum = 0; tileNum < segmentTiles.length; tileNum++) {
-				output += segmentTiles.toString();
+			for(int tileNum = 0; tileNum < regionTiles.length; tileNum++) {
+				output += regionTiles.toString();
 				output += ", ";
 			}
 

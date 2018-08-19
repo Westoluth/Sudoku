@@ -25,7 +25,7 @@ public class BoardTest {
 		//Checks all board values
 		assert Arrays.equals(testBoard.getBoardValues(), testValues);
 
-		//Establishes and Checks certain segment values
+		//Establishes and Checks certain region values
 		int[] square0 = {0,1,2,3,4,5,6,7,8};
 		int[] square4 = {36,37,38,39,40,41,42,43,44};
 		int[] square8 = {72,74,75,76,77,78,79,80,81};
