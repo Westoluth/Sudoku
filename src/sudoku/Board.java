@@ -6,13 +6,13 @@ Board class used to pass board information between Sudoku app modules
 public class Board {
 	/*
 	SudokuSolver variables:
-		-tiles: Contains all tiles on board
+		-cells: Contains all cells on board
 		-squares: Contains all squares on the board
 		-rows: Contains all rows on the board
 		-columns: Contains all columns on the board
 		-regionGroups: Array containing all region groups (squares, rows, columns)
 	*/
-	private Tile[] boardTiles;
+	private Cell[] boardCells;
 	private Region[] squares;
 	private Region[] rows;
 	private Region[] columns;
@@ -23,7 +23,7 @@ public class Board {
 	*/
 	public Board(int[] rawBoard) {
 		//Initializes all member variables
-		boardTiles = new Tile[81];
+		boardCells = new Cell[81];
 		squares = new Region[9];
 		rows = new Region[9];
 		columns = new Region[9];
@@ -33,28 +33,28 @@ public class Board {
 		regionGroups[1] = rows;
 		regionGroups[2] = columns;
 
-		//Fills tiles with rawBoard
-		fillTiles(rawBoard);
+		//Fills cells with rawBoard
+		fillCells(rawBoard);
 
-		//Fills regions with tiles
+		//Fills regions with cells
 		fillRegions();
 	}
 
 	/*
-	Returns the value of a tile in the board
+	Returns the value of a cell in the board
 	*/
-	public int getTile(int tileNum) {
-		return boardTiles[tileNum].finalNum;
+	public int getCell(int cellNum) {
+		return boardCells[cellNum].finalNum;
 	}
 
 	/*
-	Returns an integer array containing the values of every tile on the board
+	Returns an integer array containing the values of every cell on the board
 	*/
 	public int[] getBoardValues() {
 		int[] boardValues = new int[81];
 
-		for(int tileNum = 0; tileNum < boardTiles.length; tileNum++) {
-			boardValues[tileNum] = boardTiles[tileNum].finalNum;
+		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
+			boardValues[cellNum] = boardCells[cellNum].finalNum;
 		}
 
 		return boardValues;
@@ -87,114 +87,114 @@ public class Board {
 	private int[] getRegion(Region targetRegion) {
 		int[] regionValues = new int[9];
 
-		for(int tileNum = 0; tileNum < targetRegion.regionTiles.length; tileNum++) {
-			regionValues[tileNum] = targetRegion.regionTiles[tileNum].finalNum;
+		for(int cellNum = 0; cellNum < targetRegion.regionCells.length; cellNum++) {
+			regionValues[cellNum] = targetRegion.regionCells[cellNum].finalNum;
 		}
 
 		return regionValues;
 	}
 	/*
-	Fills the tiles array with tiles created by the passed integer array
+	Fills the cells array with cells created by the passed integer array
 	*/
-	private void fillTiles(int[] rawBoard) {
-		for(int tileNum = 0; tileNum < boardTiles.length; tileNum++) {
-			boardTiles[tileNum] = new Tile(rawBoard[tileNum]);
+	private void fillCells(int[] rawBoard) {
+		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
+			boardCells[cellNum] = new Cell(rawBoard[cellNum]);
 		}
 	}
 
 	/*
-	Assigns tiles to the appropriate regions
+	Assigns cells to the appropriate regions
 	*/
 	private void fillRegions() {
-		//Sets up squares and adds tiles
+		//Sets up squares and adds cells
 		for(int squareNum = 0; squareNum < squares.length; squareNum++) {
 			squares[squareNum] = new Region();
 		}
 
-		for(int tileNum = 0; tileNum < boardTiles.length; tileNum++) {
-			squares[tileNum/9].addTile(boardTiles[tileNum]); 
+		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
+			squares[cellNum/9].addCell(boardCells[cellNum]); 
 		}
 
 
-		//Sets up rows and adds tiles
+		//Sets up rows and adds cells
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
 			rows[rowNum] = new Region();
 		}
 
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
-			for(int rowTilesNum = 0; rowTilesNum < rows[rowNum].regionTiles.length; rowTilesNum++) {
-				//Various forumla to assign tiles to rows
-				int tileNum = 0;
+			for(int rowCellsNum = 0; rowCellsNum < rows[rowNum].regionCells.length; rowCellsNum++) {
+				//Various forumla to assign cells to rows
+				int cellNum = 0;
 
 				if(rowNum < 3) {
-					tileNum += 0;
+					cellNum += 0;
 				} else if(rowNum < 6) {
-					tileNum += 27;
+					cellNum += 27;
 				} else if(rowNum < 9) {
-					tileNum += 54;
+					cellNum += 54;
 				}
 
 				if(rowNum%3 == 0) {
-					tileNum += 0;
+					cellNum += 0;
 				} else if(rowNum%3 == 1) {
-					tileNum += 3;
+					cellNum += 3;
 				} else if(rowNum%3 == 2) {
-					tileNum += 6;
+					cellNum += 6;
 				}
 
-				if(rowTilesNum < 3) {
-					tileNum += 0; 
-				} else if(rowTilesNum < 6) {
-					tileNum += 6;
-				} else if(rowTilesNum < 9) {
-					tileNum += 12;
+				if(rowCellsNum < 3) {
+					cellNum += 0; 
+				} else if(rowCellsNum < 6) {
+					cellNum += 6;
+				} else if(rowCellsNum < 9) {
+					cellNum += 12;
 				}
 
-				tileNum += rowTilesNum;
+				cellNum += rowCellsNum;
 
-				//Assigns tile to row
-				rows[rowNum].addTile(boardTiles[tileNum]);
+				//Assigns cell to row
+				rows[rowNum].addCell(boardCells[cellNum]);
 			}
 		}
 
-		//Sets up columns and adds tiles
+		//Sets up columns and adds cells
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
 			columns[columnnNum] = new Region();
 		}
 
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
-			for(int columnTileNum = 0; columnTileNum < columns[columnnNum].regionTiles.length; columnTileNum++) {
-				//Various forumla to assign tiles to columns
-				int tileNum = 0;
+			for(int columnCellNum = 0; columnCellNum < columns[columnnNum].regionCells.length; columnCellNum++) {
+				//Various forumla to assign cells to columns
+				int cellNum = 0;
 
-				if(columnTileNum < 3) {
-					tileNum += 0;
-				} else if(columnTileNum < 6) {
-					tileNum += 27;
-				} else if(columnTileNum < 9) {
-					tileNum += 54;
+				if(columnCellNum < 3) {
+					cellNum += 0;
+				} else if(columnCellNum < 6) {
+					cellNum += 27;
+				} else if(columnCellNum < 9) {
+					cellNum += 54;
 				}
 
-				if(columnTileNum%3 == 0) {
-					tileNum += 0;
-				} else if(columnTileNum%3 == 1) {
-					tileNum += 3;
-				} else if(columnTileNum%3 == 2) {
-					tileNum += 6;
+				if(columnCellNum%3 == 0) {
+					cellNum += 0;
+				} else if(columnCellNum%3 == 1) {
+					cellNum += 3;
+				} else if(columnCellNum%3 == 2) {
+					cellNum += 6;
 				}
 
 				if(columnnNum < 3) {
-					tileNum += 0; 
+					cellNum += 0; 
 				} else if(columnnNum < 6) {
-					tileNum += 6;
+					cellNum += 6;
 				} else if(columnnNum < 9) {
-					tileNum += 12;
+					cellNum += 12;
 				}
 
-				tileNum += columnnNum;
+				cellNum += columnnNum;
 
-				//Assigns tile to row
-				columns[columnnNum].addTile(boardTiles[tileNum]);
+				//Assigns cell to row
+				columns[columnnNum].addCell(boardCells[cellNum]);
 			}
 		}
 	}
@@ -205,37 +205,37 @@ public class Board {
 	private class Region {
 		/*
 		Region variables:
-			-regionTiles: All tiles contained in this region
+			-regionCells: All cells contained in this region
 		*/
-		public Tile[] regionTiles;
+		public Cell[] regionCells;
 
 		public Region() {
-			//Initializes regionTiles to hold 9 tiles
-			regionTiles = new Tile[9];
+			//Initializes regionCells to hold 9 cells
+			regionCells = new Cell[9];
 		}
 
 		/*
-		Adds new tile to Region
+		Adds new cell to Region
 		*/
-		public void addTile(Tile newTile) {
-			for(int tileNum = 0; tileNum < regionTiles.length; tileNum++) {
-				if(regionTiles[tileNum] == null) {
-					regionTiles[tileNum] = newTile;
+		public void addCell(Cell newCell) {
+			for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
+				if(regionCells[cellNum] == null) {
+					regionCells[cellNum] = newCell;
 					return;
 				}
 			}
 
 			//Thrown if Region is full
-			throw new RuntimeException("RegionOverfilled: Attempted to add new tile to filled region");
+			throw new RuntimeException("RegionOverfilled: Attempted to add new cell to filled region");
 		}
 
 		public String toString() {
 			//Declares and initializes output string
 			String output = "[";
 
-			//Fills output with all tile values
-			for(int tileNum = 0; tileNum < regionTiles.length; tileNum++) {
-				output += regionTiles.toString();
+			//Fills output with all cell values
+			for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
+				output += regionCells.toString();
 				output += ", ";
 			}
 
@@ -246,16 +246,16 @@ public class Board {
 	}
 
 	/*
-	A board Tile containing one number
+	A board Cell containing one number
 	*/
-	private class Tile {
+	private class Cell {
 		/*
-		Tile variables:
-			finalNum: The number contained in a tile
+		Cell variables:
+			finalNum: The number contained in a cell
 		*/
 		public int finalNum;
 
-		public Tile(int finalNum) {
+		public Cell(int finalNum) {
 			this.finalNum = finalNum;
 		}
 
