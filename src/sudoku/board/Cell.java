@@ -9,10 +9,21 @@ public class Cell {
 		finalNum: The number contained in a cell. Number 1-9 indicates that this cell has been finalized as this number.
 			A number of 0 indicates that this cell has yet to be finalized
 	*/
-	public int finalNum;
+	protected int finalNum;
 
-	public Cell(int finalNum) {
+	protected Cell(int finalNum) {
 		this.finalNum = finalNum;
+	}
+
+	/*--------------------------------------------------------------------------------
+	// Public Getter Methods 
+	--------------------------------------------------------------------------------*/
+	
+	/*
+	Returns finalNum
+	*/
+	public int getFinalNum() {
+		return finalNum;
 	}
 
 	public String toString() {
