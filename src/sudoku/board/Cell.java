@@ -1,12 +1,13 @@
 package sudoku.board;
 
 /*
-A board Cell containing one number
+A class representing a Cell on the game board
 */
 public class Cell {
 	/*
 	Cell variables:
-		finalNum: The number contained in a cell
+		finalNum: The number contained in a cell. Number 1-9 indicates that this cell has been finalized as this number.
+			A number of 0 indicates that this cell has yet to be finalized
 	*/
 	public int finalNum;
 

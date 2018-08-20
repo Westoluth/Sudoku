@@ -5,7 +5,7 @@ Board class used to pass board information between Sudoku app modules
 */
 public class Board {
 	/*
-	SudokuSolver variables:
+	Board variables:
 		-boardcells: Contains all cells on board
 		-squares: Contains all squares on the board
 		-rows: Contains all rows on the board
