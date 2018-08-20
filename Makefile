@@ -1,13 +1,16 @@
 #Main program source macros
 GUISOURCE           = $(wildcard src/sudoku/*.java)
 SOLVERSOURCE        = $(wildcard src/sudoku/solver/*.java)
+BOARDSOURCE         = $(wildcard src/sudoku/board/*.java)
 GUICLASSES          = $(patsubst src/sudoku/%.java, bin/sudoku/%.class,$(GUISOURCE))
 SOLVERCLASSES       = $(patsubst src/sudoku/solver/%.java, bin/sudoku/solver/%.class,$(SOLVERSOURCE))
-MAINSRC             = $(GUISOURCE) $(SOLVERSOURCE)
-MAINCLASSES         = $(GUICLASSES) $(SOLVERCLASSES)
+BOARDCLASSES        = $(patsubst src/board/%.java, bin/board/%.class,$(GUISOURCE))
+MAINSRC             = $(GUISOURCE) $(SOLVERSOURCE) $(BOARDSOURCE)
+MAINCLASSES         = $(GUICLASSES) $(SOLVERCLASSES) $(BOARDCLASSES)
 GUICLASSPATH        = bin/sudoku/*.class
 SOLVERCLASSPATH     = bin/sudoku/solver/*.class
-MAINCLASSPATH       = $(GUICLASSPATH) $(SOLVERCLASSPATH)
+BOARDCLASSPATH      = bin/sudoku/board/*.class
+MAINCLASSPATH       = $(GUICLASSPATH) $(SOLVERCLASSPATH) $(BOARDCLASSPATH)
 MAINCLASS           = sudoku.SudokuGUI
 MAINJARFILE         = Sudoku.jar
 MAINSRCPATH         = src/

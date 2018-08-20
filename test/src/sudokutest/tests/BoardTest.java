@@ -3,7 +3,7 @@ package sudokutest.tests;
 import org.testng.annotations.*;
 import java.util.Arrays;
 
-import sudoku.Board;
+import sudoku.board.*;
 
 public class BoardTest {
 	/*
