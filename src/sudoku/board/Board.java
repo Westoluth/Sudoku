@@ -45,7 +45,42 @@ public class Board {
 	--------------------------------------------------------------------------------*/
 
 	/*
-	Returns the integer value of a cell in the board
+	Returns a Cell at number cellNum(0-80) in the board
+	*/
+	public Cell getCell(int cellNum) {
+		return boardCells[cellNum];
+	}
+
+	/*
+	Returns a Cell array containing every cell on the board
+	*/
+	public Cell[] getBoard() {
+		return boardCells;
+	}
+
+	/*
+	Returns a Region containing all values in selected square at squareNum(0-8)
+	*/
+	public Region getSquare(int squareNum) {
+		return squares[squareNum];
+	}
+
+	/*
+	Returns a Region containing all values in selected row at rowNum(0-8)
+	*/
+	public Region getRow(int rowNum) {
+		return rows[rowNum];
+	}
+
+	/*
+	Returns a Region containing all values in selected row at columnNum(0-8)
+	*/
+	public Region getColumn(int columnNum) {
+		return columns[columnNum];
+	}
+
+	/*
+	Returns the integer value of a cell at number cellNum(0-80) in the board
 	*/
 	public int getCellValue(int cellNum) {
 		return boardCells[cellNum].finalNum;
@@ -65,21 +100,21 @@ public class Board {
 	}
 
 	/*
-	Returns an integer array containing all values in selected square 
+	Returns an integer array containing all values in selected square at squareNum(0-8)
 	*/
 	public int[] getSquareValues(int squareNum) {
-		return getRegionValues(columns[squareNum]);
+		return getRegionValues(squares[squareNum]);
 	}
 
 	/*
-	Returns an integer array containing all values in selected row 
+	Returns an integer array containing all values in selected row at rowNum(0-8)
 	*/
 	public int[] getRowValues(int rowNum) {
-		return getRegionValues(columns[rowNum]);
+		return getRegionValues(rows[rowNum]);
 	}
 
 	/*
-	Returns an integer array containing all values in selected column 
+	Returns an integer array containing all values in selected column at columnNum(0-8)
 	*/
 	public int[] getColumnValues(int columnNum) {
 		return getRegionValues(columns[columnNum]);
