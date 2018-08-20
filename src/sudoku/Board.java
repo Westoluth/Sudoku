@@ -6,7 +6,7 @@ Board class used to pass board information between Sudoku app modules
 public class Board {
 	/*
 	SudokuSolver variables:
-		-cells: Contains all cells on board
+		-boardcells: Contains all cells on board
 		-squares: Contains all squares on the board
 		-rows: Contains all rows on the board
 		-columns: Contains all columns on the board
@@ -40,10 +40,14 @@ public class Board {
 		fillRegions();
 	}
 
+	/*--------------------------------------------------------------------------------
+	// Public Getter Methods 
+	--------------------------------------------------------------------------------*/
+
 	/*
-	Returns the value of a cell in the board
+	Returns the integer value of a cell in the board
 	*/
-	public int getCell(int cellNum) {
+	public int getCellValue(int cellNum) {
 		return boardCells[cellNum].finalNum;
 	}
 
@@ -63,28 +67,32 @@ public class Board {
 	/*
 	Returns an integer array containing all values in selected square 
 	*/
-	public int[] getSquare(int squareNum) {
-		return getRegion(columns[squareNum]);
+	public int[] getSquareValues(int squareNum) {
+		return getRegionValues(columns[squareNum]);
 	}
 
 	/*
 	Returns an integer array containing all values in selected row 
 	*/
-	public int[] getRow(int rowNum) {
-		return getRegion(columns[rowNum]);
+	public int[] getRowValues(int rowNum) {
+		return getRegionValues(columns[rowNum]);
 	}
 
 	/*
 	Returns an integer array containing all values in selected column 
 	*/
-	public int[] getColumn(int columnNum) {
-		return getRegion(columns[columnNum]);
+	public int[] getColumnValues(int columnNum) {
+		return getRegionValues(columns[columnNum]);
 	}
+
+	/*--------------------------------------------------------------------------------
+	// Private Getter Helper Functions
+	--------------------------------------------------------------------------------*/
 
 	/*
 	Returns an integer array containing all values in selected region
 	*/
-	private int[] getRegion(Region targetRegion) {
+	private int[] getRegionValues(Region targetRegion) {
 		int[] regionValues = new int[9];
 
 		for(int cellNum = 0; cellNum < targetRegion.regionCells.length; cellNum++) {
@@ -93,8 +101,13 @@ public class Board {
 
 		return regionValues;
 	}
+
+	/*--------------------------------------------------------------------------------
+	// Private Setup Functions
+	--------------------------------------------------------------------------------*/
+
 	/*
-	Fills the cells array with cells created by the passed integer array
+	Fills the cells array with cells created from the passed integer array
 	*/
 	private void fillCells(int[] rawBoard) {
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
@@ -103,7 +116,7 @@ public class Board {
 	}
 
 	/*
-	Assigns cells to the appropriate regions
+	Assigns cells in boardCells to the appropriate regions
 	*/
 	private void fillRegions() {
 		//Sets up squares and adds cells
