@@ -113,20 +113,60 @@ public class SolverContextTest {
 	}
 
 	/*
-	This test creates a solver board and verifies that cell possible nums are correct
+	This test creates a solver board and verifies that basic cell possible nums are correct.
+	Does not check for cross region elimination.
 	*/
-	/*
 	@Test(groups = {"checkin", "full"})
-	public void cellPossibleNums() {
-		
+	public void basicCellPossibleNumsTest() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Sets test values to have 1,5 and 9 be contained in the first square at positions 0, 4 and 8 respectively
+		testValues[0] = 1;
+		testValues[4] = 5;
+		testValues[8] = 9;
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Updates testSolverBoard possible numbers
+		testSolverBoard.updatePossibleNums();
+
+		//Creates comparison cases
+		int totalTestCases = 9;
+
+		boolean[][] cellPossibleNumsCases = new boolean[totalTestCases][];
+		boolean[] cellPossibleNumsEmptyCase;
+
+		cellPossibleNumsCases[0] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsCases[1] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[2] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[3] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[4] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsCases[5] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[6] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[7] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsCases[8] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsEmptyCase = new boolean[]{true, true, true, true, true, true, true, true, true};
+
+		//Checks the cellPossibleNums of the first square
+		for(int testCaseNum = 0; testCaseNum < cellPossibleNumsCases.length; testCaseNum++) {
+			Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(testCaseNum).getCellPossibleNums(), cellPossibleNumsCases[testCaseNum]));
+		}
+
+		//Checks that the middle cell has all possible options open
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getCellPossibleNums(), cellPossibleNumsEmptyCase));
 	}
-	*/
+	
 
 	/*
 	This test creates a solver board and verifies that basic segment possible nums are correct
 	*/
 	@Test(groups = {"checkin", "full"})
-	public void basicSegmentPossibleNums() {
+	public void basicSegmentPossibleNumsTest() {
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -164,9 +204,9 @@ public class SolverContextTest {
 		testSolverBoard.updatePossibleNums();
 
 		//Creates comparison cases
-		int totalTestSquares = 5;
+		int totalTestCases = 5;
 
-		boolean[][] squarePossibleNumsCases = new boolean[totalTestSquares][];
+		boolean[][] squarePossibleNumsCases = new boolean[totalTestCases][];
 
 		squarePossibleNumsCases[0] = new boolean[]{true, true, true, true, true, true, true, true, true};
 		squarePossibleNumsCases[1] = new boolean[]{false, false, false, false, false, false, false, false, false};
@@ -174,9 +214,42 @@ public class SolverContextTest {
 		squarePossibleNumsCases[3] = new boolean[]{true, false, true, false, true, false, true, false, true};
 		squarePossibleNumsCases[4] = new boolean[]{false, false, false, false, true, true, true, true, true};
 
+		//Checks all regionPossibleNums against comparison cases
 		for(int testCaseNum = 0; testCaseNum < squarePossibleNumsCases.length; testCaseNum++) {
 			Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(testCaseNum).getRegionPossibleNums(), squarePossibleNumsCases[testCaseNum]));
 		}
+	}
 
+	/*
+	This test creates a solver board and verifies that cell possible nums are correct when dealing with multiple overlapping segments
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void overlapCellPossibleNumsTest() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Sets test values so that the middle cell of the board should have only one option remaining, 9.
+		testValues[10] = 1;
+		testValues[16] = 2;
+		testValues[67] = 3;
+		testValues[30] = 4;
+		testValues[32] = 5;
+		testValues[49] = 6;
+		testValues[36] = 7;
+		testValues[44] = 8;
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Updates testSolverBoard possible numbers
+		testSolverBoard.updatePossibleNums();
+
+		boolean[] centerCellCase = new boolean[]{false, false, false, false, false, false, false, false, true};
+
+		//Checks that the middle cell of the board has only a 9 available
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getCellPossibleNums(), centerCellCase));
 	}
 }

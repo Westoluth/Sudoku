@@ -18,9 +18,11 @@ public class SolverCell extends Cell{
 
 		cellPossibleNums = new boolean[9];
 
-		//Initializes cellPossibleNums to all true
-		for(int cellPossibleNumsNum = 0; cellPossibleNumsNum < cellPossibleNums.length; cellPossibleNumsNum++) {
-			cellPossibleNums[cellPossibleNumsNum] = true;
+		//Initializes cellPossibleNums to all true if cellValue equals zero, indicating a non-final number
+		if(cellValue == 0) {
+			for(int cellPossibleNumsNum = 0; cellPossibleNumsNum < cellPossibleNums.length; cellPossibleNumsNum++) {
+				cellPossibleNums[cellPossibleNumsNum] = true;
+			}
 		}
 	}
 
