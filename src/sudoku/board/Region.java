@@ -1,5 +1,7 @@
 package sudoku.board;
 
+import java.util.Arrays;
+
 /*
 Class representing a Board Region (Square, Row or Column)
 */
@@ -27,18 +29,7 @@ public class Region {
 	}
 
 	public String toString() {
-		//Declares and initializes output string
-		String output = "[";
-
-		//Fills output with all cell values
-		for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
-			output += regionCells.toString();
-			output += ", ";
-		}
-
-		output = output.substring(0, output.length()-2);
-
-		return output;
+		return Arrays.toString(regionCells);
 	}
 
 	/*--------------------------------------------------------------------------------

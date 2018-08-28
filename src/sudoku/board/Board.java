@@ -12,11 +12,11 @@ public class Board {
 		-columns: Contains all columns on the board
 		-regionGroups: Array containing all region groups (squares, rows, columns)
 	*/
-	private Cell[] boardCells;
-	private Region[] squares;
-	private Region[] rows;
-	private Region[] columns;
-	private Region[][] regionGroups;
+	protected Cell[] boardCells;
+	protected Region[] squares;
+	protected Region[] rows;
+	protected Region[] columns;
+	protected Region[][] regionGroups;
 
 	/*
 	Constructor for Board
@@ -83,7 +83,7 @@ public class Board {
 	Returns the integer value of a cell at number cellNum(0-80) in the board
 	*/
 	public int getCellValue(int cellNum) {
-		return boardCells[cellNum].finalNum;
+		return boardCells[cellNum].cellValue;
 	}
 
 	/*
@@ -93,7 +93,7 @@ public class Board {
 		int[] boardValues = new int[81];
 
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
-			boardValues[cellNum] = boardCells[cellNum].finalNum;
+			boardValues[cellNum] = boardCells[cellNum].cellValue;
 		}
 
 		return boardValues;
@@ -131,7 +131,7 @@ public class Board {
 		int[] regionValues = new int[9];
 
 		for(int cellNum = 0; cellNum < targetRegion.regionCells.length; cellNum++) {
-			regionValues[cellNum] = targetRegion.regionCells[cellNum].finalNum;
+			regionValues[cellNum] = targetRegion.regionCells[cellNum].cellValue;
 		}
 
 		return regionValues;
@@ -141,22 +141,30 @@ public class Board {
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
 
+	protected Cell createCell(int cellValue) {
+		return new Cell(cellValue);
+	}
+
+	protected Region createRegion() {
+		return new Region();
+	}
+
 	/*
 	Fills the cells array with cells created from the passed integer array
 	*/
-	private void fillCells(int[] rawBoard) {
+	protected void fillCells(int[] rawBoard) {
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
-			boardCells[cellNum] = new Cell(rawBoard[cellNum]);
+			boardCells[cellNum] = createCell(rawBoard[cellNum]);
 		}
 	}
 
 	/*
 	Assigns cells in boardCells to the appropriate regions
 	*/
-	private void fillRegions() {
+	protected void fillRegions() {
 		//Sets up squares and adds cells
 		for(int squareNum = 0; squareNum < squares.length; squareNum++) {
-			squares[squareNum] = new Region();
+			squares[squareNum] = createRegion();
 		}
 
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
@@ -166,7 +174,7 @@ public class Board {
 
 		//Sets up rows and adds cells
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
-			rows[rowNum] = new Region();
+			rows[rowNum] = createRegion();
 		}
 
 		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
@@ -207,7 +215,7 @@ public class Board {
 
 		//Sets up columns and adds cells
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {
-			columns[columnnNum] = new Region();
+			columns[columnnNum] = createRegion();
 		}
 
 		for(int columnnNum = 0; columnnNum < columns.length; columnnNum++) {

@@ -6,13 +6,13 @@ A class representing a Cell on the game board
 public class Cell {
 	/*
 	Cell variables:
-		finalNum: The number contained in a cell. Number 1-9 indicates that this cell has been finalized as this number.
+		cellValue: The number contained in a cell. Number 1-9 indicates that this cell has been finalized as this number.
 			A number of 0 indicates that this cell has yet to be finalized
 	*/
-	protected int finalNum;
+	protected int cellValue;
 
-	protected Cell(int finalNum) {
-		this.finalNum = finalNum;
+	protected Cell(int cellValue) {
+		this.cellValue = cellValue;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -20,13 +20,13 @@ public class Cell {
 	--------------------------------------------------------------------------------*/
 	
 	/*
-	Returns finalNum
+	Returns cellValue
 	*/
-	public int getFinalNum() {
-		return finalNum;
+	public int getCellValue() {
+		return cellValue;
 	}
 
 	public String toString() {
-		return String.valueOf(finalNum);
+		return String.valueOf(cellValue);
 	}
 }
