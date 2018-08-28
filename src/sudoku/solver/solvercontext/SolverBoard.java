@@ -57,10 +57,16 @@ public class SolverBoard extends Board{
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
 
+	/*
+	Overwrites createCell function to return SolverCell instead of Cell
+	*/
 	protected SolverCell createCell(int cellValue) {
 		return new SolverCell(cellValue);
 	}
 
+	/*
+	Overwrites createRegion function to return SolverRegion instead of Region
+	*/
 	protected SolverRegion createRegion() {
 		return new SolverRegion();
 	}
