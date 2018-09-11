@@ -132,9 +132,6 @@ public class SolverContextTest {
 		//Creates new solver board and passes it board
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
 
-		//Updates testSolverBoard possible numbers
-		testSolverBoard.updatePossibleNums();
-
 		//Creates comparison cases
 		int totalTestCases = 9;
 
@@ -200,9 +197,6 @@ public class SolverContextTest {
 		//Creates new solver board and passes it board
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
 
-		//Updates testSolverBoard possible numbers
-		testSolverBoard.updatePossibleNums();
-
 		//Creates comparison cases
 		int totalTestCases = 5;
 
@@ -243,9 +237,6 @@ public class SolverContextTest {
 
 		//Creates new solver board and passes it board
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
-
-		//Updates testSolverBoard possible numbers
-		testSolverBoard.updatePossibleNums();
 
 		//Declares and initializes comparison case
 		boolean[] centerCellCase = new boolean[]{false, false, false, false, false, false, false, false, true};
