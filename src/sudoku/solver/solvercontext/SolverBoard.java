@@ -12,6 +12,9 @@ public class SolverBoard extends Board{
 	public SolverBoard(Board baseBoard) {
 		//Creates all board member variables
 		super(baseBoard.getBoardValues());
+
+		//Updates board possible numbers
+		updatePossibleNums();
 	}
 
 	/*--------------------------------------------------------------------------------
