@@ -16,9 +16,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -39,9 +39,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -51,9 +51,9 @@ public class SolverContextTest {
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
 
 		//Establishes and Checks certain square region values
-		int[] square0 = {0,1,2,3,4,5,6,7,8};
-		int[] square4 = {36,37,38,39,40,41,42,43,44};
-		int[] square8 = {72,73,74,75,76,77,78,79,80};
+		int[] square0 = {1,2,3,4,5,6,7,8,9};
+		int[] square4 = {1,2,3,4,5,6,7,8,9};
+		int[] square8 = {1,2,3,4,5,6,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getSquareValues(0), square0) && Arrays.equals(testSolverBoard.getSquareValues(4), square4) && Arrays.equals(testSolverBoard.getSquareValues(8), square8));
 	}
@@ -66,9 +66,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -78,9 +78,9 @@ public class SolverContextTest {
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
 
 		//Establishes and Checks certain square region values
-		int[] row0 = {0,1,2,9,10,11,18,19,20};
-		int[] row4 = {30,31,32,39,40,41,48,49,50};
-		int[] row8 = {60,61,62,69,70,71,78,79,80};
+		int[] row0 = {1,2,3,1,2,3,1,2,3};
+		int[] row4 = {4,5,6,4,5,6,4,5,6};
+		int[] row8 = {7,8,9,7,8,9,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getRowValues(0), row0) && Arrays.equals(testSolverBoard.getRowValues(4), row4) && Arrays.equals(testSolverBoard.getRowValues(8), row8));
 	}
@@ -93,9 +93,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -105,9 +105,9 @@ public class SolverContextTest {
 		SolverBoard testSolverBoard = new SolverBoard(testBoard);
 
 		//Establishes and Checks certain square region values
-		int[] column0 = {0,3,6,27,30,33,54,57,60};
-		int[] column4 = {10,13,16,37,40,43,64,67,70};
-		int[] column8 = {20,23,26,47,50,53,74,77,80};
+		int[] column0 = {1,4,7,1,4,7,1,4,7};
+		int[] column4 = {2,5,8,2,5,8,2,5,8};
+		int[] column8 = {3,6,9,3,6,9,3,6,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getColumnValues(0), column0) && Arrays.equals(testSolverBoard.getColumnValues(4), column4) && Arrays.equals(testSolverBoard.getColumnValues(8), column8));
 	}
@@ -262,9 +262,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -288,9 +288,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -303,9 +303,9 @@ public class SolverContextTest {
 		Board upcastedTestBoard = ((Board)testSolverBoard);
 
 		//Establishes and Checks certain square region values
-		int[] square0 = {0,1,2,3,4,5,6,7,8};
-		int[] square4 = {36,37,38,39,40,41,42,43,44};
-		int[] square8 = {72,73,74,75,76,77,78,79,80};
+		int[] square0 = {1,2,3,4,5,6,7,8,9};
+		int[] square4 = {1,2,3,4,5,6,7,8,9};
+		int[] square8 = {1,2,3,4,5,6,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getSquareValues(0), square0) && Arrays.equals(upcastedTestBoard.getSquareValues(4), square4) && Arrays.equals(upcastedTestBoard.getSquareValues(8), square8));
 	}
@@ -318,9 +318,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -333,9 +333,9 @@ public class SolverContextTest {
 		Board upcastedTestBoard = ((Board)testSolverBoard);
 
 		//Establishes and Checks certain square region values
-		int[] row0 = {0,1,2,9,10,11,18,19,20};
-		int[] row4 = {30,31,32,39,40,41,48,49,50};
-		int[] row8 = {60,61,62,69,70,71,78,79,80};
+		int[] row0 = {1,2,3,1,2,3,1,2,3};
+		int[] row4 = {4,5,6,4,5,6,4,5,6};
+		int[] row8 = {7,8,9,7,8,9,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getRowValues(0), row0) && Arrays.equals(upcastedTestBoard.getRowValues(4), row4) && Arrays.equals(upcastedTestBoard.getRowValues(8), row8));
 	}
@@ -348,9 +348,9 @@ public class SolverContextTest {
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
-		//Fills test values with ints numbered 0-80
+		//Fills test values with ints numbered 1-9
 		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
-			testValues[testValueNum] = testValueNum;
+			testValues[testValueNum] = (testValueNum%9)+1;
 		}
 
 		//Creates new board and passes it testValues
@@ -363,9 +363,9 @@ public class SolverContextTest {
 		Board upcastedTestBoard = ((Board)testSolverBoard);
 
 		//Establishes and Checks certain square region values
-		int[] column0 = {0,3,6,27,30,33,54,57,60};
-		int[] column4 = {10,13,16,37,40,43,64,67,70};
-		int[] column8 = {20,23,26,47,50,53,74,77,80};
+		int[] column0 = {1,4,7,1,4,7,1,4,7};
+		int[] column4 = {2,5,8,2,5,8,2,5,8};
+		int[] column8 = {3,6,9,3,6,9,3,6,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getColumnValues(0), column0) && Arrays.equals(upcastedTestBoard.getColumnValues(4), column4) && Arrays.equals(upcastedTestBoard.getColumnValues(8), column8));
 	}
