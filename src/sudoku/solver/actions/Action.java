@@ -1,4 +1,4 @@
-package sudoku.solver.rules;
+package sudoku.solver.actions;
 
 import sudoku.solver.solvercontext.*;
 
