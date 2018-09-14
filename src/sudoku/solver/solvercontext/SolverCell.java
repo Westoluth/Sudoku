@@ -23,6 +23,8 @@ public class SolverCell extends Cell{
 			for(int cellPossibleNumsNum = 0; cellPossibleNumsNum < cellPossibleNums.length; cellPossibleNumsNum++) {
 				cellPossibleNums[cellPossibleNumsNum] = true;
 			}
+		} else {
+			cellPossibleNums[cellValue-1] = true;
 		}
 	}
 

@@ -138,15 +138,15 @@ public class SolverContextTest {
 		boolean[][] cellPossibleNumsCases = new boolean[totalTestCases][];
 		boolean[] cellPossibleNumsEmptyCase;
 
-		cellPossibleNumsCases[0] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsCases[0] = new boolean[]{true, false, false, false, false, false, false, false, false};
 		cellPossibleNumsCases[1] = new boolean[]{false, true, true, true, false, true, true, true, false};
 		cellPossibleNumsCases[2] = new boolean[]{false, true, true, true, false, true, true, true, false};
 		cellPossibleNumsCases[3] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[4] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsCases[4] = new boolean[]{false, false, false, false, true, false, false, false, false};
 		cellPossibleNumsCases[5] = new boolean[]{false, true, true, true, false, true, true, true, false};
 		cellPossibleNumsCases[6] = new boolean[]{false, true, true, true, false, true, true, true, false};
 		cellPossibleNumsCases[7] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[8] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		cellPossibleNumsCases[8] = new boolean[]{false, false, false, false, false, false, false, false, true};
 		cellPossibleNumsEmptyCase = new boolean[]{true, true, true, true, true, true, true, true, true};
 
 		//Checks the cellPossibleNums of the first square
