@@ -63,8 +63,8 @@ public class SolverBoard extends Board{
 	/*
 	Overwrites createCell function to return SolverCell instead of Cell
 	*/
-	protected SolverCell createCell(int cellValue) {
-		return new SolverCell(cellValue);
+	protected SolverCell createCell(int cellValue, int cellId) {
+		return new SolverCell(cellValue, cellId);
 	}
 
 	/*
