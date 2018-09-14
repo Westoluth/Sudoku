@@ -18,7 +18,10 @@ public class SolverCell extends Cell{
 
 		cellPossibleNums = new boolean[9];
 
-		//Initializes cellPossibleNums to all true if cellValue equals zero, indicating a non-final number
+		/*
+		Initializes cellPossibleNums to all true if cellValue equals zero, indicating a non-final number.
+		If cellValue is not 0, sets only the cellPossibleNum corresponding to the value to true.
+		*/
 		if(cellValue == 0) {
 			for(int cellPossibleNumsNum = 0; cellPossibleNumsNum < cellPossibleNums.length; cellPossibleNumsNum++) {
 				cellPossibleNums[cellPossibleNumsNum] = true;
@@ -42,6 +45,21 @@ public class SolverCell extends Cell{
 	/*--------------------------------------------------------------------------------
 	// Public Management Functions
 	--------------------------------------------------------------------------------*/
+
+	/*
+	Sets the cellValue to to the number and adjusts cellPossibleNums accordingly
+	*/
+	public void setValue(int value) {
+		//Sets cellValue
+		cellValue = value;
+
+		//Sells all cellPossibleNums to false except for the one corresponding to cellValue
+		for(int cellPossibleNumsNum = 0; cellPossibleNumsNum < cellPossibleNums.length; cellPossibleNumsNum++) {
+			if(cellPossibleNumsNum != cellValue-1) {
+				cellPossibleNums[cellPossibleNumsNum] = false;
+			}
+		}
+	}
 
 	/*
 	Removes a possible number from cellPossibleNums.
