@@ -13,8 +13,8 @@ public class SolverCell extends Cell{
 	*/
 	protected boolean[] cellPossibleNums;
 
-	protected SolverCell(int cellValue) {
-		super(cellValue);
+	protected SolverCell(int cellValue, int cellId) {
+		super(cellValue, cellId);
 
 		cellPossibleNums = new boolean[9];
 

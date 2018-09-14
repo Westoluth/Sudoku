@@ -141,8 +141,8 @@ public class Board {
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
 
-	protected Cell createCell(int cellValue) {
-		return new Cell(cellValue);
+	protected Cell createCell(int cellValue, int cellId) {
+		return new Cell(cellValue, cellId);
 	}
 
 	protected Region createRegion() {
@@ -154,7 +154,7 @@ public class Board {
 	*/
 	protected void fillCells(int[] rawBoard) {
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
-			boardCells[cellNum] = createCell(rawBoard[cellNum]);
+			boardCells[cellNum] = createCell(rawBoard[cellNum], cellNum);
 		}
 	}
 

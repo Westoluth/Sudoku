@@ -28,6 +28,29 @@ public class BoardTest {
 	}
 
 	/*
+	This test creates a board and verifies that all cellId variables are created and retrieved properly
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void boardCellIdTest() {
+		//Declares array full of test values to be passed to board
+		int[] testValues = new int[81];
+
+		//Fills test values with ints numbered 0-80
+		for(int testValueNum = 0; testValueNum < testValues.length; testValueNum++) {
+			testValues[testValueNum] = testValueNum;
+		}
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Checks all cellId values
+		for(int cellNum = 0; cellNum < testValues.length; cellNum++) {
+			Assert.assertTrue(testBoard.getCell(cellNum).getCellId() == testValues[cellNum]);
+		}
+	}
+
+
+	/*
 	This test creates a board and verifies that squares are created and the cells inside them properly sorted
 	*/
 	@Test(groups = {"checkin", "full"})
