@@ -80,6 +80,15 @@ public class Board {
 	}
 
 	/*
+	Returns a specified Region of the Board. 
+	regionType indicates the type of Region (0 = squares, 1 = rows, 2 = columns).
+	regionId indicates the number it is in it's Region array.
+	*/
+	public Region getRegion(int regionType, int regionId) {
+		return regionGroups[regionType][regionId];
+	}
+
+	/*
 	Returns the integer value of a cell at number cellNum(0-80) in the board
 	*/
 	public int getCellValue(int cellNum) {

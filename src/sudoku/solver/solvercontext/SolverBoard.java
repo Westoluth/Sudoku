@@ -56,6 +56,16 @@ public class SolverBoard extends Board{
 		return (SolverRegion)columns[columnNum];
 	}
 
+	/*
+	Returns a specified SolverRegion of the SolverBoard. 
+	regionType indicates the type of SolverRegion (0 = squares, 1 = rows, 2 = columns).
+	regionId indicates the number it is in it's SolverRegion array.
+	*/
+	public SolverRegion getRegion(int regionType, int regionId) {
+		return (SolverRegion)regionGroups[regionType][regionId];
+	}
+
+
 	/*--------------------------------------------------------------------------------
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
