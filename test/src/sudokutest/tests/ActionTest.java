@@ -31,7 +31,7 @@ public class ActionTest {
 		testAction.applyAction(testSolverBoard);
 
 		//Creates comparison cases
-		boolean[] squareTestCase = new boolean[]{false, false, false, false, false, false, false, false, false};
+		boolean[] squareTestCase = new boolean[]{true, true, true, true, false, true, true, true, true};
 
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(0).getRegionPossibleNums(),squareTestCase));
