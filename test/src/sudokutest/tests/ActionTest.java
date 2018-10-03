@@ -60,4 +60,38 @@ public class ActionTest {
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(testSolverBoard.getCellValue(40) == 5);
 	}
+
+	/*
+	This test creates a solver board, uses the RemoveCellPossibleNums action on a certain cell, and then verifies
+	that the numbers have been properly removed.
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void removeCellPossibleNums() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Creates an action to remove 1 as a possible number for cell 0
+		Action testAction1 = new RemoveCellPossibleNums(0, 1);
+
+		//Creates an action to remove 2,3, and 4 as possible numbers for cell 0
+		int[] possibleNums = {2,3,4};
+		Action testAction2 = new RemoveCellPossibleNums(0, possibleNums);
+
+		//Creates comparison cases
+		boolean[] cellTestCase1 = new boolean[]{false, true, true, true, true, true, true, true, true};
+		boolean[] cellTestCase2 = new boolean[]{false, false, false, false, true, true, true, true, true};
+
+		//Applies actions and checks results
+		testAction1.applyAction(testSolverBoard);
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(0).getCellPossibleNums(), cellTestCase1));
+
+		testAction2.applyAction(testSolverBoard);
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(0).getCellPossibleNums(), cellTestCase2));
+	}
 }
