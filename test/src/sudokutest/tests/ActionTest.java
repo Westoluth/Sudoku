@@ -10,8 +10,7 @@ import sudoku.solver.actions.*;
 
 public class ActionTest {
 	/*
-	This test creates a solver board and verifies that the UpdatePossibleNums Action properly
-	updates possible nums.
+	This test creates a solver board and verifies that the UpdatePossibleNums Action properly updates possible nums.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void updatePossibleNumsTest() {
@@ -39,8 +38,7 @@ public class ActionTest {
 	}
 
 	/*
-	This test creates a solver board, uses the SetCellValue action on a certain cell, and then verifies
-	that it has been properly set.
+	This test creates a solver board, uses the SetCellValue action on a certain cell, and then verifies that it has been properly set.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void setCellValueTest() {
@@ -62,8 +60,7 @@ public class ActionTest {
 	}
 
 	/*
-	This test creates a solver board, uses the RemoveCellPossibleNums action on a certain cell, and then verifies
-	that the numbers have been properly removed.
+	This test creates a solver board, uses the RemoveCellPossibleNums action on a certain cell, and then verifies that the numbers have been properly removed.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void removeCellPossibleNumsTest() {
@@ -96,8 +93,7 @@ public class ActionTest {
 	}
 
 	/*
-	This test creates a solver board, uses the RemoveRegionPossibleNums action on a certain region, and then verifies
-	that the numbers have been properly removed.
+	This test creates a solver board, uses the RemoveRegionPossibleNums action on a certain region, and then verifies that the numbers have been properly removed.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void removeRegionPossibleNumsTest() {

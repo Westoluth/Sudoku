@@ -3,7 +3,7 @@ package sudoku.solver.actions;
 import sudoku.solver.solvercontext.*;
 
 /*
-An Action to remove one or more possible numbers from a SolverCell
+An Action to remove a single number or an array of numbers from a Cell's possible numbers
 */
 public class RemoveCellPossibleNums implements Action {
 	/*

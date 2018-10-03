@@ -2,6 +2,9 @@ package sudoku.solver.actions;
 
 import sudoku.solver.solvercontext.*;
 
+/*
+An Action to remove a single number or an array of numbers from a Region's possible numbers
+*/
 public class RemoveRegionPossibleNums implements Action {
 	/*
 	RemoveRegionPossibleNums variables:
