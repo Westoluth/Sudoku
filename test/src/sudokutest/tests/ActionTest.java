@@ -66,7 +66,7 @@ public class ActionTest {
 	that the numbers have been properly removed.
 	*/
 	@Test(groups = {"checkin", "full"})
-	public void removeCellPossibleNums() {
+	public void removeCellPossibleNumsTest() {
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -93,5 +93,39 @@ public class ActionTest {
 
 		testAction2.applyAction(testSolverBoard);
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(0).getCellPossibleNums(), cellTestCase2));
+	}
+
+	/*
+	This test creates a solver board, uses the RemoveRegionPossibleNums action on a certain region, and then verifies
+	that the numbers have been properly removed.
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void removeRegionPossibleNumsTest() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Creates an action to remove 1 as a possible number for square 0
+		Action testAction1 = new RemoveRegionPossibleNums(0, 0, 1);
+
+		//Creates an action to remove 2,3, and 4 as possible numbers for square 0
+		int[] possibleNums = {2,3,4};
+		Action testAction2 = new RemoveRegionPossibleNums(0, 0, possibleNums);
+
+		//Creates comparison cases
+		boolean[] regionTestCase1 = new boolean[]{false, true, true, true, true, true, true, true, true};
+		boolean[] regionTestCase2 = new boolean[]{false, false, false, false, true, true, true, true, true};
+
+		//Applies actions and checks results
+		testAction1.applyAction(testSolverBoard);
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getRegion(0,0).getRegionPossibleNums(), regionTestCase1));
+		
+		testAction2.applyAction(testSolverBoard);
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getRegion(0,0).getRegionPossibleNums(), regionTestCase2));
 	}
 }
