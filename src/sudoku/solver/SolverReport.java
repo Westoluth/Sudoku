@@ -2,6 +2,7 @@ package sudoku.solver;
 
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.rules.*;
+import sudoku.solver.actions.*;
 
 public class SolverReport {
 	/*

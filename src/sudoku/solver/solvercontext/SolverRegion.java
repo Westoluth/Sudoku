@@ -29,7 +29,16 @@ public class SolverRegion extends Region{
 	Returns the SolverCell array regionCells
 	*/
 	public SolverCell[] getCells() {
-		return (SolverCell[])regionCells;
+		//Creates pointer list of SolverCells
+		SolverCell[] regionSolverCells = new SolverCell[regionCells.length];
+
+		//Copies all regionCells to regionSolverCells
+		for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
+			regionSolverCells[cellNum] = (SolverCell)regionCells[cellNum];
+		}
+
+		//Returns filled regionSolverCells
+		return regionSolverCells;
 	}
 
 	/*
@@ -90,6 +99,4 @@ public class SolverRegion extends Region{
 			}
 		}
 	}
-
-
 }
