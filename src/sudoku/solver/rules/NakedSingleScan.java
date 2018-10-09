@@ -1,0 +1,45 @@
+package sudoku.solver.rules;
+
+import sudoku.solver.solvercontext.*;
+import sudoku.solver.actions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class NakedSingleScan implements Rule {
+	public Action[] applyRule(SolverBoard inputBoard) {
+		//Declares shorthand variables
+		SolverCell[] inputCells = inputBoard.getBoard();
+
+		//Declares action list
+		List<Action> actionList = new ArrayList<Action>();
+
+		//Iterates through every cell in inputBoard
+		for(int cellNum = 0; cellNum < inputCells.length; cellNum++) {
+			//Declares shorthand variables
+			SolverCell targetCell = inputCells[cellNum];
+
+			//Counts the number of possible numbers in each cell
+			int possibleNumsTally = 0;
+
+			for(int possNumIter = 0; possNumIter < targetCell.getCellPossibleNums().length; possNumIter++) {
+				if(targetCell.getCellPossibleNums()[possNumIter]) {
+					possibleNumsTally++;
+				}
+			}
+
+			//If there is only one possible number left, the cell is final so add an action setting the cell value to actionList
+			if(possibleNumsTally == 1) {
+				for(int possNumIter = 0; possNumIter < targetCell.getCellPossibleNums().length; possNumIter++) {
+					if(targetCell.getCellPossibleNums()[possNumIter]) {
+						actionList.add(new SetCellValue(targetCell.getCellId(), possNumIter+1));
+					}
+				}
+			}
+		}
+
+		//Converts Action list to an array and returns it
+		Action[] actionArray = new Action[actionList.size()];
+		actionArray = actionList.toArray(actionArray);
+		return actionArray;
+	}
+}
