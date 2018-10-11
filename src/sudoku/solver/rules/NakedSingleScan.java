@@ -32,6 +32,7 @@ public class NakedSingleScan implements Rule {
 				for(int possNumIter = 0; possNumIter < targetCell.getCellPossibleNums().length; possNumIter++) {
 					if(targetCell.getCellPossibleNums()[possNumIter]) {
 						actionList.add(new SetCellValue(targetCell.getCellId(), possNumIter+1));
+						break;
 					}
 				}
 			}
