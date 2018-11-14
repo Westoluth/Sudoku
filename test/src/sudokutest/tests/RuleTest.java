@@ -48,7 +48,7 @@ public class RuleTest {
 	This test verifies that the NakedSingleScan Rule properly finds naked singles.
 	*/
 	@Test(groups = {"checkin", "full"})
-	public void nakedSingleScan() {
+	public void nakedSingleScanTest() {
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -97,7 +97,7 @@ public class RuleTest {
 	This test verifies that the HiddenSingleScan Rule properly finds hidden singles.
 	*/
 	@Test(groups = {"checkin", "full"})
-	public void hiddenSingleScan() {
+	public void hiddenSingleScanTest() {
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
