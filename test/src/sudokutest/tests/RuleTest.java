@@ -3,8 +3,6 @@ package sudokutest.tests;
 import org.testng.annotations.*;
 import org.testng.Assert;
 import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 
 import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
@@ -69,9 +67,6 @@ public class RuleTest {
 		testSolverBoard.getCell(50).setValue(6);
 		testSolverBoard.getCell(67).setValue(7);
 		testSolverBoard.getCell(70).setValue(8);
-
-		//Creates UpdateBoard and NakedSingleScan rules and runs them on testSolverBoard, saving all actions to testActions
-		List<Action> testActionsList = new ArrayList<Action>();
 
 		//Gets actions from UpdateBoardRule
 		Rule updateRule = new UpdateBoard();
