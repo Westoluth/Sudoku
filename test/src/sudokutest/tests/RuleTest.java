@@ -93,4 +93,52 @@ public class RuleTest {
 		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
 	}
 
+	/*
+	This test verifies that the HiddenSingleScan Rule properly finds hidden singles.
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void hiddenSingleScan() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Sets testSolverBoard values to cause cell 40 to become a hidden single
+		testSolverBoard.getCell(10).setValue(1);
+		testSolverBoard.getCell(13).setValue(2);
+		testSolverBoard.getCell(64).setValue(3);
+		testSolverBoard.getCell(70).setValue(4);
+		testSolverBoard.getCell(14).setValue(5);
+		testSolverBoard.getCell(35).setValue(5);
+		testSolverBoard.getCell(45).setValue(5);
+		testSolverBoard.getCell(58).setValue(5);
+
+		//Gets actions from UpdateBoardRule
+		Rule updateRule = new UpdateBoard();
+		Action[] testActions = updateRule.applyRule(testSolverBoard);
+
+		//Applies all actions to testBoard
+		for(int actionNum = 0; actionNum < testActions.length; actionNum++) {
+			testActions[actionNum].applyAction(testSolverBoard);
+		}
+
+		//Gets actions from HiddenSingleScan
+		Rule  testRule = new HiddenSingleScan();
+		testActions = testRule.applyRule(testSolverBoard);
+
+		//Applies all actions to testBoard
+		for(int actionNum = 0; actionNum < testActions.length; actionNum++) {
+			testActions[actionNum].applyAction(testSolverBoard);
+		}
+
+		//Creates comparison cases
+		int cellTestCase = 5;
+
+		//Checks all regionPossibleNums against comparison cases
+		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
+	}
 }
