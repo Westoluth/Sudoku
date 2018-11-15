@@ -135,27 +135,71 @@ public class SolverContextTest {
 		//Creates comparison cases
 		int totalTestCases = 9;
 
-		boolean[][] cellPossibleNumsCases = new boolean[totalTestCases][];
-		boolean[] cellPossibleNumsEmptyCase;
+		//Creates boolean test cases
+		boolean[][] cellPossibleNumsBooleanCases = new boolean[totalTestCases][];
+		boolean[] cellPossibleNumsBooleanEmptyCase;
 
-		cellPossibleNumsCases[0] = new boolean[]{true, false, false, false, false, false, false, false, false};
-		cellPossibleNumsCases[1] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[2] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[3] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[4] = new boolean[]{false, false, false, false, true, false, false, false, false};
-		cellPossibleNumsCases[5] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[6] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[7] = new boolean[]{false, true, true, true, false, true, true, true, false};
-		cellPossibleNumsCases[8] = new boolean[]{false, false, false, false, false, false, false, false, true};
-		cellPossibleNumsEmptyCase = new boolean[]{true, true, true, true, true, true, true, true, true};
+		cellPossibleNumsBooleanCases[0] = new boolean[]{true, false, false, false, false, false, false, false, false};
+		cellPossibleNumsBooleanCases[1] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[2] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[3] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[4] = new boolean[]{false, false, false, false, true, false, false, false, false};
+		cellPossibleNumsBooleanCases[5] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[6] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[7] = new boolean[]{false, true, true, true, false, true, true, true, false};
+		cellPossibleNumsBooleanCases[8] = new boolean[]{false, false, false, false, false, false, false, false, true};
+		cellPossibleNumsBooleanEmptyCase = new boolean[]{true, true, true, true, true, true, true, true, true};
 
-		//Checks the cellPossibleNums of the first square
-		for(int testCaseNum = 0; testCaseNum < cellPossibleNumsCases.length; testCaseNum++) {
-			Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(testCaseNum).getCellPossibleNums(), cellPossibleNumsCases[testCaseNum]));
+		//Creates int test cases
+		int[][] cellPossibleNumsIntCases = new int[totalTestCases][];
+		int[] cellPossibleNumsIntEmptyCase;
+
+		cellPossibleNumsIntCases[0] = new int[]{1};
+		cellPossibleNumsIntCases[1] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[2] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[3] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[4] = new int[]{5};
+		cellPossibleNumsIntCases[5] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[6] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[7] = new int[]{2, 3, 4, 6, 7, 8};
+		cellPossibleNumsIntCases[8] = new int[]{9};
+		cellPossibleNumsIntEmptyCase = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+		//Creates count test cases
+		int[] cellPossibleNumsCountCases = new int[totalTestCases];
+		int cellPossibleNumsCountEmptyCase;
+
+		cellPossibleNumsCountCases[0] = 1;
+		cellPossibleNumsCountCases[1] = 6;
+		cellPossibleNumsCountCases[2] = 6;
+		cellPossibleNumsCountCases[3] = 6;
+		cellPossibleNumsCountCases[4] = 1;
+		cellPossibleNumsCountCases[5] = 6;
+		cellPossibleNumsCountCases[6] = 6;
+		cellPossibleNumsCountCases[7] = 6;
+		cellPossibleNumsCountCases[8] = 1;
+		cellPossibleNumsCountEmptyCase = 9;
+
+		//Checks the cellPossibleNums of the first square against boolean comparison cases
+		for(int testCaseNum = 0; testCaseNum < cellPossibleNumsBooleanCases.length; testCaseNum++) {
+			Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(testCaseNum).getCellPossibleNums(), cellPossibleNumsBooleanCases[testCaseNum]));
 		}
 
-		//Checks that the middle cell has all possible options open
-		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getCellPossibleNums(), cellPossibleNumsEmptyCase));
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getCellPossibleNums(), cellPossibleNumsBooleanEmptyCase));
+
+		//Checks the cellPossibleNums of the first square against boolean comparison cases
+		for(int testCaseNum = 0; testCaseNum < cellPossibleNumsIntCases.length; testCaseNum++) {
+			Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(testCaseNum).getIntCellPossibleNums(), cellPossibleNumsIntCases[testCaseNum]));
+		}
+
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getIntCellPossibleNums(), cellPossibleNumsIntEmptyCase));
+
+		//Checks the cellPossibleNums of the first square against boolean comparison cases
+		for(int testCaseNum = 0; testCaseNum < cellPossibleNumsCountCases.length; testCaseNum++) {
+			Assert.assertTrue(testSolverBoard.getCell(testCaseNum).countCellPossibleNums() == cellPossibleNumsCountCases[testCaseNum]);
+		}
+
+		Assert.assertTrue(testSolverBoard.getCell(40).countCellPossibleNums() == cellPossibleNumsCountEmptyCase);
 	}
 	
 
@@ -200,18 +244,49 @@ public class SolverContextTest {
 		//Creates comparison cases
 		int totalTestCases = 5;
 
-		boolean[][] squarePossibleNumsCases = new boolean[totalTestCases][];
+		//Creates boolean test cases
+		boolean[][] squarePossibleNumsBooleanCases = new boolean[totalTestCases][];
 
-		squarePossibleNumsCases[0] = new boolean[]{true, true, true, true, true, true, true, true, true};
-		squarePossibleNumsCases[1] = new boolean[]{false, false, false, false, false, false, false, false, false};
-		squarePossibleNumsCases[2] = new boolean[]{false, true, false, true, false, true, false, true, false};
-		squarePossibleNumsCases[3] = new boolean[]{true, false, true, false, true, false, true, false, true};
-		squarePossibleNumsCases[4] = new boolean[]{false, false, false, false, true, true, true, true, true};
+		squarePossibleNumsBooleanCases[0] = new boolean[]{true, true, true, true, true, true, true, true, true};
+		squarePossibleNumsBooleanCases[1] = new boolean[]{false, false, false, false, false, false, false, false, false};
+		squarePossibleNumsBooleanCases[2] = new boolean[]{false, true, false, true, false, true, false, true, false};
+		squarePossibleNumsBooleanCases[3] = new boolean[]{true, false, true, false, true, false, true, false, true};
+		squarePossibleNumsBooleanCases[4] = new boolean[]{false, false, false, false, true, true, true, true, true};
 
-		//Checks all regionPossibleNums against comparison cases
-		for(int testCaseNum = 0; testCaseNum < squarePossibleNumsCases.length; testCaseNum++) {
-			Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(testCaseNum).getRegionPossibleNums(), squarePossibleNumsCases[testCaseNum]));
+		//Creates int test cases
+		int[][] squarePossibleNumsIntCases = new int[totalTestCases][];
+
+		squarePossibleNumsIntCases[0] = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+		squarePossibleNumsIntCases[1] = new int[]{};
+		squarePossibleNumsIntCases[2] = new int[]{2, 4, 6, 8};
+		squarePossibleNumsIntCases[3] = new int[]{1, 3, 5, 7, 9};
+		squarePossibleNumsIntCases[4] = new int[]{5, 6, 7, 8, 9};
+
+		//Creates count test cases
+		int[] squarePossibleNumsCountCases = new int[totalTestCases];
+
+		squarePossibleNumsCountCases[0] = 9;
+		squarePossibleNumsCountCases[1] = 0;
+		squarePossibleNumsCountCases[2] = 4;
+		squarePossibleNumsCountCases[3] = 5;
+		squarePossibleNumsCountCases[4] = 5;
+
+
+		//Checks all regionPossibleNums against boolean comparison cases
+		for(int testCaseNum = 0; testCaseNum < squarePossibleNumsBooleanCases.length; testCaseNum++) {
+			Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(testCaseNum).getRegionPossibleNums(), squarePossibleNumsBooleanCases[testCaseNum]));
 		}
+
+		//Checks all regionPossibleNums against int comparison cases
+		for(int testCaseNum = 0; testCaseNum < squarePossibleNumsIntCases.length; testCaseNum++) {
+			Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(testCaseNum).getIntRegionPossibleNums(), squarePossibleNumsIntCases[testCaseNum]));
+		}
+
+		//Checks all regionPossibleNums against count comparison cases
+		for(int testCaseNum = 0; testCaseNum < squarePossibleNumsCountCases.length; testCaseNum++) {
+			Assert.assertTrue(testSolverBoard.getSquare(testCaseNum).countRegionPossibleNums() == squarePossibleNumsCountCases[testCaseNum]);
+		}
+
 	}
 
 	/*

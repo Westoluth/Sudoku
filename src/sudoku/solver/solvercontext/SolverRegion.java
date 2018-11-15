@@ -42,10 +42,42 @@ public class SolverRegion extends Region{
 	}
 
 	/*
-	Returns cellPossibleNums
+	Returns regionPossibleNums
 	*/
 	public boolean[] getRegionPossibleNums() {
 		return regionPossibleNums;
+	}
+
+	/*
+	Returns an int array of regionPossibleNums values
+	*/
+	public int[] getIntRegionPossibleNums() {
+		int[] possibleNums = new int[countRegionPossibleNums()];
+		int possibleNumsArrayIter = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < regionPossibleNums.length; possibleNumIter++) {
+			if(regionPossibleNums[possibleNumIter]) {
+				possibleNums[possibleNumsArrayIter] = possibleNumIter+1;
+				possibleNumsArrayIter++;
+			}
+		}
+
+		return possibleNums;
+	}
+
+	/*
+	Returns the number of possible nums remaining in the region
+	*/
+	public int countRegionPossibleNums() {
+		int possibleNumsCount = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < regionPossibleNums.length; possibleNumIter++) {
+			if(regionPossibleNums[possibleNumIter]) {
+				possibleNumsCount++;
+			}
+		}
+
+		return possibleNumsCount;
 	}
 
 	/*--------------------------------------------------------------------------------

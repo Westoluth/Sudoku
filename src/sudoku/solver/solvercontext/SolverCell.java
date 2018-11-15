@@ -34,12 +34,43 @@ public class SolverCell extends Cell{
 	/*--------------------------------------------------------------------------------
 	// Public Getter Methods 
 	--------------------------------------------------------------------------------*/
-
 	/*
 	Returns cellPossibleNums
 	*/
 	public boolean[] getCellPossibleNums() {
 		return cellPossibleNums;
+	}
+
+	/*
+	Returns an int array of cellPossibleNums values
+	*/
+	public int[] getIntCellPossibleNums() {
+		int[] possibleNums = new int[countCellPossibleNums()];
+		int possibleNumsArrayIter = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < cellPossibleNums.length; possibleNumIter++) {
+			if(cellPossibleNums[possibleNumIter]) {
+				possibleNums[possibleNumsArrayIter] = possibleNumIter+1;
+				possibleNumsArrayIter++;
+			}
+		}
+
+		return possibleNums;
+	}
+
+	/*
+	Returns the number of possible nums remaining in the cell
+	*/
+	public int countCellPossibleNums() {
+		int possibleNumsCount = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < cellPossibleNums.length; possibleNumIter++) {
+			if(cellPossibleNums[possibleNumIter]) {
+				possibleNumsCount++;
+			}
+		}
+
+		return possibleNumsCount;
 	}
 
 	/*--------------------------------------------------------------------------------
