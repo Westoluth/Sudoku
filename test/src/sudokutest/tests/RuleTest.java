@@ -89,7 +89,7 @@ public class RuleTest {
 		//Creates comparison cases
 		int cellTestCase = 9;
 
-		//Checks all regionPossibleNums against comparison cases
+		//Checks cell against comparison cases
 		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
 	}
 
@@ -138,7 +138,58 @@ public class RuleTest {
 		//Creates comparison cases
 		int cellTestCase = 5;
 
-		//Checks all regionPossibleNums against comparison cases
+		//Checks cell against comparison cases
 		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
+	}
+
+	/*
+	This test verifies that the NakedPairScan Rule properly finds naked pairs.
+	*/
+	@Test(groups = {"checkin", "full"})
+	public void nakedPairScanTest() {
+		//Declares an initial empty array
+		int[] testValues = new int[81];
+
+		//Creates new board and passes it testValues
+		Board testBoard = new Board(testValues);
+
+		//Creates new solver board and passes it board
+		SolverBoard testSolverBoard = new SolverBoard(testBoard);
+
+		//Sets testSolverBoard values to cause cell 40 to become a hidden single
+		testSolverBoard.getCell(10).setValue(1);
+		testSolverBoard.getCell(16).setValue(2);
+		testSolverBoard.getCell(40).setValue(5);
+		testSolverBoard.getCell(64).setValue(3);
+		testSolverBoard.getCell(70).setValue(4);
+		testSolverBoard.getCell(12).setValue(8);
+		testSolverBoard.getCell(14).setValue(9);
+		testSolverBoard.getCell(57).setValue(8);
+		testSolverBoard.getCell(77).setValue(9);
+
+		//Gets actions from UpdateBoardRule
+		Rule updateRule = new UpdateBoard();
+		Action[] testActions = updateRule.applyRule(testSolverBoard);
+
+		//Applies all actions to testBoard
+		for(int actionNum = 0; actionNum < testActions.length; actionNum++) {
+			testActions[actionNum].applyAction(testSolverBoard);
+		}
+
+		//Gets actions from NakedPairScan
+		Rule  testRule = new NakedPairScan();
+		testActions = testRule.applyRule(testSolverBoard);
+
+		//Applies all actions to testBoard
+		for(int actionNum = 0; actionNum < testActions.length; actionNum++) {
+			testActions[actionNum].applyAction(testSolverBoard);
+		}
+
+		//Creates comparison cases
+		int[] cellTestCase = {8, 9};
+
+		//Checks all regionPossibleNums against comparison cases
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(37).getIntCellPossibleNums(), cellTestCase));
+		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(43).getIntCellPossibleNums(), cellTestCase));
 	}
 }

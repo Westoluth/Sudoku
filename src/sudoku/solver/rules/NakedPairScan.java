@@ -23,7 +23,6 @@ public class NakedPairScan implements Rule {
 				List<int[]> pairList = new ArrayList<>();
 				List<int[]> nakedPairList = new ArrayList<>();
 
-
 				/*
 				Iterates through every cell and checks if cell only has a pair of possible numbers
 				If so, it adds it to pairList.
@@ -47,7 +46,7 @@ public class NakedPairScan implements Rule {
 				while(!pairList.isEmpty()){
 					//Selects the first pair in the list as target
 					int[] targetPair = pairList.remove(0);
-					int targetCount = 0;
+					int targetCount = 1; //Counting the targetPair already removed
 
 					//Checks the rest of the list for another instance of targetPair
 					int pairIter = 0;
@@ -73,14 +72,14 @@ public class NakedPairScan implements Rule {
 				for(int pairIter = 0; pairIter < nakedPairList.size(); pairIter++) {
 					//Sets target pair
 					int[] targetPair = nakedPairList.get(pairIter);
-
+					
 					//Iterates through every cell in region
 					for(int cellNum = 0; cellNum < targetCells.length; cellNum++) {
 						//Sets target cell
 						SolverCell targetCell = targetCells[cellNum];
 
 						//Confirms the targetCell doesn't have only the pair as possible nums
-						if(Arrays.equals(targetCell.getIntCellPossibleNums(), targetPair)) {
+						if(!Arrays.equals(targetCell.getIntCellPossibleNums(), targetPair)) {
 							/*
 							Determines which elements of the naked pair are present in the possible nums
 							of this cell. This is done instead of removing all possible nums, even those
@@ -91,7 +90,7 @@ public class NakedPairScan implements Rule {
 
 							//Checks all pair numbers agains the cell
 							for(int pairNumIter = 0; pairNumIter < targetPair.length; pairNumIter++) {
-								if(targetCell.getCellPossibleNums()[targetPair[pairNumIter]]) {
+								if(targetCell.getCellPossibleNums()[targetPair[pairNumIter]-1]) {
 									presentNums.add(targetPair[pairNumIter]);
 								}								
 							}
