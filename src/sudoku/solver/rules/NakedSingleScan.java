@@ -27,8 +27,8 @@ public class NakedSingleScan implements Rule {
 				}
 			}
 
-			//If there is only one possible number left, the cell is final so add an action setting the cell value to actionList
-			if(possibleNumsTally == 1) {
+			//If there is only one possible number left and the cell is not already final, the cell is final so add an action setting the cell value to actionList
+			if(possibleNumsTally == 1 && targetCell.getCellValue() == 0) {
 				for(int possNumIter = 0; possNumIter < targetCell.getCellPossibleNums().length; possNumIter++) {
 					if(targetCell.getCellPossibleNums()[possNumIter]) {
 						actionList.add(new SetCellValue(targetCell.getCellId(), possNumIter+1));
