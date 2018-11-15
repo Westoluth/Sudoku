@@ -32,7 +32,7 @@ public class SudokuSolver {
 		solverRules[3] = new NakedPairScan();
 	}
 
-	Board solve(Board inputBoard) throws IncompletePuzzleException, IncorrectPuzzleException{
+	public Board solve(Board inputBoard) throws IncompletePuzzleException, IncorrectPuzzleException{
 		//Creates a new SolverBoard from inputBoard
 		SolverBoard solverBoard = new SolverBoard(inputBoard);
 
@@ -67,6 +67,8 @@ public class SudokuSolver {
 			if(solverActions.size() <= previousActionsNum+1) {
 				progressMade = false;
 			}
+
+			previousActionsNum = solverActions.size();
 		}
 
 		//SudokuSolver has now made all progress possible, checks if puzzle is valid
