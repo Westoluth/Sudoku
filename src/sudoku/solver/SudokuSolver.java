@@ -4,10 +4,15 @@ import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 import sudoku.solver.rules.*;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Class to solve sudoku boards. Applies rules to generate actions which when applied to the
+board result in a completed board.
+*/
 public class SudokuSolver {
 	/*
 	SudokuSolver variables:

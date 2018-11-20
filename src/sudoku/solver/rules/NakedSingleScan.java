@@ -2,9 +2,13 @@ package sudoku.solver.rules;
 
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+A Rule to detect Naked Singles in the board
+*/
 public class NakedSingleScan implements Rule {
 	public Action[] applyRule(SolverBoard inputBoard) {
 		//Declares shorthand variables

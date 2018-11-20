@@ -2,10 +2,14 @@ package sudoku.solver.rules;
 
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+A Rule to detect Naked Pairs in the board
+*/
 public class NakedPairScan implements Rule {
 	public Action[] applyRule(SolverBoard inputBoard) {
 		//Declares action list

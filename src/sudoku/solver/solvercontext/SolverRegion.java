@@ -13,9 +13,14 @@ public class SolverRegion extends Region{
 	*/
 	protected boolean[] regionPossibleNums;
 
+	/*
+	Creates a new SolverRegion. Can only be created from within the solvercontext package
+	*/
 	protected SolverRegion() {
+		//Creates a boolean value to indicate whether a number can be placed in this region
 		regionPossibleNums = new boolean[9];
 
+		//Sets all boolean values to true by default
 		for(int regionPossibleNumsNum = 0; regionPossibleNumsNum < regionPossibleNums.length; regionPossibleNumsNum++) {
 			regionPossibleNums[regionPossibleNumsNum] = true;
 		}

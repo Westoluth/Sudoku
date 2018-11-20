@@ -2,9 +2,13 @@ package sudoku.solver.rules;
 
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+A Rule to detect Hidden Singles in the board
+*/
 public class HiddenSingleScan implements Rule {
 	public Action[] applyRule(SolverBoard inputBoard) {
 		//Declares action list

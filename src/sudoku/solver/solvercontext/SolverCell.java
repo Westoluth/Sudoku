@@ -3,7 +3,7 @@ package sudoku.solver.solvercontext;
 import sudoku.board.*;
 
 /*
-Class representing one board cell in the SudokuSolverContext
+Class representing one board cell in the SudokuSolver context
 */
 public class SolverCell extends Cell{
 	/*
@@ -13,6 +13,9 @@ public class SolverCell extends Cell{
 	*/
 	protected boolean[] cellPossibleNums;
 
+	/*
+	Creates a new SolverRegion. Can only be created from within the solvercontext package
+	*/
 	protected SolverCell(int cellValue, int cellId) {
 		super(cellValue, cellId);
 
