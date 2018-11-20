@@ -79,7 +79,7 @@ public class RuleTest {
 
 		//Gets actions from NakedSingleScan
 		Rule  testRule = new NakedSingleScan();
-		 	testActions = testRule.applyRule(testSolverBoard);
+		testActions = testRule.applyRule(testSolverBoard);
 
 		//Applies all actions to testBoard
 		for(int actionNum = 0; actionNum < testActions.length; actionNum++) {

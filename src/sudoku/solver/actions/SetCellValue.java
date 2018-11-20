@@ -15,11 +15,17 @@ public class SetCellValue implements Action {
 	int cellId;
 	int cellValue;
 
+	/*
+	Constructor to set cellId and cellValue of Action
+	*/
 	public SetCellValue(int cellId, int cellValue) {
 		this.cellId = cellId;
 		this.cellValue = cellValue;
 	}
 
+	/*
+	Sets a cell at cellId to cellValue
+	*/
 	public void applyAction(SolverBoard inputBoard) {
 		SolverCell targetCell = inputBoard.getCell(cellId);
 		targetCell.setValue(cellValue);
