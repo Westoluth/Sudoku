@@ -80,6 +80,15 @@ public class Board {
 	}
 
 	/*
+	Returns a specified Region of the Board. 
+	regionType indicates the type of Region (0 = squares, 1 = rows, 2 = columns).
+	regionId indicates the number it is in it's Region array.
+	*/
+	public Region getRegion(int regionType, int regionId) {
+		return regionGroups[regionType][regionId];
+	}
+
+	/*
 	Returns the integer value of a cell at number cellNum(0-80) in the board
 	*/
 	public int getCellValue(int cellNum) {
@@ -141,8 +150,8 @@ public class Board {
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
 
-	protected Cell createCell(int cellValue) {
-		return new Cell(cellValue);
+	protected Cell createCell(int cellValue, int cellId) {
+		return new Cell(cellValue, cellId);
 	}
 
 	protected Region createRegion() {
@@ -154,7 +163,7 @@ public class Board {
 	*/
 	protected void fillCells(int[] rawBoard) {
 		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
-			boardCells[cellNum] = createCell(rawBoard[cellNum]);
+			boardCells[cellNum] = createCell(rawBoard[cellNum], cellNum);
 		}
 	}
 

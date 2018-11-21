@@ -2,7 +2,12 @@ package sudoku.solver;
 
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.rules.*;
+import sudoku.solver.actions.*;
 
+/*
+A class encompassing the initial board submitted to SudokuSolver, the end board returned
+by SudokuSolver and all the actions taken to get from the initialBoard to the endBoard. 
+*/
 public class SolverReport {
 	/*
 	SolverReport variables:
@@ -23,6 +28,10 @@ public class SolverReport {
 		this.actions = actions;
 	}
 
+	/*--------------------------------------------------------------------------------
+	// Public Getter Methods 
+	--------------------------------------------------------------------------------*/
+	
 	/*
 	Returns initialBoard
 	*/

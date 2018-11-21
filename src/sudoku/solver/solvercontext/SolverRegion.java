@@ -13,9 +13,14 @@ public class SolverRegion extends Region{
 	*/
 	protected boolean[] regionPossibleNums;
 
+	/*
+	Creates a new SolverRegion. Can only be created from within the solvercontext package
+	*/
 	protected SolverRegion() {
+		//Creates a boolean value to indicate whether a number can be placed in this region
 		regionPossibleNums = new boolean[9];
 
+		//Sets all boolean values to true by default
 		for(int regionPossibleNumsNum = 0; regionPossibleNumsNum < regionPossibleNums.length; regionPossibleNumsNum++) {
 			regionPossibleNums[regionPossibleNumsNum] = true;
 		}
@@ -29,14 +34,55 @@ public class SolverRegion extends Region{
 	Returns the SolverCell array regionCells
 	*/
 	public SolverCell[] getCells() {
-		return (SolverCell[])regionCells;
+		//Creates pointer list of SolverCells
+		SolverCell[] regionSolverCells = new SolverCell[regionCells.length];
+
+		//Copies all regionCells to regionSolverCells
+		for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
+			regionSolverCells[cellNum] = (SolverCell)regionCells[cellNum];
+		}
+
+		//Returns filled regionSolverCells
+		return regionSolverCells;
 	}
 
 	/*
-	Returns cellPossibleNums
+	Returns regionPossibleNums
 	*/
 	public boolean[] getRegionPossibleNums() {
 		return regionPossibleNums;
+	}
+
+	/*
+	Returns an int array of regionPossibleNums values
+	*/
+	public int[] getIntRegionPossibleNums() {
+		int[] possibleNums = new int[countRegionPossibleNums()];
+		int possibleNumsArrayIter = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < regionPossibleNums.length; possibleNumIter++) {
+			if(regionPossibleNums[possibleNumIter]) {
+				possibleNums[possibleNumsArrayIter] = possibleNumIter+1;
+				possibleNumsArrayIter++;
+			}
+		}
+
+		return possibleNums;
+	}
+
+	/*
+	Returns the number of possible nums remaining in the region
+	*/
+	public int countRegionPossibleNums() {
+		int possibleNumsCount = 0;
+
+		for(int possibleNumIter = 0; possibleNumIter < regionPossibleNums.length; possibleNumIter++) {
+			if(regionPossibleNums[possibleNumIter]) {
+				possibleNumsCount++;
+			}
+		}
+
+		return possibleNumsCount;
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -90,6 +136,4 @@ public class SolverRegion extends Region{
 			}
 		}
 	}
-
-
 }

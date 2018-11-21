@@ -4,7 +4,9 @@ package sudoku.solver;
 @SuppressWarnings("serial")
 
 /*
-Exception thrown if someone attempts to add to a full Segment
+Exception thrown if a puzzle was partially or fully solved, but in a way that
+resulted in an invalid puzzle. This is an indication of bad input or a bug in 
+the program.
 */
 public class IncorrectPuzzleException extends Exception {
     //Parameterless Constructor

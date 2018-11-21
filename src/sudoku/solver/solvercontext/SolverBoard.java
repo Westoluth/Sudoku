@@ -3,7 +3,7 @@ package sudoku.solver.solvercontext;
 import sudoku.board.*;
 
 /*
-Board class to manage data in the SudokuSolver context
+Class representing a game board in the SudokuSolver context
 */
 public class SolverBoard extends Board{
 	/*
@@ -32,7 +32,16 @@ public class SolverBoard extends Board{
 	Returns a SolverCell array containing every cell on the board
 	*/
 	public SolverCell[] getBoard() {
-		return (SolverCell[])boardCells;
+		//Creates pointer list of SolverCells
+		SolverCell[] boardSolverCells = new SolverCell[boardCells.length];
+
+		//Copies all boardCells to boardSolverCells
+		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
+			boardSolverCells[cellNum] = (SolverCell)boardCells[cellNum];
+		}
+
+		//Returns filled boardSolverCells
+		return boardSolverCells;
 	}
 
 	/*
@@ -56,6 +65,16 @@ public class SolverBoard extends Board{
 		return (SolverRegion)columns[columnNum];
 	}
 
+	/*
+	Returns a specified SolverRegion of the SolverBoard. 
+	regionType indicates the type of SolverRegion (0 = squares, 1 = rows, 2 = columns).
+	regionId indicates the number it is in it's SolverRegion array.
+	*/
+	public SolverRegion getRegion(int regionType, int regionId) {
+		return (SolverRegion)regionGroups[regionType][regionId];
+	}
+
+
 	/*--------------------------------------------------------------------------------
 	// Private Setup Functions
 	--------------------------------------------------------------------------------*/
@@ -63,8 +82,8 @@ public class SolverBoard extends Board{
 	/*
 	Overwrites createCell function to return SolverCell instead of Cell
 	*/
-	protected SolverCell createCell(int cellValue) {
-		return new SolverCell(cellValue);
+	protected SolverCell createCell(int cellValue, int cellId) {
+		return new SolverCell(cellValue, cellId);
 	}
 
 	/*
