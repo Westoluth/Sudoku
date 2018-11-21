@@ -85,9 +85,9 @@ public class SolverBoard extends Board{
 	}
 
 	/*
-	Overwrites createBoard function to return SolverCell Array instead of Cell Array
+	Overwrites createBoardCells function to return SolverCell Array instead of Cell Array
 	*/
-	protected SolverCell[] createBoard() {
+	protected SolverCell[] createBoardCells() {
 		return new SolverCell[81];
 	}
 
