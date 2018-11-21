@@ -211,9 +211,9 @@ public class SudokuGUI extends JFrame {
 
 		//Passes inputBoard to gameSolver and checks output for results
 		try {
-			Board outputBoard = gameSolver.solve(inputBoard);
+			SolverReport solverReport = gameSolver.solve(inputBoard);
 
-			int[] outputBoardValues = outputBoard.getBoardValues();
+			int[] outputBoardValues = solverReport.getEndBoard().getBoardValues();
 
 			//Sets board values to solved values
 			for(int boardTileNum = 0; boardTileNum < 81; boardTileNum++) {
