@@ -14,12 +14,19 @@ public class Region {
 
 	protected Region() {
 		//Initializes regionCells to hold 9 cells
-		regionCells = new Cell[9];
+		regionCells = createRegionCells();
 	}
 
 	/*--------------------------------------------------------------------------------
 	// Public Getter Methods 
 	--------------------------------------------------------------------------------*/
+	
+	/*
+	Returns a Cell at number cellNum(0-8) in the board
+	*/
+	public Cell getCell(int cellNum) {
+		return regionCells[cellNum];
+	}
 
 	/*
 	Returns the array regionCells
@@ -35,6 +42,13 @@ public class Region {
 	/*--------------------------------------------------------------------------------
 	// Protected Setup Functions
 	--------------------------------------------------------------------------------*/
+
+	/*
+	Returns a new Cell Array of size 9
+	*/
+	protected Cell[] createRegionCells() {
+		return new Cell[9];
+	}
 
 	/*
 	Adds new cell to Region

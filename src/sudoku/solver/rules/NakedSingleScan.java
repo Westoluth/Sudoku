@@ -12,7 +12,7 @@ A Rule to detect Naked Singles in the board
 public class NakedSingleScan implements Rule {
 	public Action[] applyRule(SolverBoard inputBoard) {
 		//Declares shorthand variables
-		SolverCell[] inputCells = inputBoard.getBoard();
+		SolverCell[] inputCells = inputBoard.getCells();
 
 		//Declares action list
 		List<Action> actionList = new ArrayList<Action>();
