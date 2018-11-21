@@ -32,16 +32,7 @@ public class SolverBoard extends Board{
 	Returns a SolverCell array containing every cell on the board
 	*/
 	public SolverCell[] getBoard() {
-		//Creates pointer list of SolverCells
-		SolverCell[] boardSolverCells = new SolverCell[boardCells.length];
-
-		//Copies all boardCells to boardSolverCells
-		for(int cellNum = 0; cellNum < boardCells.length; cellNum++) {
-			boardSolverCells[cellNum] = (SolverCell)boardCells[cellNum];
-		}
-
-		//Returns filled boardSolverCells
-		return boardSolverCells;
+		return (SolverCell[])boardCells;
 	}
 
 	/*
@@ -76,7 +67,7 @@ public class SolverBoard extends Board{
 
 
 	/*--------------------------------------------------------------------------------
-	// Private Setup Functions
+	// Protected Setup Functions
 	--------------------------------------------------------------------------------*/
 
 	/*
@@ -92,6 +83,14 @@ public class SolverBoard extends Board{
 	protected SolverRegion createRegion() {
 		return new SolverRegion();
 	}
+
+	/*
+	Overwrites createBoard function to return SolverCell Array instead of Cell Array
+	*/
+	protected SolverCell[] createBoard() {
+		return new SolverCell[81];
+	}
+
 
 	/*--------------------------------------------------------------------------------
 	// Private Management Functions

@@ -23,7 +23,7 @@ public class Board {
 	*/
 	public Board(int[] rawBoard) {
 		//Initializes all member variables
-		boardCells = new Cell[81];
+		boardCells = createBoard();
 		squares = new Region[9];
 		rows = new Region[9];
 		columns = new Region[9];
@@ -147,15 +147,28 @@ public class Board {
 	}
 
 	/*--------------------------------------------------------------------------------
-	// Private Setup Functions
+	// Protected Setup Functions
 	--------------------------------------------------------------------------------*/
 
+	/*
+	Returns a new Cell
+	*/
 	protected Cell createCell(int cellValue, int cellId) {
 		return new Cell(cellValue, cellId);
 	}
 
+	/*
+	Returns a new Region
+	*/
 	protected Region createRegion() {
 		return new Region();
+	}
+
+	/*
+	Returns a new Cell Array
+	*/
+	protected Cell[] createBoard() {
+		return new Cell[81];
 	}
 
 	/*
