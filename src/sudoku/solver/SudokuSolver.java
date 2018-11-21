@@ -37,7 +37,7 @@ public class SudokuSolver {
 		solverRules[3] = new NakedPairScan();
 	}
 
-	public Board solve(Board inputBoard) throws IncompletePuzzleException, IncorrectPuzzleException{
+	public SolverReport solve(Board inputBoard) throws IncompletePuzzleException, IncorrectPuzzleException{
 		//Creates a new SolverBoard from inputBoard
 		SolverBoard solverBoard = new SolverBoard(inputBoard);
 
@@ -79,8 +79,9 @@ public class SudokuSolver {
 		//SudokuSolver has now made all progress possible, checks if puzzle is valid
 		checkPuzzle(solverBoard);
 
-		//Puzzle is now assumed to be valid, and is returned
-		return (Board)solverBoard;
+		//Puzzle is now assumed to be valid, and a SolverReport is compiled and returns it
+		SolverReport report = new SolverReport(new SolverBoard(inputBoard), solverBoard, solverActions.toArray(new Action[0]));
+		return report;
 	}
 
 
