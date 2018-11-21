@@ -31,6 +31,13 @@ public class SolverRegion extends Region{
 	--------------------------------------------------------------------------------*/
 
 	/*
+	Returns a SolverCell at number cellNum(0-8) in the board
+	*/
+	public SolverCell getCell(int cellNum) {
+		return (SolverCell)regionCells[cellNum];
+	}
+
+	/*
 	Returns the SolverCell array regionCells
 	*/
 	public SolverCell[] getCells() {

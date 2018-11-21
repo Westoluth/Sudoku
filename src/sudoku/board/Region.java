@@ -20,6 +20,13 @@ public class Region {
 	/*--------------------------------------------------------------------------------
 	// Public Getter Methods 
 	--------------------------------------------------------------------------------*/
+	
+	/*
+	Returns a Cell at number cellNum(0-8) in the board
+	*/
+	public Cell getCell(int cellNum) {
+		return regionCells[cellNum];
+	}
 
 	/*
 	Returns the array regionCells
