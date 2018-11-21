@@ -1,14 +1,18 @@
 package sudokutest.tests;
 
-import org.testng.annotations.*;
-import org.testng.Assert;
-import java.util.Arrays;
-
 import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 
-public class ActionTest {
+import org.testng.annotations.*;
+import org.testng.Assert;
+
+import java.util.Arrays;
+
+/*
+A class containing tests for the actions package
+*/
+public class ActionsTest {
 	/*
 	This test creates a solver board and verifies that the UpdatePossibleNums Action properly updates possible nums.
 	*/

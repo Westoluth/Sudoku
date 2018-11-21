@@ -1,15 +1,19 @@
 package sudokutest.tests;
 
-import org.testng.annotations.*;
-import org.testng.Assert;
-import java.util.Arrays;
-
 import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 import sudoku.solver.rules.*;
 
-public class RuleTest {
+import org.testng.annotations.*;
+import org.testng.Assert;
+
+import java.util.Arrays;
+
+/*
+A class containing tests for the rules package
+*/
+public class RulesTest {
 	/*
 	This test verifies that the UpdateBoard Rule properly updates possible nums.
 	*/

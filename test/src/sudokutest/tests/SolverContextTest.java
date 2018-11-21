@@ -1,12 +1,16 @@
 package sudokutest.tests;
 
-import org.testng.annotations.*;
-import org.testng.Assert;
-import java.util.Arrays;
-
 import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 
+import org.testng.annotations.*;
+import org.testng.Assert;
+
+import java.util.Arrays;
+
+/*
+A class containing tests for the solvercontext package
+*/
 public class SolverContextTest {
 	/*
 	This test creates a solver board and verifies that all cells are created and present in boardValues
