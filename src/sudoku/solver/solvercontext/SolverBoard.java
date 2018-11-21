@@ -31,7 +31,7 @@ public class SolverBoard extends Board{
 	/*
 	Returns a SolverCell array containing every cell on the board
 	*/
-	public SolverCell[] getBoard() {
+	public SolverCell[] getCells() {
 		return (SolverCell[])boardCells;
 	}
 

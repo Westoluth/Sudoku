@@ -54,7 +54,7 @@ public class Board {
 	/*
 	Returns a Cell array containing every cell on the board
 	*/
-	public Cell[] getBoard() {
+	public Cell[] getCells() {
 		return boardCells;
 	}
 
