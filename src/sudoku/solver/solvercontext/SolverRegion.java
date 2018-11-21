@@ -41,16 +41,7 @@ public class SolverRegion extends Region{
 	Returns the SolverCell array regionCells
 	*/
 	public SolverCell[] getCells() {
-		//Creates pointer list of SolverCells
-		SolverCell[] regionSolverCells = new SolverCell[regionCells.length];
-
-		//Copies all regionCells to regionSolverCells
-		for(int cellNum = 0; cellNum < regionCells.length; cellNum++) {
-			regionSolverCells[cellNum] = (SolverCell)regionCells[cellNum];
-		}
-
-		//Returns filled regionSolverCells
-		return regionSolverCells;
+		return (SolverCell[])regionCells;
 	}
 
 	/*
@@ -110,6 +101,17 @@ public class SolverRegion extends Region{
 	*/
 	public void removePossibleNum(int possibleNum) {
 		regionPossibleNums[possibleNum-1] = false;
+	}
+
+	/*--------------------------------------------------------------------------------
+	// Protected Setup Functions
+	--------------------------------------------------------------------------------*/
+
+	/*
+	Overwrites createRegionCells function to return SolverCell Array instead of Cell Array
+	*/
+	protected SolverCell[] createRegionCells() {
+		return new SolverCell[9];
 	}
 
 	/*--------------------------------------------------------------------------------

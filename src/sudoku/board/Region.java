@@ -14,7 +14,7 @@ public class Region {
 
 	protected Region() {
 		//Initializes regionCells to hold 9 cells
-		regionCells = new Cell[9];
+		regionCells = createRegionCells();
 	}
 
 	/*--------------------------------------------------------------------------------
@@ -42,6 +42,13 @@ public class Region {
 	/*--------------------------------------------------------------------------------
 	// Protected Setup Functions
 	--------------------------------------------------------------------------------*/
+
+	/*
+	Returns a new Cell Array of size 9
+	*/
+	protected Cell[] createRegionCells() {
+		return new Cell[9];
+	}
 
 	/*
 	Adds new cell to Region
