@@ -1,14 +1,18 @@
 package sudokutest;
 
+import sudokutest.tests.*;
+
 import org.testng.TestListenerAdapter;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.testng.xml.*;
+
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
-import sudokutest.tests.*;
 
+/*
+A test client to manage running tests
+*/
 @SuppressWarnings("rawtypes")
 public class SudokuTestClient {
     /*

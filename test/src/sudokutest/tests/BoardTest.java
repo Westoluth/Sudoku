@@ -1,11 +1,15 @@
 package sudokutest.tests;
 
-import org.testng.annotations.*;
-import org.testng.Assert;
-import java.util.Arrays;
-
 import sudoku.board.*;
 
+import org.testng.annotations.*;
+import org.testng.Assert;
+
+import java.util.Arrays;
+
+/*
+A class containing tests for the board package
+*/
 public class BoardTest {
 	/*
 	This test creates a board and verifies that all cells are created and present in boardValues
