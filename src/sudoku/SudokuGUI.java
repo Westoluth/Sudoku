@@ -1,3 +1,8 @@
+package sudoku;
+
+import sudoku.solver.*;
+import sudoku.board.*;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
@@ -9,8 +14,6 @@ import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Color;
-
-import sudokusolver.*;
 
 //Suppresses serial warnings
 @SuppressWarnings("serial")
@@ -203,13 +206,18 @@ public class SudokuGUI extends JFrame {
 			}
 		}
 
-		//Passes array to gameSolver and checks output for result
-		gameSolver.updateGame(boardValues.clone());
+		//Creates Board from boardValues
+		Board inputBoard = new Board(boardValues);
+
+		//Passes inputBoard to gameSolver and checks output for results
 		try {
-			int[] newBoardValues = gameSolver.solve();
+			SolverReport solverReport = gameSolver.solve(inputBoard);
+
+			int[] outputBoardValues = solverReport.getEndBoard().getBoardValues();
+
 			//Sets board values to solved values
 			for(int boardTileNum = 0; boardTileNum < 81; boardTileNum++) {
-				boardTextFields[boardTileNum].setText(Integer.toString(newBoardValues[boardTileNum]));
+				boardTextFields[boardTileNum].setText(Integer.toString(outputBoardValues[boardTileNum]));
 			}
 		} catch (IncompletePuzzleException e) {
 			JOptionPane.showMessageDialog(mainPanel, "Unable to solve puzzle! Either your input was incorrect or the program cannot handle the puzzle's difficulty.", "Sudoku Error", JOptionPane.ERROR_MESSAGE);
