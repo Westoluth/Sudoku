@@ -9,6 +9,7 @@ import org.testng.xml.*;
 
 import java.util.Scanner;
 import java.util.List;
+import java.util.ArrayList;
 
 /*
 A test client to manage running tests
