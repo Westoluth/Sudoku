@@ -3,6 +3,9 @@ package sudoku;
 import sudoku.solver.*;
 import sudoku.board.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
@@ -35,6 +38,9 @@ public class SudokuGUI extends JFrame {
 
 	Utilities:
 		gameSolver: SudokuSolver instance that handles solving the game.
+
+	Logger:
+		Logger: Logger for SudokuGUI
 	*/
 
 	//Main elements
@@ -53,16 +59,23 @@ public class SudokuGUI extends JFrame {
 	//Utilities
 	private SudokuSolver gameSolver;
 
+	//Logger
+	private static final Logger Logger = LoggerFactory.getLogger("sudoku.SudokuGUI");
+
 	public static void main(String[] args) {
 		new SudokuGUI();
 	}
 
 	public SudokuGUI() {
+		Logger.debug("Beginning GUI setup.");
+
 		//Sets up window
 		setupWindow();
 
 		//Sets up utilities
 		setupUtilites();
+
+		Logger.debug("Completed GUI setup.");
 	}
 
 	/*
@@ -196,6 +209,7 @@ public class SudokuGUI extends JFrame {
 	Solves sudoku board
 	*/
 	private void solveSudoku() {
+		Logger.debug("Board submitted.");
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
 		for(int boardTileNum = 0; boardTileNum < boardValues.length; boardTileNum++) {
@@ -230,10 +244,13 @@ public class SudokuGUI extends JFrame {
 	Clears sudoku board
 	*/
 	private void clearBoard() {
+		Logger.debug("Board cleared.");
+
 		//Sets all text fields to an empty string
 		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
 			boardTextFields[boardTextFieldNum].setText("");
 		}
+
 	}
 
 	/*

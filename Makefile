@@ -26,9 +26,10 @@ MAINSRCPATH            = src/
 MAINBINPATH            = bin/
 
 #Main program dependencies macros
-MAINDEPENDENCIES       = $(LOGBACKPATH) $(SLF4JPATH)
-LOGBACKPATH            = dependencies/logback-classic.jar dependencies/logback-core.jar 
-SLF4JPATH              = dependencies/slf4j-api.jar 
+MAINDEPENDENCIES       = $(LOGBACKCLASSICPATH) $(LOGBACKCOREPATH) $(SLF4JPATH)
+LOGBACKCLASSICPATH     = dependencies/logback-classic.jar
+LOGBACKCOREPATH        = dependencies/logback-core.jar
+SLF4JPATH              = dependencies/slf4j-api.jar
 
 #Test harness source macros
 TESTCLIENTSOURCE       = $(wildcard test/src/sudokutest/*.java)
@@ -69,7 +70,7 @@ $(MAINJARFILE): $(MAINCLASSES)
 
 $(MAINCLASSES): $(MAINSRC)
 	mkdir $(MAINBINPATH) || true
-	javac -Xlint $(MAINSRC) -sourcepath $(MAINSRCPATH) -d bin
+	javac -cp "$(LOGBACKCLASSICPATH):$(LOGBACKCOREPATH):$(SLF4JPATH)" -Xlint $(MAINSRC) -sourcepath $(MAINSRCPATH) -d $(MAINBINPATH)
 
 test: $(MAINJARFILE) $(TESTJARFILE)
 
