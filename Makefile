@@ -24,6 +24,7 @@ MAINCLASS              = sudoku.SudokuGUI
 MAINJARFILE            = Sudoku.jar
 MAINSRCPATH            = src/
 MAINBINPATH            = bin/
+MAINDATAPATH               = data/
 
 #Main program dependencies macros
 MAINDEPENDENCIES       = $(LOGBACKCLASSICPATH) $(LOGBACKCOREPATH) $(SLF4JPATH)
@@ -56,6 +57,7 @@ CLASSESPATH            = $(MAINCLASSPATH) $(TESTCLASSPATH)
 BINPATHS               = $(MAINBINPATH) $(TESTBINPATH)
 JARFILES               = $(MAINJARFILE) $(TESTJARFILE) 
 TESTOUTPUTPATH         = test-output/
+LOGPATH                = logs/
 
 all: $(MAINJARFILE)
 
@@ -63,7 +65,7 @@ jar: all
 	rm $(MAINCLASSPATH)
 
 $(MAINJARFILE): $(MAINCLASSES)
-	printf "%s\n" "Main-class: $(MAINCLASS)" "Class-Path: $(MAINDEPENDENCIES)" > Manifest
+	printf "%s\n" "Main-class: $(MAINCLASS)" "Class-Path: $(MAINDEPENDENCIES) $(MAINDATAPATH)" > Manifest
 	jar cvfm $(MAINJARFILE) Manifest -C $(MAINBINPATH) .
 	rm Manifest
 	chmod +x $(MAINJARFILE)
@@ -75,7 +77,7 @@ $(MAINCLASSES): $(MAINSRC)
 test: $(MAINJARFILE) $(TESTJARFILE)
 
 $(TESTJARFILE): $(TESTCLASSES)
-	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(MAINBINPATH) $(MAINDEPENDENCIES) $(TESTDEPENDENCIES)" > Manifest
+	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(MAINBINPATH) $(MAINDEPENDENCIES) $(MAINDATAPATH) $(TESTDEPENDENCIES)" > Manifest
 	jar cvfm $(TESTJARFILE) Manifest -C $(TESTBINPATH) .
 	rm Manifest
 	chmod +x $(TESTJARFILE)
@@ -86,4 +88,4 @@ $(TESTCLASSES): $(TESTSRC)
 
 .PHONY: clean
 clean:
-	rm -r -d $(BINPATHS) $(JARFILES) $(TESTOUTPUTPATH) || true
+	rm -r -d $(BINPATHS) $(JARFILES) $(TESTOUTPUTPATH) $(LOGPATH) || true

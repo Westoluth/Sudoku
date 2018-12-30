@@ -60,14 +60,16 @@ public class SudokuGUI extends JFrame {
 	private SudokuSolver gameSolver;
 
 	//Logger
-	private static final Logger Logger = LoggerFactory.getLogger("sudoku.SudokuGUI");
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.SudokuGUI.class");
 
 	public static void main(String[] args) {
+		logger.info("Sudoku 0.2");
+
 		new SudokuGUI();
 	}
 
 	public SudokuGUI() {
-		Logger.debug("Beginning GUI setup.");
+		logger.debug("Beginning GUI setup.");
 
 		//Sets up window
 		setupWindow();
@@ -75,7 +77,7 @@ public class SudokuGUI extends JFrame {
 		//Sets up utilities
 		setupUtilites();
 
-		Logger.debug("Completed GUI setup.");
+		logger.debug("Completed GUI setup.");
 	}
 
 	/*
@@ -209,7 +211,8 @@ public class SudokuGUI extends JFrame {
 	Solves sudoku board
 	*/
 	private void solveSudoku() {
-		Logger.debug("Board submitted.");
+		logger.debug("Board submitted.");
+
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
 		for(int boardTileNum = 0; boardTileNum < boardValues.length; boardTileNum++) {
@@ -244,7 +247,7 @@ public class SudokuGUI extends JFrame {
 	Clears sudoku board
 	*/
 	private void clearBoard() {
-		Logger.debug("Board cleared.");
+		logger.debug("Board cleared.");
 
 		//Sets all text fields to an empty string
 		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
