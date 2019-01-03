@@ -69,7 +69,7 @@ public class SudokuGUI extends JFrame {
 	}
 
 	public SudokuGUI() {
-		logger.debug("Beginning GUI setup.");
+		logger.debug("Beginning App setup.");
 
 		//Sets up window
 		setupWindow();
@@ -77,13 +77,15 @@ public class SudokuGUI extends JFrame {
 		//Sets up utilities
 		setupUtilites();
 
-		logger.debug("Completed GUI setup.");
+		logger.debug("Completed App setup.");
 	}
 
 	/*
 	Handles the creation and initialization of window and all sub panels/elements
 	*/
 	private void setupWindow() {
+		logger.debug("Beginning GUI setup.");
+
 		//Sets basic window parameters
 		setSize(450, 500);
 		setResizable(false);
@@ -122,6 +124,8 @@ public class SudokuGUI extends JFrame {
 
 		//Reveals window
 		setVisible(true);
+
+		logger.debug("Completed GUI setup.");
 	}
 
 	/*
