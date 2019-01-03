@@ -100,7 +100,7 @@ public class SudokuSolver {
 				solverActions.addAll(Arrays.asList(ruleActions));
 			}
 
-			logger.debug("Board status(Cycle#{}):\n {}", loopCounter, solverBoard.toString());
+			logger.debug("Board status(Cycle#{}):\n{}", loopCounter, solverBoard.toString());
 
 			/*
 			Checks if there's more than one new action, indicating progress was made.
@@ -116,8 +116,8 @@ public class SudokuSolver {
 		}
 
 		logger.debug("Solver loop complete.");
-		logger.debug("Initial Board:\n {}", inputBoard.toString());
-		logger.debug("End Board:\n {}", solverBoard.toString());
+		logger.debug("Initial Board:\n{}", inputBoard.toString());
+		logger.debug("End Board:\n{}", solverBoard.toString());
 		logger.debug("Actions:");
 		for(int actionNum = 0; actionNum < solverActions.size(); actionNum++) {
 			logger.debug("{}: {}", (actionNum+1), solverActions.get(actionNum).toString());

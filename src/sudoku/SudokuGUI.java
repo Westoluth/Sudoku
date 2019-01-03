@@ -230,7 +230,7 @@ public class SudokuGUI extends JFrame {
 		//Creates Board from boardValues
 		Board inputBoard = new Board(boardValues);
 
-		logger.debug("Initial Board:\n" + inputBoard.toString());
+		logger.debug("Initial Board:\n{}", inputBoard.toString());
 
 		//Passes inputBoard to gameSolver and checks output for results
 		try {
