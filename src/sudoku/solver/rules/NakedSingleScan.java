@@ -52,6 +52,6 @@ public class NakedSingleScan implements Rule {
 	String interpretation of Rule
 	*/
 	public String toString() {
-		return "NakedSingleScan: Detects naked singles on the game board";
+		return "NakedSingleScan";
 	}
 }

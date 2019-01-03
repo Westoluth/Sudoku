@@ -127,6 +127,6 @@ public class NakedPairScan implements Rule {
 	String interpretation of Rule
 	*/
 	public String toString() {
-		return "NakedPairScan: Detects naked pairs on the game board";
+		return "NakedPairScan";
 	}
 }

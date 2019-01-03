@@ -65,6 +65,6 @@ public class HiddenSingleScan implements Rule {
 	String interpretation of Rule
 	*/
 	public String toString() {
-		return "HiddenSingleScan: Detects hidden singles on the game board";
+		return "HiddenSingleScan";
 	}
 }

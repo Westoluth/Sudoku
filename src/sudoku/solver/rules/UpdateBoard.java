@@ -20,6 +20,6 @@ public class UpdateBoard implements Rule {
 	String interpretation of Rule
 	*/
 	public String toString() {
-		return "UpdateBoard: Updates game board";
+		return "UpdateBoard";
 	}
 }
