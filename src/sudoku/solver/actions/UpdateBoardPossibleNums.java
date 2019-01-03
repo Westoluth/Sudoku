@@ -12,4 +12,11 @@ public class UpdateBoardPossibleNums implements Action {
 	public void applyAction(SolverBoard inputBoard) {
 		inputBoard.updatePossibleNums();
 	}
+
+	/*
+	String interpretation of Action
+	*/
+	public String toString() {
+		return "UpdateBoardPossibleNums: Updated board possible numbers";
+	}
 }
