@@ -15,4 +15,11 @@ public class UpdateBoard implements Rule {
 
 		return actions;
 	}
+
+	/*
+	String interpretation of Rule
+	*/
+	public String toString() {
+		return "UpdateBoard: Updates game board";
+	}
 }

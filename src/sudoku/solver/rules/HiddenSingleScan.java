@@ -60,4 +60,11 @@ public class HiddenSingleScan implements Rule {
 		actionArray = actionList.toArray(actionArray);
 		return actionArray;
 	}
+
+	/*
+	String interpretation of Rule
+	*/
+	public String toString() {
+		return "HiddenSingleScan: Detects hidden singles on the game board";
+	}
 }

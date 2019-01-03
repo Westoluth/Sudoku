@@ -122,4 +122,11 @@ public class NakedPairScan implements Rule {
 		actionArray = actionList.toArray(actionArray);
 		return actionArray;
 	}
+
+	/*
+	String interpretation of Rule
+	*/
+	public String toString() {
+		return "NakedPairScan: Detects naked pairs on the game board";
+	}
 }

@@ -47,4 +47,11 @@ public class NakedSingleScan implements Rule {
 		actionArray = actionList.toArray(actionArray);
 		return actionArray;
 	}
+
+	/*
+	String interpretation of Rule
+	*/
+	public String toString() {
+		return "NakedSingleScan: Detects naked singles on the game board";
+	}
 }
