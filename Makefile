@@ -24,7 +24,7 @@ MAINCLASS              = sudoku.SudokuGUI
 MAINJARFILE            = Sudoku.jar
 MAINSRCPATH            = src/
 MAINBINPATH            = bin/
-MAINDATAPATH               = data/
+MAINDATAPATH           = data/
 
 #Main program dependencies macros
 MAINDEPENDENCIES       = $(LOGBACKCLASSICPATH) $(LOGBACKCOREPATH) $(SLF4JPATH)
@@ -46,6 +46,7 @@ TESTMAINCLASS          = sudokutest.SudokuTestClient
 TESTJARFILE            = SudokuTestClient.jar
 TESTSRCPATH            = test/src/
 TESTBINPATH            = test/bin/
+TESTDATAPATH           = test/data/
 
 #Test harness dependencies macros
 TESTDEPENDENCIES       = $(TESTNGPATH) $(JCOMMANDERPATH)
@@ -77,7 +78,7 @@ $(MAINCLASSES): $(MAINSRC)
 test: $(MAINJARFILE) $(TESTJARFILE)
 
 $(TESTJARFILE): $(TESTCLASSES)
-	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(MAINBINPATH) $(MAINDEPENDENCIES) $(MAINDATAPATH) $(TESTDEPENDENCIES)" > Manifest
+	printf "%s\n" "Main-class: $(TESTMAINCLASS)" "Class-Path: $(MAINBINPATH) $(MAINDEPENDENCIES) $(TESTDEPENDENCIES) $(TESTDATAPATH)" > Manifest
 	jar cvfm $(TESTJARFILE) Manifest -C $(TESTBINPATH) .
 	rm Manifest
 	chmod +x $(TESTJARFILE)

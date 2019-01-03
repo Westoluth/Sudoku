@@ -5,6 +5,9 @@ import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 import sudoku.solver.rules.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +21,14 @@ public class SudokuSolver {
 	SudokuSolver variables:
 		solverRules: Rule array containing all rules the solver will attempt to apply
 		numRules: Constant indicating the number of rules
+		Logger: Logger for SudokuSolver
 	*/
 
 	Rule[] solverRules;
 	static final int numRules = 4;
+
+	//Logger
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.SudokuSolver.class");
 
 	public SudokuSolver() {
 		//Creates and fills rules array

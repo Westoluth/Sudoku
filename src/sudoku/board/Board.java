@@ -129,6 +129,20 @@ public class Board {
 		return getRegionValues(columns[columnNum]);
 	}
 
+	/*Returns the board in formatted String form*/
+	public String toString() {
+		String boardString = "";
+
+		for(int rowNum = 0; rowNum < rows.length; rowNum++) {
+			boardString += rows[rowNum].toString();
+			boardString += "\n";
+		}
+
+		boardString = boardString.substring(0, boardString.length()-1);
+
+		return boardString;
+	}
+
 	/*--------------------------------------------------------------------------------
 	// Private Getter Helper Functions
 	--------------------------------------------------------------------------------*/
