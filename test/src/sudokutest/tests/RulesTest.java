@@ -5,6 +5,9 @@ import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 import sudoku.solver.rules.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -14,11 +17,16 @@ import java.util.Arrays;
 A class containing tests for the rules package
 */
 public class RulesTest {
+	//Logger
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.RulesTest.class");
+
 	/*
 	This test verifies that the UpdateBoard Rule properly updates possible nums.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void updateBoardTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -46,6 +54,8 @@ public class RulesTest {
 
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(0).getRegionPossibleNums(),squareTestCase));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -53,6 +63,8 @@ public class RulesTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void nakedSingleScanTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -95,6 +107,8 @@ public class RulesTest {
 
 		//Checks cell against comparison cases
 		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -102,6 +116,8 @@ public class RulesTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void hiddenSingleScanTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -144,6 +160,8 @@ public class RulesTest {
 
 		//Checks cell against comparison cases
 		Assert.assertTrue(testSolverBoard.getCell(40).getCellValue() == cellTestCase);
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -151,6 +169,8 @@ public class RulesTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void nakedPairScanTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -195,5 +215,7 @@ public class RulesTest {
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(37).getIntCellPossibleNums(), cellTestCase));
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(43).getIntCellPossibleNums(), cellTestCase));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 }

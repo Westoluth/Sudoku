@@ -2,6 +2,8 @@ package sudoku.solver.actions;
 
 import sudoku.solver.solvercontext.*;
 
+import java.util.Arrays;
+
 /*
 An Action to remove a single number or an array of numbers from a Cell's possible numbers
 */
@@ -43,5 +45,12 @@ public class RemoveCellPossibleNums implements Action {
 		for(int removedNumsIt = 0; removedNumsIt < removedNums.length; removedNumsIt++) {
 			targetCell.removePossibleNum(removedNums[removedNumsIt]);
 		}
+	}
+
+	/*
+	String interpretation of Action
+	*/
+	public String toString() {
+		return "RemoveCellPossibleNums: Removed numbers " + Arrays.toString(removedNums) + " from Cell# " + cellId;
 	}
 }

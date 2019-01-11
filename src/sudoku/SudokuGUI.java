@@ -3,6 +3,9 @@ package sudoku;
 import sudoku.solver.*;
 import sudoku.board.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
@@ -35,6 +38,9 @@ public class SudokuGUI extends JFrame {
 
 	Utilities:
 		gameSolver: SudokuSolver instance that handles solving the game.
+
+	Logger:
+		Logger: Logger for SudokuGUI
 	*/
 
 	//Main elements
@@ -53,22 +59,33 @@ public class SudokuGUI extends JFrame {
 	//Utilities
 	private SudokuSolver gameSolver;
 
+	//Logger
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.SudokuGUI.class");
+
 	public static void main(String[] args) {
+		logger.info("Sudoku 0.2");
+
 		new SudokuGUI();
 	}
 
 	public SudokuGUI() {
+		logger.debug("Beginning App setup.");
+
 		//Sets up window
 		setupWindow();
 
 		//Sets up utilities
 		setupUtilites();
+
+		logger.debug("Completed App setup.");
 	}
 
 	/*
 	Handles the creation and initialization of window and all sub panels/elements
 	*/
 	private void setupWindow() {
+		logger.debug("Beginning GUI setup.");
+
 		//Sets basic window parameters
 		setSize(450, 500);
 		setResizable(false);
@@ -107,6 +124,8 @@ public class SudokuGUI extends JFrame {
 
 		//Reveals window
 		setVisible(true);
+
+		logger.debug("Completed GUI setup.");
 	}
 
 	/*
@@ -196,6 +215,8 @@ public class SudokuGUI extends JFrame {
 	Solves sudoku board
 	*/
 	private void solveSudoku() {
+		logger.debug("Board submit button clicked.");
+
 		//Gathers all board values into array
 		int[] boardValues = new int[81];
 		for(int boardTileNum = 0; boardTileNum < boardValues.length; boardTileNum++) {
@@ -209,6 +230,8 @@ public class SudokuGUI extends JFrame {
 		//Creates Board from boardValues
 		Board inputBoard = new Board(boardValues);
 
+		logger.debug("Initial Board:\n{}", inputBoard.toString());
+
 		//Passes inputBoard to gameSolver and checks output for results
 		try {
 			SolverReport solverReport = gameSolver.solve(inputBoard);
@@ -220,8 +243,10 @@ public class SudokuGUI extends JFrame {
 				boardTextFields[boardTileNum].setText(Integer.toString(outputBoardValues[boardTileNum]));
 			}
 		} catch (IncompletePuzzleException e) {
+			logger.error("IncompletePuzzleException error, check log for trace.");
 			JOptionPane.showMessageDialog(mainPanel, "Unable to solve puzzle! Either your input was incorrect or the program cannot handle the puzzle's difficulty.", "Sudoku Error", JOptionPane.ERROR_MESSAGE);
 		} catch (IncorrectPuzzleException e) {
+			logger.error("IncorrectPuzzleException error, check log for trace.");
 			JOptionPane.showMessageDialog(mainPanel, "Puzzle produced incorrect output! Either your input was incorrect or there is an error in the program.", "Sudoku Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
@@ -230,10 +255,14 @@ public class SudokuGUI extends JFrame {
 	Clears sudoku board
 	*/
 	private void clearBoard() {
+		logger.debug("Board clear button clicked.");
+
 		//Sets all text fields to an empty string
 		for(int boardTextFieldNum = 0; boardTextFieldNum < boardTextFields.length; boardTextFieldNum++) {
 			boardTextFields[boardTextFieldNum].setText("");
 		}
+
+		logger.debug("Board cleared.");
 	}
 
 	/*

@@ -2,6 +2,8 @@ package sudoku.solver.actions;
 
 import sudoku.solver.solvercontext.*;
 
+import java.util.Arrays;
+
 /*
 An Action to remove a single number or an array of numbers from a Region's possible numbers
 */
@@ -47,5 +49,24 @@ public class RemoveRegionPossibleNums implements Action {
 		for(int removedNumsIt = 0; removedNumsIt < removedNums.length; removedNumsIt++) {
 			targetRegion.removePossibleNum(removedNums[removedNumsIt]);
 		}
+	}
+
+	/*
+	String interpretation of Action
+	*/
+	public String toString() {
+		//Determines name of target region type
+		String regionTypeName = "";
+
+		switch (regionType) {
+            case 0:  regionTypeName = "Square";
+                     break;
+            case 1:  regionTypeName = "Row";
+                     break;
+            case 2:  regionTypeName = "Column";
+                     break;
+        }
+
+		return "RemoveRegionPossibleNums: Removed numbers " + Arrays.toString(removedNums) + " from " + regionTypeName + "# " + regionId;
 	}
 }

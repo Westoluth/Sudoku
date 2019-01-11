@@ -30,4 +30,11 @@ public class SetCellValue implements Action {
 		SolverCell targetCell = inputBoard.getCell(cellId);
 		targetCell.setValue(cellValue);
 	}
+
+	/*
+	String interpretation of Action
+	*/
+	public String toString() {
+		return "SetCellValue: Set Cell# " + cellId + " to " + cellValue;
+	}
 }
