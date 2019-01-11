@@ -59,6 +59,7 @@ BINPATHS               = $(MAINBINPATH) $(TESTBINPATH)
 JARFILES               = $(MAINJARFILE) $(TESTJARFILE) 
 TESTOUTPUTPATH         = test-output/
 LOGPATH                = logs/
+TESTLOGPATH            = test/logs/
 
 all: $(MAINJARFILE)
 
@@ -85,8 +86,8 @@ $(TESTJARFILE): $(TESTCLASSES)
 
 $(TESTCLASSES): $(TESTSRC)
 	mkdir $(TESTBINPATH) || true
-	javac -cp "$(MAINBINPATH):$(TESTNGPATH):$(JCOMMANDERPATH)" -Xlint $(TESTSRC) -sourcepath $(TESTSRCPATH) -d $(TESTBINPATH)
+	javac -cp "$(MAINBINPATH):$(LOGBACKCLASSICPATH):$(LOGBACKCOREPATH):$(SLF4JPATH):$(TESTNGPATH):$(JCOMMANDERPATH)" -Xlint $(TESTSRC) -sourcepath $(TESTSRCPATH) -d $(TESTBINPATH)
 
 .PHONY: clean
 clean:
-	rm -r -d $(BINPATHS) $(JARFILES) $(TESTOUTPUTPATH) $(LOGPATH) || true
+	rm -r -d $(BINPATHS) $(JARFILES) $(TESTOUTPUTPATH) $(LOGPATH) $(TESTLOGPATH) || true

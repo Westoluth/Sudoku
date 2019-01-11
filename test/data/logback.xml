@@ -9,7 +9,7 @@
 	</appender>
 
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>logs/log-${time}.txt</file>
+		<file>test/logs/log-${time}.txt</file>
 
 		<append>true</append>
 

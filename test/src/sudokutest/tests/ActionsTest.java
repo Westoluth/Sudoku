@@ -4,6 +4,9 @@ import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 import sudoku.solver.actions.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -13,11 +16,16 @@ import java.util.Arrays;
 A class containing tests for the actions package
 */
 public class ActionsTest {
+	//Logger
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.ActionsTest.class");
+
 	/*
 	This test creates a solver board and verifies that the UpdatePossibleNums Action properly updates possible nums.
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void updatePossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -39,6 +47,8 @@ public class ActionsTest {
 
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getSquare(0).getRegionPossibleNums(),squareTestCase));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -46,6 +56,8 @@ public class ActionsTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void setCellValueTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -61,6 +73,8 @@ public class ActionsTest {
 
 		//Checks all regionPossibleNums against comparison cases
 		Assert.assertTrue(testSolverBoard.getCellValue(40) == 5);
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -68,6 +82,8 @@ public class ActionsTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void removeCellPossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -94,6 +110,8 @@ public class ActionsTest {
 
 		testAction2.applyAction(testSolverBoard);
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(0).getCellPossibleNums(), cellTestCase2));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -101,6 +119,8 @@ public class ActionsTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void removeRegionPossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -127,5 +147,7 @@ public class ActionsTest {
 		
 		testAction2.applyAction(testSolverBoard);
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getRegion(0,0).getRegionPossibleNums(), regionTestCase2));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 }

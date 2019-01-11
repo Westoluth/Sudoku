@@ -21,7 +21,7 @@ public class SudokuSolver {
 	SudokuSolver variables:
 		solverRules: Rule array containing all rules the solver will attempt to apply
 		numRules: Constant indicating the number of rules
-		Logger: Logger for SudokuSolver
+		logger: Logger for SudokuSolver
 	*/
 
 	Rule[] solverRules;
