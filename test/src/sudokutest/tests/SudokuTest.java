@@ -23,7 +23,7 @@ public class SudokuTest {
 	/*
 	This test runs a full suite of puzzles through the solver.
 	*/
-	@Test(groups = {"full"})
+	@Test(groups = {"full"}, priority = 1)
 	public void puzzlesTest() throws FileNotFoundException, IOException {
 		//Boolean value to track if an IncorrectPuzzleException is thrown, indicating code flaw
 		boolean incorrectThrown = false;
