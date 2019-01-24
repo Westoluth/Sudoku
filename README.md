@@ -1,5 +1,5 @@
 # Sudoku
-__Version 0.2__
+__Version 0.2.1__
 
 Java application for solving Sudoku puzzles
 
