@@ -2,6 +2,9 @@ package sudokutest;
 
 import sudokutest.tests.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.testng.TestListenerAdapter;
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
@@ -9,6 +12,7 @@ import org.testng.xml.*;
 
 import java.util.Scanner;
 import java.util.List;
+import java.util.ArrayList;
 
 /*
 A test client to manage running tests
@@ -17,13 +21,15 @@ A test client to manage running tests
 public class SudokuTestClient {
     /*
     SudokuTestClient variables:
-        -testng: TestNG client to run tests programatically
-        -tla: TestListenerAdapter to get results from testng and manage tests
-        -scanner: Scanner to manage terminal input
+        testng: TestNG client to run tests programatically
+        tla: TestListenerAdapter to get results from testng and manage tests
+        scanner: Scanner to manage terminal input
+        logger: Logger for SudokuSolver
     */
     TestNG testng;
     TestListenerAdapter tla;
     Scanner scanner;
+    private static final Logger logger = LoggerFactory.getLogger("sudokutest.SudokuTestClient.class");
 
     public static void main(String[] args) {
         new SudokuTestClient();

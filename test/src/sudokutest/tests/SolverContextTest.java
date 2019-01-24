@@ -3,6 +3,9 @@ package sudokutest.tests;
 import sudoku.board.*;
 import sudoku.solver.solvercontext.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.testng.annotations.*;
 import org.testng.Assert;
 
@@ -12,11 +15,16 @@ import java.util.Arrays;
 A class containing tests for the solvercontext package
 */
 public class SolverContextTest {
+	//Logger
+	private static final Logger logger = LoggerFactory.getLogger("sudoku.SolverContextTest.class");
+
 	/*
 	This test creates a solver board and verifies that all cells are created and present in boardValues
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void boardTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -33,6 +41,8 @@ public class SolverContextTest {
 
 		//Checks all board values
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getBoardValues(), testValues));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -40,6 +50,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void squareTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -60,6 +72,8 @@ public class SolverContextTest {
 		int[] square8 = {1,2,3,4,5,6,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getSquareValues(0), square0) && Arrays.equals(testSolverBoard.getSquareValues(4), square4) && Arrays.equals(testSolverBoard.getSquareValues(8), square8));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -67,6 +81,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void rowTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -87,6 +103,8 @@ public class SolverContextTest {
 		int[] row8 = {7,8,9,7,8,9,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getRowValues(0), row0) && Arrays.equals(testSolverBoard.getRowValues(4), row4) && Arrays.equals(testSolverBoard.getRowValues(8), row8));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -94,6 +112,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void columnTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -114,6 +134,8 @@ public class SolverContextTest {
 		int[] column8 = {3,6,9,3,6,9,3,6,9};
 
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getColumnValues(0), column0) && Arrays.equals(testSolverBoard.getColumnValues(4), column4) && Arrays.equals(testSolverBoard.getColumnValues(8), column8));
+	
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -122,6 +144,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void basicCellPossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -204,6 +228,8 @@ public class SolverContextTest {
 		}
 
 		Assert.assertTrue(testSolverBoard.getCell(40).countCellPossibleNums() == cellPossibleNumsCountEmptyCase);
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 	
 
@@ -212,6 +238,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void basicSegmentPossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -291,6 +319,7 @@ public class SolverContextTest {
 			Assert.assertTrue(testSolverBoard.getSquare(testCaseNum).countRegionPossibleNums() == squarePossibleNumsCountCases[testCaseNum]);
 		}
 
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -298,6 +327,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void overlapCellPossibleNumsTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares an initial empty array
 		int[] testValues = new int[81];
 
@@ -322,6 +353,8 @@ public class SolverContextTest {
 
 		//Checks that the middle cell of the board has only a 9 available
 		Assert.assertTrue(Arrays.equals(testSolverBoard.getCell(40).getCellPossibleNums(), centerCellCase));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -329,6 +362,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void upcastBoardTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -348,6 +383,8 @@ public class SolverContextTest {
 
 		//Checks all board values
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getBoardValues(), testValues));
+
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -355,6 +392,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void upcastSquareTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -378,6 +417,8 @@ public class SolverContextTest {
 		int[] square8 = {1,2,3,4,5,6,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getSquareValues(0), square0) && Arrays.equals(upcastedTestBoard.getSquareValues(4), square4) && Arrays.equals(upcastedTestBoard.getSquareValues(8), square8));
+	
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -385,6 +426,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void upcastRowTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -408,6 +451,8 @@ public class SolverContextTest {
 		int[] row8 = {7,8,9,7,8,9,7,8,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getRowValues(0), row0) && Arrays.equals(upcastedTestBoard.getRowValues(4), row4) && Arrays.equals(upcastedTestBoard.getRowValues(8), row8));
+	
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 
 	/*
@@ -415,6 +460,8 @@ public class SolverContextTest {
 	*/
 	@Test(groups = {"checkin", "full"})
 	public void upcastColumnTest() {
+		logger.info("Beginning " + Thread.currentThread().getStackTrace()[1].getMethodName() + ".");
+
 		//Declares array full of test values to be passed to board
 		int[] testValues = new int[81];
 
@@ -438,5 +485,7 @@ public class SolverContextTest {
 		int[] column8 = {3,6,9,3,6,9,3,6,9};
 
 		Assert.assertTrue(Arrays.equals(upcastedTestBoard.getColumnValues(0), column0) && Arrays.equals(upcastedTestBoard.getColumnValues(4), column4) && Arrays.equals(upcastedTestBoard.getColumnValues(8), column8));
+	
+		logger.info(Thread.currentThread().getStackTrace()[1].getMethodName() + " completed successfully.");
 	}
 }
