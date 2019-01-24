@@ -63,7 +63,7 @@ public class SudokuGUI extends JFrame {
 	private static final Logger logger = LoggerFactory.getLogger("sudoku.SudokuGUI.class");
 
 	public static void main(String[] args) {
-		logger.info("Sudoku 0.2");
+		logger.info("Sudoku 0.2.1");
 
 		new SudokuGUI();
 	}
